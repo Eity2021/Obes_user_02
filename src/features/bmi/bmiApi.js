@@ -3,10 +3,10 @@ import { apiSlice } from "../api/apiSlice";
 export const bmiApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createBmi: builder.mutation({
-      query: (body) => ({
+      query: (data) => ({
         url: "/public/api/bmistore",
         method: "POST",
-        body
+        body:data
       }),
     }),
 

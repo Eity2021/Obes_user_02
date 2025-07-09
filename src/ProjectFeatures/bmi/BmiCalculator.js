@@ -9,7 +9,7 @@ function BmiCalculator() {
   const [bmi, setBmi] = useState(null);
   const { data: profile } = useGetProfileQuery();
   // console.log("role", profile?.data?.role)
-  const [postBmi, { data, isLoading, error }] = useCreateBmiMutation();
+  const [createBmi, { isLoading, error }] = useCreateBmiMutation();
 
   const {
     register,
@@ -32,7 +32,32 @@ function BmiCalculator() {
     }
   }, [weight, height, setValue]);
 
-  const getBMICategory = (bmi) => {
+ 
+  const onSubmit = (data) => {
+    console.log("bmiData",data);
+    // if (!profile?.data?.role) {
+    //   console.error("User role is missing");
+    //   return;
+    // }
+    createBmi({
+        user_id: data.user_id,
+        weight: data.weight,
+        height: data.height,
+        bmi: data.bmi,
+        category: data.category,
+      // role: profile?.data?.role,
+    })
+      // .unwrap()
+      // .then(() => {
+      //   console.log("BMI saved successfully!");
+      //   // Optionally show a toast / message to user
+      // })
+      // .catch((err) => {
+      //   console.error("Failed to save BMI", err);
+      // });
+  };
+
+   const getBMICategory = (bmi) => {
     if (bmi < 18.5)
       return {
         category: "Underweight",
@@ -52,32 +77,6 @@ function BmiCalculator() {
         percentage: "65%",
       };
     return { category: "Obesity", color: "text-[#FF0000]", percentage: "90%" };
-  };
-
-  const onSubmit = (data) => {
-    console.log("bmiData",data);
-    // if (!profile?.data?.role) {
-    //   console.error("User role is missing");
-    //   return;
-    // }
-    postBmi({
-        user_id: data.user_id,
-        weight: data.weight,
-        height: data.height,
-        bmi: data.bmi,
-        category: data.category,
-      // role: profile?.data?.role,
-    })
-      // .unwrap()
-      // .then(() => {
-      //   console.log("BMI saved successfully!");
-      //   // Optionally show a toast / message to user
-      // })
-      // .catch((err) => {
-      //   console.error("Failed to save BMI", err);
-      // });
-
-
   };
 
   return (

@@ -2,6 +2,7 @@
 
 import { lazy } from "react";
 
+
 const Dashboard = lazy(() => import("../../pages/obes/protected/Dashboard"));
 const Welcome = lazy(() => import("../../pages/obes/protected/Welcome"));
 const Page404 = lazy(() => import("../../pages/obes/protected/404"));
@@ -11,6 +12,7 @@ const Bmi = lazy(() => import("../../pages/obes/protected/Bmi"));
 const Questions = lazy(() => import("../../pages/obes/protected/ObesQuestion"));
 const Team = lazy(() => import("../../pages/obes/protected/Team"));
 const DietPlan = lazy(() => import("../../pages/obes/protected/DietPlan"));
+const Steps = lazy(() => import("../../pages/obes/protected/Steps"));
 const ExerciseRoutine = lazy(() => import("../../pages/obes/protected/ExerciseRoutine"));
 const DailyTrack  = lazy(() => import("../../pages/obes/protected/DailyTrack"));
 const ObesVideos = lazy(() => import("../../pages/obes/protected/ObesVideos"));
@@ -38,9 +40,13 @@ const routes = [
     component: Health,
   },
 
-    {
+  {
     path: "/questions",
     component: Questions,
+  },
+  {
+    path: "/stepsOfSeven",
+    component: Steps,
   },
 
 

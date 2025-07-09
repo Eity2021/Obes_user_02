@@ -1,63 +1,14 @@
-import TitleCard from "../../components/Cards/TitleCard";
-import { useState } from "react";
-import { Calendar, Utensils, Dumbbell, Heart } from "lucide-react";
+import {Utensils, Dumbbell, Heart } from "lucide-react";
 import Routine from "./Routine";
 export default function Nutrition() {
-  const [tab, setTab] = useState("today");
+
   return (
     <>
       {/* Team Member list in table format loaded constant */}
       <div>
         <div className="grid gap-6 ">
           <div className="md:col-span-2 w-full">
-            {/* Tabs Header */}
-            <div className="flex items-center justify-between">
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => setTab("today")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium ${
-                    tab === "today"
-                      ? "bg-gray-900 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                  style={{ fontFamily: "poppins" }}
-                >
-                  Today
-                </button>
-                <button
-                  onClick={() => setTab("week")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium ${
-                    tab === "week"
-                      ? "bg-gray-900 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                  style={{ fontFamily: "poppins" }}
-                >
-                  This Week
-                </button>
-                <button
-                  onClick={() => setTab("month")}
-                  className={`px-4 py-2 rounded-md text-sm font-medium ${
-                    tab === "month"
-                      ? "bg-gray-900 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                  style={{ fontFamily: "poppins" }}
-                >
-                  Monthly Plan
-                </button>
-              </div>
-              <div className="flex items-center gap-2 text-sm font-medium text-gray-500">
-                <Calendar className="h-4 w-4" />
-                <span className="text-[13px]" style={{ fontFamily: "poppins" }}>
-                  April 13, 2025
-                </span>
-              </div>
-            </div>
-
-            {/* Tabs Content */}
-            {tab === "today" && (
-              <div className="mt-6 space-y-6">
+              <div className=" space-y-6">
                 {/* Morning Card */}
                 <Routine
                   title="Morning Routine"
@@ -148,47 +99,6 @@ export default function Nutrition() {
                   ]}
                 />
               </div>
-            )}
-
-            {tab === "week" && (
-              <div className="flex items-center justify-center p-12 text-center mt-6">
-                <div className="max-w-md">
-                  <h3
-                    className="text-lg font-medium"
-                    style={{ fontFamily: "poppins" }}
-                  >
-                    Weekly Plan View
-                  </h3>
-                  <p
-                    className="mt-2 text-sm text-gray-500"
-                    style={{ fontFamily: "poppins" }}
-                  >
-                    Your weekly nutrition and exercise plan would be displayed
-                    here, showing progression and variety throughout the week.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {tab === "month" && (
-              <div className="flex items-center justify-center p-12 text-center mt-6">
-                <div className="max-w-md">
-                  <h3
-                    className="text-lg font-medium"
-                    style={{ fontFamily: "poppins" }}
-                  >
-                    Monthly Plan View
-                  </h3>
-                  <p
-                    className="mt-2 text-sm text-gray-500"
-                    style={{ fontFamily: "poppins" }}
-                  >
-                    Your monthly nutrition and exercise plan would be displayed
-                    here, showing long-term goals and progress tracking.
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
