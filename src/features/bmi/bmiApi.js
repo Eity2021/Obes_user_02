@@ -1,5 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 
+
 export const bmiApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createBmi: builder.mutation({

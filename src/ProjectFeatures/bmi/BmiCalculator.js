@@ -47,14 +47,14 @@ function BmiCalculator() {
         category: data.category,
       // role: profile?.data?.role,
     })
-      // .unwrap()
-      // .then(() => {
-      //   console.log("BMI saved successfully!");
-      //   // Optionally show a toast / message to user
-      // })
-      // .catch((err) => {
-      //   console.error("Failed to save BMI", err);
-      // });
+      .unwrap()
+      .then(() => {
+        console.log("BMI saved successfully!");
+        // Optionally show a toast / message to user
+      })
+      .catch((err) => {
+        console.error("Failed to save BMI", err);
+      });
   };
 
    const getBMICategory = (bmi) => {

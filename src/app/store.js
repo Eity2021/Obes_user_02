@@ -5,6 +5,7 @@ import rightDrawerSlice from '../ProjectFeatures/common/rightDrawerSlice';
 import authSliceReducer from "../features/auth/authSlice";
 import profileSliceReducer from "../features/profile/profileSlice";
 import bmiSliceReducer from "../features/bmi/bmiSlice";
+import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
 import { apiSlice } from '../features/api/apiSlice';
 
@@ -15,6 +16,7 @@ reducer:{
   profile:profileSliceReducer,
   bmi:bmiSliceReducer,
   question:questionSliceReducer,
+  answer:answerSliceReducer,
   header : headerSlice,
   rightDrawer : rightDrawerSlice,
   modal : modalSlice,
