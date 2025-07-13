@@ -55,14 +55,7 @@ const routes = [
     path: "/settings-team",
     component: Team,
   },
-  // {
-  //   path: "/calendar",
-  //   component: Calendar,
-  // },
 
-
-
-  
   {
     path: "obes/dietPlan",
     component: DietPlan,

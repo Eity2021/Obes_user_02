@@ -10,8 +10,8 @@ function LandingIntro(){
               <div className="max-w-md">
 
               <div className='flex items-center  text-start font-bold '>
-                <img src={logo} className="w-24 inline-block mr-2 mask mask-circle" alt="logo" />
-                <h1 className="text-3xl font-bold uppercase font-[poppins]">Obesity Task Force</h1>
+                <img src={logo} className="w-32 inline-block mr-2" alt="logo" />
+                {/* <h1 className="text-3xl font-bold uppercase font-[poppins]">Obesity Task Force</h1> */}
                
                </div>
 

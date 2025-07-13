@@ -67,6 +67,29 @@ const routes = [
       },
     ],
   },
+  {
+    path: "learn",
+    icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />,
+    name: "Learning Material",
+    submenu: [
+      {
+        path: "/learn/Pdf Documentation",
+        icon: <CurrencyDollarIcon className={iconClasses} />,
+        name: "Diet Plan",
+      },
+
+      {
+        path: "/learn/videos",
+        icon: <CurrencyDollarIcon className={iconClasses} />,
+        name: "Exercise Routine",
+      },
+      
+    ],
+  },
+
+
+
+
   // {
   //   path: "",
   //   icon: <Cog6ToothIcon className={`${iconClasses} inline`} />,
