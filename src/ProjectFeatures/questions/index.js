@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import {ArrowDownRight } from "lucide-react";
+import { toast } from 'react-toastify';
 import TitleCard from "../../components/Cards/TitleCard";
 import { useGetQuestionQuery } from "../../features/question/questionApi";
 import { useCreateAnswerMutation } from "../../features/answer/answerApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
+import { useNavigate } from "react-router-dom";
 function Questions() {
+const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [answerList, setAnswerList] = useState([]);
@@ -52,49 +55,38 @@ function Questions() {
     });
   };
 
-  // const onSubmit = (data) => {
-  //   console.log("Combined Data:", data);
-
-
-  //   createAnswer({
-  //     user_id: data.user_id,
-  //     ansjson: JSON.stringify(data.ansjson),
-  //     ansby: data.ansby,
-  //   })
-
-  //   setIsSubmitted(true);
-
-
-  // };
-
-
-    const onSubmit = (formData) => {
-    // Convert form data into the desired structure
-    const formattedAnsjson = Object?.entries(formData.ansjson)
-      .filter(([_, value]) => value != null && value !== false) // Remove null/false
+  const onSubmit = async  (formData) => {
+    try{
+ const formattedAnsjson = Object?.entries(formData.ansjson)
+      .filter(([_, value]) => value != null && value !== false)
       .map(([qid, value]) => {
         if (Array.isArray(value)) {
-          return [qid, ...value.filter(v => v != null)]; // Handle multi-select
+          return [qid, ...value.filter(v => v != null)];
         } else {
-          return [qid, value]; // Handle single answers
+          return [qid, value];
         }
       });
 
     const submissionData = {
       user_id: formData.user_id,
       ansby: formData.ansby,
-      ansjson:formattedAnsjson,
+      ansjson: formattedAnsjson,
     };
+    const response = await createAnswer(submissionData);
 
-    console.log(submissionData);
-    // Example output:
-    // {
-    //   user_id: "32",
-    //   ansby: "user@example.com",
-    //   ansjson: "[['3','Heart Disease','Type 2 Diabetes'],['q2','ans2']]"
-    // }
+      if (response?.data?.status === 201) {
+       toast.success(response?.data?.message);
+      reset();
+      navigate("/welcome"); 
+    } else {
+      toast.error(response?.data?.message || "Submission failed. Please try again.");
+    }
 
-    createAnswer(submissionData);
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error(error?.response?.data?.message || "Failed to submit answer.");
+    }
+   
   };
 
 
@@ -117,12 +109,12 @@ function Questions() {
     return <div className="text-center mt-10">No questions found.</div>;
   }
 
-  console.log("current", questions);
+  // console.log("current", questions);
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
       <div className="max-w-5xl mx-auto p-6 space-y-6">
         <div className="card bg-base-100 shadow">
-          <div className="card-body">
+          <div className="px-10 pt-6">
             <div className="flex justify-between items-center mb-2">
               <div>
                 <h2 className="card-title text-[20px] font-semibold font-[poppins]">Survey</h2>
@@ -142,34 +134,40 @@ function Questions() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="card-body">
               <div className="space-y-4">
-                {profile?.data?.id && (
-                  <div className="form-control mt-2">
-                    <label className="label">
-                      <span className="label-text">user id</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="user_id"
-                      {...register("user_id", { required: true })}
-                      value={profile?.data?.id}
-                      className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                    />
-                  </div>
-                )}
-                {profile?.data?.id && (
-                  <div className="form-control mt-2">
-                    <label className="label">
-                      <span className="label-text">user id</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="ansby"
-                      {...register("ansby", { required: true })}
-                      value={profile?.data?.role}
-                      className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                    />
-                  </div>
-                )}
+                <div className="hidden">
+                  {profile?.data?.id && (
+                    <div className="form-control mt-2">
+                      <label className="label">
+                        <span className="label-text">user id</span>
+                      </label>
+                      <input
+                        type="number"
+                        name="user_id"
+                        {...register("user_id", { required: true })}
+                        value={profile?.data?.id}
+                        className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                      />
+                    </div>
+                  )}
+
+                  {profile?.data?.id && (
+                    <div className="form-control mt-2">
+                      <label className="label">
+                        <span className="label-text">user id</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="ansby"
+                        {...register("ansby", { required: true })}
+                        value={profile?.data?.role}
+                        className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                      />
+                    </div>
+                  )}
+
+                </div>
+
+
                 {questions?.map((item, index) => (
                   <div
                     key={index}
@@ -178,7 +176,7 @@ function Questions() {
                     <h2 className="font-bold text-primary">
                       Question {index + 1}:
                     </h2>
-                    <p className="text-[15px] font-semibold font-[poppins]  py-2">{item.qeng}</p>
+                    <p className="text-[18px] font-semibold font-[poppins]  py-2">{item.qeng}</p>
                     <div className="bg-gray-100 p-3 rounded">
                       {item.qatype === "checkbox" ? (
                         <>
@@ -216,10 +214,10 @@ function Questions() {
                                   {...register(`ansjson.${item.qid}`)}
                                   value={option}
                                   id={`${item.qid}-${option}`}
-
+                                   className="w-4 h-4"
 
                                 />
-                                <p className="text-gray-700 font-[poppins] text-sm">
+                                <p className="text-[#333] font-[poppins] text-[16px]">
                                   {option}
                                 </p>
                               </div>
@@ -238,9 +236,9 @@ function Questions() {
                                   {...register(`ansjson.${item.qid}`)}
                                   value={option}
                                   id={`${item.qid}-${option}`}
-                                  
-                                  />
-                                <p key={i} className="text-gray-700 font-[poppins] text-sm">
+                                   className="w-4 h-4"
+                                />
+                                <p key={i} className="text-gray-700 font-[poppins] text-[16px]">
                                   {option}
                                 </p>
                               </div>
@@ -266,7 +264,7 @@ function Questions() {
                                   defaultValue={option}
 
                                 />
-{/* 
+                                {/* 
                                 <p key={i} className="text-gray-700 font-[poppins] text-sm">
                                   {option}
                                 </p> */}
@@ -283,7 +281,7 @@ function Questions() {
                       ) : item.qatype === "dropdown" ? (
                         <>
                           <div className="flex gap-3 py-1">
-                            <select defaultValue="" className="select w-full font-[poppins] text-sm"
+                            <select defaultValue="" className="select w-full font-[poppins] text-[16px]"
                               onChange={(e) => updateAnswer(item.qid, e.target.value)}>
                               <option disabled value="">
                                 Pick a color
@@ -324,11 +322,16 @@ function Questions() {
                 ))}
               </div>
 
-              <div className="flex justify-end ">
-                <button className="btn bg-primary text-white px-10 mt-3" type="submit">
-                  Submit
+              <div className="flex justify-end">
+                <button className="btn bg-primary hover:bg-primary text-white text-[18px] font-semibold w-28 h-28 rounded-full mt-3 " type="submit">
+                  <div className="flex justify-end ">
+                    <p>
+                      Submit</p>
+                    <ArrowDownRight />
+                  </div>
                 </button>
               </div>
+
             </div>
           </form>
         </div>
