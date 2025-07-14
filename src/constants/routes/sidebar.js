@@ -1,47 +1,57 @@
-/** Icons are imported separatly to reduce build time */
-
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
-import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import ChartBarIcon from "@heroicons/react/24/outline/ChartBarIcon";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
-import InboxArrowDownIcon from "@heroicons/react/24/outline/InboxArrowDownIcon";
 import DocumentDuplicateIcon from "@heroicons/react/24/outline/DocumentDuplicateIcon";
-import { Footprints } from 'lucide-react';
+import { Footprints , FileDiff,ReceiptText ,Captions  ,PictureInPicture2  ,FileText,SquareActivity  ,HeartPulse ,BookOpenText ,Calculator,LayoutDashboard  , BookCheck    } from 'lucide-react';
 const iconClasses = `h-6 w-6`;
 
 
 const routes = [
   {
     path: "/",
-    icon: <Squares2X2Icon className={iconClasses} />,
+    icon: <LayoutDashboard  className={iconClasses} />,
     name: "Dashboard",
   },
   {
     path: "/bmi",
-    icon: <InboxArrowDownIcon className={iconClasses} />,
+    icon: <Calculator   className={iconClasses} />,
     name: "Bmi",
   },
 
   {
     path: "/health",
-    icon: <ChartBarIcon className={iconClasses} />,
+    icon: <SquareActivity  className={iconClasses} />,
     name: "Heath Review",
   },
-  {
-    path: "/questions",
-    icon: <BoltIcon className={iconClasses} />,
+
+    {
+    path: "question",
+    icon: <Captions      className={`${iconClasses} inline`} />,
     name: "Question",
+    submenu: [
+      {
+        path: "/question/survey",
+        icon: <FileDiff  className={iconClasses} />,
+        name: "Survey",
+      },
+
+      {
+        path: "/question/surveyList",
+        icon: <ReceiptText  className={iconClasses} />,
+        name: "List of Survey",
+      },
+       
+    ],
   },
+
   {
     path: "/stepsOfSeven",
     icon: <Footprints  className={iconClasses} />,
-    name: "StepsOfSeven",
+    name: "7 Best Practice",
   },
 
   {
     path: "obes",
-    icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />,
+    icon: <BookCheck   className={`${iconClasses} inline`} />,
     name: "OBES School",
     submenu: [
       {
@@ -62,26 +72,26 @@ const routes = [
       },
        {
         path: "/obes/videos",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
+        icon: <PictureInPicture2 className={iconClasses} />,
         name: "Videos",
       },
     ],
   },
   {
     path: "learn",
-    icon: <DocumentDuplicateIcon className={`${iconClasses} inline`} />,
+    icon: <BookOpenText  className={`${iconClasses} inline`} />,
     name: "Learning Material",
     submenu: [
       {
         path: "/learn/Pdf Documentation",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
-        name: "Diet Plan",
+        icon: <FileText  className={iconClasses} />,
+        name: "PDF Documentation",
       },
 
       {
         path: "/learn/videos",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
-        name: "Exercise Routine",
+        icon: <PictureInPicture2  className={iconClasses} />,
+        name: "Videos",
       },
       
     ],

@@ -3,7 +3,10 @@ import { useForm } from "react-hook-form";
 import { useCreateBmiMutation } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { TrendingUpDown, Calculator } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 function BmiCalculator() {
+    const navigate = useNavigate();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
@@ -19,42 +22,52 @@ function BmiCalculator() {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (weight > 0 && height > 0) {
-      const bmiValue = (weight * 703) / (height * height);
-      const formattedBMI = bmiValue.toFixed(2);
-      setBmi(formattedBMI);
-      setValue("bmi", formattedBMI);
-    } else {
-      setBmi("");
-      setValue("bmi", "");
-      setValue("category", "");
-    }
-  }, [weight, height, setValue]);
+useEffect(() => {
+  if (weight > 0 && height > 0) {
+    const bmiValue = (weight * 703) / (height * height);
+    const formattedBMI = bmiValue.toFixed(2);
+    const bmiCategory = getBMICategory(formattedBMI);
+
+    setBmi(formattedBMI);
+    setValue("bmi", formattedBMI);
+    setValue("category", bmiCategory.category);
+  } else {
+    setBmi("");
+    setValue("bmi", "");
+    setValue("category", "");
+  }
+}, [weight, height, setValue]);
+
 
  
-  const onSubmit = (data) => {
-    console.log("bmiData",data);
-    // if (!profile?.data?.role) {
-    //   console.error("User role is missing");
-    //   return;
-    // }
-    createBmi({
-        user_id: data.user_id,
-        weight: data.weight,
-        height: data.height,
-        bmi: data.bmi,
-        category: data.category,
-      // role: profile?.data?.role,
-    })
-      .unwrap()
-      .then(() => {
-        console.log("BMI saved successfully!");
-        // Optionally show a toast / message to user
-      })
-      .catch((err) => {
-        console.error("Failed to save BMI", err);
-      });
+  const onSubmit = async (formData) => {
+    console.log("bmiData",formData);
+
+   try{
+        const submissionData = {
+        user_id: formData.user_id,
+        weight: formData.weight,
+        height: formData.height,
+        bmi: formData.bmi,
+        category: formData.category,
+
+      };
+      const response = await createBmi(submissionData);
+        console.log("response",response);
+        
+      if (response?.data?.status === 200) {
+          toast.success(response?.data?.message);
+          reset();
+          navigate("/bmi");
+        } else {
+          toast.error(response?.data?.message || "Submission failed. Please try again.");
+        }
+  
+      } catch (error) {
+        console.error("Submission error:", error);
+        toast.error(error?.response?.data?.message || "Failed to submit answer.");
+      }
+
   };
 
    const getBMICategory = (bmi) => {
@@ -105,7 +118,7 @@ function BmiCalculator() {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="card-body">
                   {profile?.data?.id && (
-                    <div className="form-control mt-2">
+                    <div className="form-control mt-2 hidden">
                       <label className="label">
                         <span className="label-text">user id</span>
                       </label>
@@ -150,22 +163,23 @@ function BmiCalculator() {
                     />
                   </div>
                   {bmi && (
-                    <div className="form-control mt-4">
+                    <div className="form-control mt-4 hidden">
                       <label className="label">
                         <span className="label-text">Bmi</span>
                       </label>
                       <input
                         type="number"
+                        step="0.1"
                         name="bmi"
                         {...register("bmi", { required: true })}
-                        value={bmi}
+                        value={bmi?.toString() || ""}
                         className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     </div>
                   )}
 
                   {getBMICategory(bmi)?.category && (
-                    <div className="form-control mt-4">
+                    <div className="form-control mt-4 hidden">
                       <label className="label">
                         <span className="label-text">Category</span>
                       </label>
@@ -186,7 +200,7 @@ function BmiCalculator() {
                       type="submit"
                       className="btn bg-primary hover:bg-secondary flex-1 text-white"
                     >
-                      Calculate
+                      Submit
                     </button>
                   </div>
                 </div>

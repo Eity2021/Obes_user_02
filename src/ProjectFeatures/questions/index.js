@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 function Questions() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [answerList, setAnswerList] = useState([]);
   const [language, setLanguage] = useState("en");
   const toggleLanguage = () => {

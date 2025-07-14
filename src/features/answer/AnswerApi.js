@@ -9,7 +9,13 @@ export const answerApi = apiSlice.injectEndpoints({
                 body: data
             }),
         }),
+
+          getAnswerList: builder.query({
+          query: ({id}) => `/public/api/qansjsonview/${id}`,
+    }),
+
+
     }),
 });
 
-export const { useCreateAnswerMutation } = answerApi;
+export const { useCreateAnswerMutation ,useGetAnswerListQuery} = answerApi;

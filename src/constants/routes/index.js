@@ -4,7 +4,6 @@ import { lazy } from "react";
 
 
 const Dashboard = lazy(() => import("../../pages/obes/protected/Dashboard"));
-const Welcome = lazy(() => import("../../pages/obes/protected/Welcome"));
 const Page404 = lazy(() => import("../../pages/obes/protected/404"));
 const Blank = lazy(() => import("../../pages/obes/protected/Blank"));
 const Health = lazy(() => import("../../pages/obes/protected/Health"))
@@ -21,28 +20,31 @@ const ProfileSettings = lazy(() => import("../../pages/obes/protected/ProfileSet
 const GettingStarted = lazy(() => import("../../pages/obes/GettingStarted"));
 const DocFeatures = lazy(() => import("../../pages/obes/DocFeatures"));
 const DocComponents = lazy(() => import("../../pages/obes/DocComponents"));
+const Survey = lazy(() => import("../../pages/obes/protected/Survey"));
 
 const routes = [
   {
     path: "/",
     component: Dashboard,
   },
-  {
-    path: "/welcome",
-    component: Welcome,
-  },
+
   {
     path: "/bmi",
     component: Bmi,
   },
-    {
+
+  {
     path: "/health",
     component: Health,
   },
 
   {
-    path: "/questions",
+    path: "question/survey",
     component: Questions,
+  },
+  {
+    path: "question/surveyList",
+    component: Survey,
   },
   {
     path: "/stepsOfSeven",
