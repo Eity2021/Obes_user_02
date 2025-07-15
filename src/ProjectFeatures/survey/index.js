@@ -12,7 +12,6 @@ function Survey() {
     error,
   } = useGetAnswerListQuery({ id: profile?.data?.id }, { skip: !profile?.data?.id });
 
-  console.log("survey List", surveyList)
   return (
     <>
       <TitleCard title="List Of Survey" topMargin="mt-2">
