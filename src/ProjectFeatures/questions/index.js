@@ -15,6 +15,7 @@ function Questions() {
   const { data: profile } = useGetProfileQuery();
   const { register, handleSubmit, reset, setValue } = useForm();
   const { data: question, isLoading, isError, error } = useGetQuestionQuery();
+  console.log(" question", question)
   const [createAnswer] = useCreateAnswerMutation();
 
   useEffect(() => {
@@ -97,7 +98,6 @@ function Questions() {
     return <div className="text-center mt-10">No questions found.</div>;
   }
 
-  
   // max-w-5xl
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
@@ -285,7 +285,7 @@ function Questions() {
                                   <select defaultValue="" className="select w-full font-poppins text-[18px]"
                                     onChange={(e) => updateAnswer(item.qid, e.target.value)}>
                                     <option disabled value="">
-                                      Pick a color
+                                      Select a value
                                     </option>
                                     {(() => {
                                       let options = [];
@@ -383,16 +383,16 @@ function Questions() {
                                   ))
                                 ) : (
                                   <p className="text-gray-700">
-                                    {typeof item.qaoptioneng === "string"
-                                      ? item.qaoptioneng
+                                    {typeof item.qaoptionbng === "string"
+                                      ? item.qaoptionbng
                                       : "No options available"}
                                   </p>
                                 )}
                               </>
                             ) : item.qatype === "input" ? (
                               <>
-                                {Array.isArray(item.qaoptioneng) ? (
-                                  item.qaoptioneng.map((option, i) => (
+                                {Array.isArray(item.qaoptionbng) ? (
+                                  item.qaoptionbng.map((option, i) => (
                                     <div className="flex gap-3 py-1">
                                       <input
                                         type="text"
@@ -407,8 +407,8 @@ function Questions() {
                                   ))
                                 ) : (
                                   <p className="text-gray-700">
-                                    {typeof item.qaoptioneng === "string"
-                                      ? item.qaoptioneng
+                                    {typeof item.qaoptionbng === "string"
+                                      ? item.qaoptionbng
                                       : "No options available"}
                                   </p>
                                 )}
@@ -419,19 +419,19 @@ function Questions() {
                                   <select defaultValue="" className="select w-full font-poppins text-[18px]"
                                     onChange={(e) => updateAnswer(item.qid, e.target.value)}>
                                     <option disabled value="">
-                                      Pick a color
+                                     একটি মান নির্বাচন করুন
                                     </option>
                                     {(() => {
                                       let options = [];
 
-                                      if (Array.isArray(item.qaoptioneng)) {
-                                        options = item.qaoptioneng;
+                                      if (Array.isArray(item.qaoptionbng)) {
+                                        options = item.qaoptionbng;
                                       } else if (
-                                        typeof item.qaoptioneng === "string"
+                                        typeof item.qaoptionbng === "string"
                                       ) {
                                         try {
                                           options = JSON.parse(
-                                            item.qaoptioneng.replace(/'/g, '"')
+                                            item.qaoptionbng.replace(/'/g, '"')
                                           );
                                         } catch {
                                           console.error(
