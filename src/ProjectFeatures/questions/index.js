@@ -23,8 +23,6 @@ function Questions() {
   }, [language, setValue]);
 
 
-
-
   const updateAnswer = (qid, value, type) => {
     setAnswerList((prev) => {
       const filtered = prev.filter(([id]) => id !== qid);
@@ -191,7 +189,6 @@ function Questions() {
                 </div>
                 {
                   language === "en" ? (
-
                     <div>
                       {questions?.map((item, index) => (
                         <div
@@ -323,7 +320,35 @@ function Questions() {
                       ))}
                     </div>
 
-                  ) : (
+                  ) 
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  :
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  (
                     <div>
                       {questions?.map((item, index) => (
                         <div
@@ -458,11 +483,7 @@ function Questions() {
                     </div>
                   )
                 }
-
-
-
               </div>
-
               <div className="flex justify-end">
                 <button className="btn bg-primary hover:bg-primary text-white text-[18px] font-semibold w-28 h-28 rounded-full mt-3 " type="submit">
                   <div className="flex justify-end ">
