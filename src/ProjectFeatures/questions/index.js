@@ -12,14 +12,9 @@ function Questions() {
   const [currentStep, setCurrentStep] = useState(1);
   const [answerList, setAnswerList] = useState([]);
   const [language, setLanguage] = useState("en");
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "en" ? "bn" : "en"));
-  };
-
-
-
   const { data: profile } = useGetProfileQuery();
   const { data: question, isLoading, isError, error } = useGetQuestionQuery();
+  console.log('question',question )
 
   const [createAnswer, { isLoading: answerLoading, error: answerError }] = useCreateAnswerMutation();
 
@@ -75,7 +70,7 @@ function Questions() {
       if (response?.data?.status === 201) {
         toast.success(response?.data?.message);
         reset();
-        navigate("/");
+        navigate("/question/surveyList");
       } else {
         toast.error(response?.data?.message || "Submission failed. Please try again.");
       }
@@ -106,16 +101,16 @@ function Questions() {
   if (questions.length === 0) {
     return <div className="text-center mt-10">No questions found.</div>;
   }
-
+// max-w-5xl
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
-      <div className="max-w-5xl mx-auto p-6 space-y-6">
+      <div className=" mx-auto p-6 space-y-6">
         <div className="card bg-base-100 shadow">
           <div className="px-10 pt-6">
             <div className="flex justify-between items-center mb-2">
               <div>
-                <h2 className="card-title text-[20px] font-semibold font-[poppins]">Survey</h2>
-                <p className="text-sm text-gray-500">
+                {/* <h2 className="card-title text-[20px] font-semibold font-[poppins]">Survey</h2> */}
+                <p className="text-lg font-bold text-[#333">
                   Question {questions?.length}
                 </p>
               </div>
@@ -198,12 +193,7 @@ function Questions() {
                       readOnly
                     />
                   </div>
-
-
-
                 </div>
-
-
                 {
                   language === "en" ? (
 
@@ -211,19 +201,19 @@ function Questions() {
                       {questions?.map((item, index) => (
                         <div
                           key={index}
-                          className="bg-base-100 rounded-lg shadow p-4"
+                          className="bg-base-100 rounded-lg shadow p-4 mb-6"
                         >
-                          <h2 className="font-bold text-primary">
+                          
+                        <div className="flex justify-between">
+                            <h2 className="font-bold text-primary">
                             Question {index + 1}:
                           </h2>
-
-                          <p className="text-[18px] font-semibold font-[poppins]  py-2">{item.qeng}</p>
-                          <div className="bg-gray-100 p-3 rounded">
+                       <span style={{color:'#7B1E19',fontFamily:'poppins',fontSize:'14px',fontWeight:'semibold'}}>Category : ({item.category})</span>
+                        </div>
+                          <p className="text-[18px] font-semibold font-[poppins]  py-2">{item.qeng} </p>
+                          <div className="bg-gray-50 p-3 rounded">
                             {item.qatype === "checkbox" ? (
                               <>
-
-
-
                                 {Array.isArray(item.qaoptioneng) ? (
                                   item.qaoptioneng.map((option, index) => (
                                     <div key={index} className="flex gap-3 py-1">

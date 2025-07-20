@@ -12,7 +12,7 @@ function Survey() {
     error,
   } = useGetAnswerListQuery({ id: profile?.data?.id }, { skip: !profile?.data?.id });
 
-  console.log("survey List", surveyList)
+  console.log(" surveyList", surveyList)
   return (
     <>
       <TitleCard title="List Of Survey" topMargin="mt-2">
@@ -56,12 +56,20 @@ function Survey() {
                       Response:
                     </h3>
 
-                    {item.type === "single" ? (
+                    {Array.isArray(item.ans) === false ? (
                       <div className="text-gray-800">
                         {item.ans === "." ? (
+
                           <span className="text-gray-500 italic font-[poppins]">No specific response provided</span>
+
                         ) : (
-                          item.ans
+                          
+                           <div className="flex items-center gap-2 p-2 bg-white rounded border">
+                              <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                <path d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span className="text-gray-800 font-[poppins]">{item.ans}</span>
+                            </div>
                         )}
                       </div>
                     ) : (

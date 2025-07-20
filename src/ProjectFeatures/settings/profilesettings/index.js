@@ -22,7 +22,7 @@ function ProfileSettings() {
   };
 
   const { data: profile, isLoading, isError, error } = useGetProfileQuery();
-  //   console.log("profile", profile?.data)
+    console.log("profile", profile?.data)
 
   return (
     <>

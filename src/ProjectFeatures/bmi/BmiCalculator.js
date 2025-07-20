@@ -104,7 +104,7 @@ useEffect(() => {
 
       <div className="grid  grid-cols-2 px-12 h-[100%] ">
         <div className="">
-          <div className="p-4">
+          <div className="p-6">
             <div className="card w-full max-w-md bg-white shadow-lg rounded-lg">
               <div className="bg-primary p-8 rounded-t-lg">
                 <h2 className="card-title text-white font-bold">
