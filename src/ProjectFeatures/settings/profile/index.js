@@ -3,11 +3,8 @@ import { useGetProfileQuery } from "../../../features/profile/profileApi";
 import { CalendarDays, Mail, Phone, User, Shield, Clock } from "lucide-react";
 
 function Profile() {
-
-
   const { data: profile, isLoading, isError, error } = useGetProfileQuery();
-  console.log("profile", profile?.data)
-
+  console.log("profile", profile?.data);
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -51,25 +48,30 @@ function Profile() {
                   src={`/${profile?.data?.imgpath}`}
                   alt={profile?.data?.fullname}
                   className="object-cover w-full h-full"
-
                 />
-                {!profile?.data?.imgpath && getInitials(profile?.data?.fullname)}
+                {!profile?.data?.imgpath &&
+                  getInitials(profile?.data?.fullname)}
               </div>
               <div className="text-center sm:text-left flex-1">
-                <h2 className="text-2xl font-bold font-[poppins]">{profile?.data?.fullname}</h2>
+                <h2 className="text-2xl font-bold font-[poppins]">
+                  {profile?.data?.fullname}
+                </h2>
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
                   <span
-                    className={`px-2 py-1 text-[16px] rounded ${profile?.data?.status === "active"
+                    className={`px-2 py-1 text-[16px] rounded ${
+                      profile?.data?.status === "active"
                         ? "bg-green-100 text-green-700 font-medium font-poppins"
                         : "bg-gray-200 text-gray-600 font-medium font-poppins"
-                      }`}
+                    }`}
                   >
                     {profile?.data?.status}
                   </span>
                   <span className="px-2 py-1 text-[16px] rounded border capitalize font-medium  font-poppins">
                     {profile?.data?.role}
                   </span>
-                  <span className="px-2 py-1 text-[16px] rounded border font-medium font-poppins">ID: {profile?.data?.id}</span>
+                  <span className="px-2 py-1 text-[16px] rounded border font-medium font-poppins">
+                    ID: {profile?.data?.id}
+                  </span>
                 </div>
               </div>
             </div>
@@ -96,7 +98,6 @@ function Profile() {
                   <Phone className="w-4 h-4 text-gray-500" />
                   <span>{profile?.data?.logmobile}</span>
                 </div>
-
               </div>
             </div>
 
@@ -110,12 +111,20 @@ function Profile() {
               </h3>
               <div className="space-y-3 text-sm text-gray-800 font-poppins">
                 <div className="flex gap-3">
-                  <span className="w-24 text-gray-500 font-poppins">Birthday:</span>
-                  <span className="font-poppins">{formatDate(profile?.data?.dob)}</span>
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Birthday:
+                  </span>
+                  <span className="font-poppins">
+                    {formatDate(profile?.data?.dob)}
+                  </span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="w-24 text-gray-500 font-poppins">Gender:</span>
-                  <span className="capitalize font-poppins">{profile?.data?.ogender}</span>
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Gender:
+                  </span>
+                  <span className="capitalize font-poppins">
+                    {profile?.data?.ogender}
+                  </span>
                 </div>
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">Code:</span>
@@ -134,18 +143,26 @@ function Profile() {
               </h3>
               <div className="space-y-3 text-sm text-gray-800">
                 <div className="flex gap-3">
-                  <span className="w-24 text-gray-500 font-poppins">Created:</span>
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Created:
+                  </span>
                   <span>{formatDateTime(profile?.data?.created_at)}</span>
                 </div>
                 <div className="flex gap-3">
-                  <span className="w-24 text-gray-500 font-poppins">Updated:</span>
-                  <span className='font-poppins'>{formatDateTime(profile?.data?.updated_at)}</span>
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Updated:
+                  </span>
+                  <span className="font-poppins">
+                    {formatDateTime(profile?.data?.updated_at)}
+                  </span>
                 </div>
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">Role:</span>
                   <div className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-gray-500" />
-                    <span className="capitalize font-poppins">{profile?.data?.role}</span>
+                    <span className="capitalize font-poppins">
+                      {profile?.data?.role}
+                    </span>
                   </div>
                 </div>
               </div>

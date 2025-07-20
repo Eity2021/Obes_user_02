@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    user:null
+    user: null
 };
 
 const profileSlice = createSlice({
-    name:'profile',
+    name: 'profile',
     initialState,
-    reducers:{
-        
+    reducers: {
+
     }
 })
 
-export const {} = profileSlice.actions;
+export const { } = profileSlice.actions;
 export default profileSlice.reducer;

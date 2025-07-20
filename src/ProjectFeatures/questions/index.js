@@ -13,13 +13,9 @@ function Questions() {
   const [answerList, setAnswerList] = useState([]);
   const [language, setLanguage] = useState("en");
   const { data: profile } = useGetProfileQuery();
-  const { data: question, isLoading, isError, error } = useGetQuestionQuery();
-  console.log('question',question )
-
-  const [createAnswer, { isLoading: answerLoading, error: answerError }] = useCreateAnswerMutation();
-
-
   const { register, handleSubmit, reset, setValue } = useForm();
+  const { data: question, isLoading, isError, error } = useGetQuestionQuery();
+  const [createAnswer] = useCreateAnswerMutation();
 
   useEffect(() => {
     setValue("langtype", language === "en" ? "english" : "bangla");
@@ -31,7 +27,6 @@ function Questions() {
   const updateAnswer = (qid, value, type) => {
     setAnswerList((prev) => {
       const filtered = prev.filter(([id]) => id !== qid);
-
       if (type === "checkbox") {
         const existing = prev.find(([id]) => id === qid);
         const updatedValues = existing ? [...existing[1]] : [];
@@ -101,7 +96,9 @@ function Questions() {
   if (questions.length === 0) {
     return <div className="text-center mt-10">No questions found.</div>;
   }
-// max-w-5xl
+
+  
+  // max-w-5xl
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
       <div className=" mx-auto p-6 space-y-6">
@@ -139,8 +136,6 @@ function Questions() {
                     বাংলা
                   </button>
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -200,17 +195,19 @@ function Questions() {
                     <div>
                       {questions?.map((item, index) => (
                         <div
-                          key={index}
-                          className="bg-base-100 rounded-lg shadow p-4 mb-6"
+                          key={item.qid}
+                          className="bg-base-100 rounded-lg shadow  mb-6"
                         >
-                          
-                        <div className="flex justify-between">
-                            <h2 className="font-bold text-primary">
-                            Question {index + 1}:
-                          </h2>
-                       <span style={{color:'#7B1E19',fontFamily:'poppins',fontSize:'14px',fontWeight:'semibold'}}>Category : ({item.category})</span>
-                        </div>
-                          <p className="text-[18px] font-semibold font-[poppins]  py-2">{item.qeng} </p>
+
+                          <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                            <div className="flex justify-between">
+                              <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                                Question {index + 1} :
+                              </h2>
+                              <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">{item.category}</span>
+                            </div>
+                          </div>
+                          <p className="text-[18px] font-semibold font-poppins  p-3">{item.qeng} </p>
                           <div className="bg-gray-50 p-3 rounded">
                             {item.qatype === "checkbox" ? (
                               <>
@@ -222,10 +219,10 @@ function Questions() {
                                         {...register(`ansjson.${item.qid}`)}
                                         value={option}
                                         id={`${item.qid}-${option}`}
-                                        className="w-4 h-4"
+                                        className="w-5 h-7 flex justify-center items-center"
 
                                       />
-                                      <p className="text-[#333] font-[poppins] text-[16px]">
+                                      <p className="text-[#333] font-poppins text-[18px]">
                                         {option}
                                       </p>
                                     </div>
@@ -238,15 +235,14 @@ function Questions() {
                               <>
                                 {Array.isArray(item.qaoptioneng) ? (
                                   item.qaoptioneng.map((option, i) => (
-                                    <div className="flex gap-3 py-1">
+                                    <div className="flex gap-3 py-1" >
                                       <input type="radio"
-
                                         {...register(`ansjson.${item.qid}`)}
                                         value={option}
                                         id={`${item.qid}-${option}`}
-                                        className="w-4 h-4"
+                                        className="w-5 h-7 flex justify-center items-center "
                                       />
-                                      <p key={i} className="text-gray-700 font-[poppins] text-[16px]">
+                                      <p key={i} className="text-gray-700 font-poppins text-[18px]">
                                         {option}
                                       </p>
                                     </div>
@@ -263,7 +259,7 @@ function Questions() {
                               <>
                                 {Array.isArray(item.qaoptioneng) ? (
                                   item.qaoptioneng.map((option, i) => (
-                                    <div className="flex gap-3 py-1">
+                                    <div className="flex gap-3 py-1" key={option.qid}>
                                       <input
                                         type="text"
                                         placeholder="Type here"
@@ -286,7 +282,7 @@ function Questions() {
                             ) : item.qatype === "dropdown" ? (
                               <>
                                 <div className="flex gap-3 py-1">
-                                  <select defaultValue="" className="select w-full font-[poppins] text-[16px]"
+                                  <select defaultValue="" className="select w-full font-poppins text-[18px]"
                                     onChange={(e) => updateAnswer(item.qid, e.target.value)}>
                                     <option disabled value="">
                                       Pick a color
@@ -332,19 +328,22 @@ function Questions() {
                       {questions?.map((item, index) => (
                         <div
                           key={index}
-                          className="bg-base-100 rounded-lg shadow p-4"
+                          className=" rounded-lg  shadow mb-6"
                         >
-                          <h2 className="font-bold text-primary">
-                            Question {index + 1}:
-                          </h2>
 
-                          <p className="text-[18px] font-semibold font-[poppins]  py-2">{item.qbang}</p>
+                          <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                            <div className="flex justify-between">
+                              <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                                Question {index + 1} :
+                              </h2>
+                              <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">{item.category_bangla}</span>
+                            </div>
+                          </div>
+                          <p className="text-[18px] font-semibold font-poppins  py-3">{item.qbang}</p>
+
                           <div className="bg-gray-100 p-3 rounded">
                             {item.qatype === "checkbox" ? (
                               <>
-
-
-
                                 {Array.isArray(item.qaoptionbng) ? (
                                   item.qaoptionbng.map((option, index) => (
                                     <div key={index} className="flex gap-3 py-1">
@@ -353,10 +352,10 @@ function Questions() {
                                         {...register(`ansjson.${item.qid}`)}
                                         value={option}
                                         id={`${item.qid}-${option}`}
-                                        className="w-4 h-4"
+                                        className="w-5 h-7 flex justify-center items-center "
 
                                       />
-                                      <p className="text-[#333] font-[poppins] text-[16px]">
+                                      <p className="text-[#333] font-poppins text-[18px]">
                                         {option}
                                       </p>
                                     </div>
@@ -375,9 +374,9 @@ function Questions() {
                                         {...register(`ansjson.${item.qid}`)}
                                         value={option}
                                         id={`${item.qid}-${option}`}
-                                        className="w-4 h-4"
+                                        className="w-5 h-7 flex justify-center items-center "
                                       />
-                                      <p key={i} className="text-[#333] font-[poppins] text-[16px]">
+                                      <p key={i} className="text-[#333] font-poppins text-[18px]">
                                         {option}
                                       </p>
                                     </div>
@@ -417,7 +416,7 @@ function Questions() {
                             ) : item.qatype === "dropdown" ? (
                               <>
                                 <div className="flex gap-3 py-1">
-                                  <select defaultValue="" className="select w-full font-[poppins] text-[16px]"
+                                  <select defaultValue="" className="select w-full font-poppins text-[18px]"
                                     onChange={(e) => updateAnswer(item.qid, e.target.value)}>
                                     <option disabled value="">
                                       Pick a color

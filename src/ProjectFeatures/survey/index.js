@@ -12,7 +12,7 @@ function Survey() {
     error,
   } = useGetAnswerListQuery({ id: profile?.data?.id }, { skip: !profile?.data?.id });
 
-  console.log(" surveyList", surveyList)
+
   return (
     <>
       <TitleCard title="List Of Survey" topMargin="mt-2">
@@ -22,7 +22,6 @@ function Survey() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Obesity List Of Survey</h1>
               <p className="text-gray-600">Quiz Results & Responses</p>
             </div>
-
             {surveyList?.data?.map((item) => (
               <div key={item.qid} className="rounded-lg shadow-lg border-l-4 border-primary bg-white">
                 <div className="px-6 py-4 bg-gradient-to-r from-[#7B1E19]/10 to-[#7B1E19]/10 rounded-t-lg">
