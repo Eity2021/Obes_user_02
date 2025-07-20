@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPageTitle } from '../../../ProjectFeatures/common/headerSlice'
-import ProfileSettings from '../../../ProjectFeatures/settings/profilesettings'
+import Profile from '../../../ProjectFeatures/settings/profile'
 
 
 function InternalPage(){
@@ -12,8 +12,8 @@ function InternalPage(){
       }, [])
 
     return(
-        <ProfileSettings />
+        <Profile />
     )
 }
 
-export default InternalPage
+export default InternalPage;

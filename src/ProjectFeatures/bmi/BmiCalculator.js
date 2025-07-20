@@ -53,7 +53,6 @@ useEffect(() => {
 
       };
       const response = await createBmi(submissionData);
-        console.log("response",response);
         
       if (response?.data?.status === 200) {
           toast.success(response?.data?.message);

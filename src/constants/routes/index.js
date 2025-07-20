@@ -79,7 +79,7 @@ const routes = [
 
 
   {
-    path: "/app/settings-profile",
+    path: "/profile",
     component: ProfileSettings,
   },
 
