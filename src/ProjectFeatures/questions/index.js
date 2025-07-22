@@ -15,7 +15,7 @@ function Questions() {
   const { data: profile } = useGetProfileQuery();
   const { register, handleSubmit, reset, setValue } = useForm();
   const { data: question, isLoading, isError, error } = useGetQuestionQuery();
-  console.log(" question", question)
+
   const [createAnswer] = useCreateAnswerMutation();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Questions() {
   };
 
   const onSubmit = async (formData) => {
-    console.log("form data", formData)
+
     try {
       const formattedAnsjson = Object?.entries(formData.ansjson)
         .filter(([_, value]) => value != null && value !== false)

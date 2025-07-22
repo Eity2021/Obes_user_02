@@ -3,8 +3,7 @@ import { useGetProfileQuery } from "../../../features/profile/profileApi";
 import { CalendarDays, Mail, Phone, User, Shield, Clock } from "lucide-react";
 
 function Profile() {
-  const { data: profile, isLoading, isError, error } = useGetProfileQuery();
-  console.log("profile", profile?.data);
+  const { data: profile } = useGetProfileQuery();
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -45,7 +44,7 @@ function Profile() {
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-100 text-center text-xl flex items-center justify-center font-semibold">
                 <img
-                  src={`/${profile?.data?.imgpath}`}
+                  src={profile?.data?.imgpath}
                   alt={profile?.data?.fullname}
                   className="object-cover w-full h-full"
                 />
@@ -58,19 +57,15 @@ function Profile() {
                 </h2>
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
                   <span
-                    className={`px-2 py-1 text-[16px] rounded ${
-                      profile?.data?.status === "active"
+                    className={`px-2 py-1 text-[16px] rounded ${profile?.data?.status === "active"
                         ? "bg-green-100 text-green-700 font-medium font-poppins"
                         : "bg-gray-200 text-gray-600 font-medium font-poppins"
-                    }`}
+                      }`}
                   >
                     {profile?.data?.status}
                   </span>
                   <span className="px-2 py-1 text-[16px] rounded border capitalize font-medium  font-poppins">
                     {profile?.data?.role}
-                  </span>
-                  <span className="px-2 py-1 text-[16px] rounded border font-medium font-poppins">
-                    ID: {profile?.data?.id}
                   </span>
                 </div>
               </div>
