@@ -4,7 +4,7 @@ import { CalendarDays, Mail, Phone, User, Shield, Clock } from "lucide-react";
 
 function Profile() {
   const { data: profile } = useGetProfileQuery();
-
+     console.log("user", profile)
   const formatDate = (dateString) => {
     if (!dateString) return "";
     return new Date(dateString).toLocaleDateString("en-US", {

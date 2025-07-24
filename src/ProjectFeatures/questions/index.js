@@ -13,9 +13,12 @@ function Questions() {
   const [answerList, setAnswerList] = useState([]);
   const [language, setLanguage] = useState("en");
   const { data: profile } = useGetProfileQuery();
+  console.log("profile,", profile?.data?.role);
   const { register, handleSubmit, reset, setValue } = useForm();
-  const { data: question, isLoading, isError, error } = useGetQuestionQuery();
 
+  const { data: question, isLoading, isError, error } = useGetQuestionQuery(profile?.data?.role);
+   console.log( "question",question)
+    
   const [createAnswer] = useCreateAnswerMutation();
 
   useEffect(() => {
@@ -59,7 +62,8 @@ function Questions() {
         langtype: formData.langtype,
 
       };
-      const response = await createAnswer(submissionData);
+        const role = profile?.data?.role;
+      const response = await createAnswer({data: submissionData, role});
 
       if (response?.data?.status === 201) {
         toast.success(response?.data?.message);
@@ -95,8 +99,6 @@ function Questions() {
   if (questions.length === 0) {
     return <div className="text-center mt-10">No questions found.</div>;
   }
-
-  // max-w-5xl
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
       <div className=" mx-auto p-6 space-y-6">

@@ -43,7 +43,6 @@ function Header() {
     }
 
       const { data: profile} = useGetProfileQuery();
-    
 
     return (
         // navbar fixed  flex-none justify-between bg-base-300  z-10 shadow-md

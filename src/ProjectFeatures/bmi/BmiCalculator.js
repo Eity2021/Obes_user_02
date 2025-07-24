@@ -27,7 +27,6 @@ useEffect(() => {
     const bmiValue = (weight * 703) / (height * height);
     const formattedBMI = bmiValue.toFixed(2);
     const bmiCategory = getBMICategory(formattedBMI);
-
     setBmi(formattedBMI);
     setValue("bmi", formattedBMI);
     setValue("category", bmiCategory.category);
@@ -52,7 +51,9 @@ useEffect(() => {
         category: formData.category,
 
       };
-      const response = await createBmi(submissionData);
+
+      const role = profile?.data?.role;
+      const response = await createBmi({ data: submissionData, role });
         
       if (response?.data?.status === 200) {
           toast.success(response?.data?.message);

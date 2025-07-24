@@ -4,14 +4,12 @@ import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { History, User } from "lucide-react";
 export default function BmiList() {
   const { data: profile } = useGetProfileQuery();
-
   const {
     data: bmi,
     isLoading,
     isError,
     error,
-  } = useGetBmiQuery({ id: profile?.data?.id }, { skip: !profile?.data?.id });
-
+  } = useGetBmiQuery({ id: profile?.data?.id ,role: profile?.data?.role}, { skip: !profile?.data?.id });
   const getBMIColor = (category) => {
     switch (category) {
       case "Underweight":

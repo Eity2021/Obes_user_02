@@ -10,7 +10,7 @@ function Survey() {
     isLoading,
     isError,
     error,
-  } = useGetAnswerListQuery({ id: profile?.data?.id }, { skip: !profile?.data?.id });
+  } = useGetAnswerListQuery({ id: profile?.data?.id ,role: profile?.data?.role}, { skip: !profile?.data?.id });
 
 
   return (
@@ -29,7 +29,7 @@ function Survey() {
                     <h2 className="text-md font-semibold text-gray-800  font-[poppins]">Question {item.qid}</h2>
                     <div className="flex gap-2">
                       <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">{item.category}</span>
-                      <span className="text-[12px] border border-gray-300 px-2 py-1 rounded font-semibold font-[poppins]">ID: {item.catid}</span>
+           
                     </div>
                   </div>
                 </div>

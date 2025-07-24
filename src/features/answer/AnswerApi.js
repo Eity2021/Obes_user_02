@@ -3,15 +3,15 @@ import { apiSlice } from "../api/apiSlice";
 export const answerApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         createAnswer: builder.mutation({
-            query: (data) => ({
-                url: "/public/api/quesans",
+            query: ({data,role}) => ({
+                url: `/public/api/${role}/quesans`,
                 method: "POST",
                 body: data
             }),
         }),
 
           getAnswerList: builder.query({
-          query: ({id}) => `/public/api/qansjsonview/${id}`,
+          query: ({role,id}) => `/public/api/${role}/qansjsonview/${id}`,
     }),
 
 
