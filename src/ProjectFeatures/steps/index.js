@@ -4,6 +4,8 @@ import {
   Coffee, Dumbbell, Smartphone, UtensilsCrossed,
   Heart, Apple, Moon, Sparkles, CheckCircle
 } from "lucide-react"
+import { useGetProfileQuery } from "../../features/profile/profileApi";
+import { useGetStepsQuery } from "../../features/steps/stepsApi";
 
 const healthSteps = [
   { id: 0, title: "0 Sugary Drinks", description: "Reduce intake of sodas and sweetened beverages", icon: Coffee, color: "from-orange-400 to-red-500", bgColor: "bg-orange-50", textColor: "text-orange-700" },
@@ -24,6 +26,17 @@ function StepsOfSeven(){
       prev.includes(stepId) ? prev.filter((id) => id !== stepId) : [...prev, stepId]
     )
   }
+
+    const { data: profile } = useGetProfileQuery();
+  
+    const {
+      data: stepsList,
+      isLoading,
+      isError,
+      error,
+    } = useGetStepsQuery(profile?.data?.role);
+  
+        console.log("stepsList", stepsList)
 
     return(
         <>

@@ -7,6 +7,7 @@ import profileSliceReducer from "../features/profile/profileSlice";
 import bmiSliceReducer from "../features/bmi/bmiSlice";
 import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
+import stepsSliceReducer from "../features/steps/stepsSlice";
 import { apiSlice } from '../features/api/apiSlice';
 
 export const store = configureStore({
@@ -17,6 +18,7 @@ reducer:{
   bmi:bmiSliceReducer,
   question:questionSliceReducer,
   answer:answerSliceReducer,
+  steps:stepsSliceReducer,
   header : headerSlice,
   rightDrawer : rightDrawerSlice,
   modal : modalSlice,
