@@ -20,11 +20,6 @@ const healthSteps = [
 ]
 
 const StatusCell = ({ value }) => {
-
-
-
-
-
   const isPositive = value === "Yes";
   return (
     <div className="flex justify-center items-center">
@@ -40,7 +35,7 @@ const StatusCell = ({ value }) => {
 
 function StepsOfSeven() {
 
-  
+
   const {
     register,
     handleSubmit,
@@ -160,11 +155,7 @@ function StepsOfSeven() {
                 )
               })}
             </div>
-
             </form>
-
-
-
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Health Tracking Data</h1>
               <p className="text-gray-600">7-Step Health Monitoring System</p>

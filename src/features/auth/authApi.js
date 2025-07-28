@@ -17,14 +17,14 @@ export const authApi = apiSlice.injectEndpoints({
             "auth",
             JSON.stringify({
               accessToken: result.data.token,
-               user: result?.data?.user?.role,
+              //  user: result?.data,
             })
           );
 
           dispatch(
             userLoggedIn({
               accessToken: result.data.token,
-               user: result?.data?.user?.role,
+              //  user: result?.data,
             })
           );
         } catch (err) {
@@ -47,13 +47,17 @@ export const authApi = apiSlice.injectEndpoints({
             "auth",
             JSON.stringify({
               accessToken: result.data.token,
-              user: result?.data?.user?.role,
+              // user: result?.data,
             })
           );
+          console.log("Saved to localStorage:", {
+  accessToken: result.data.token,
+  user: result?.data?.data?.role,
+});
           dispatch(
             userLoggedIn({
               accessToken: result.data.token,
-               user: result?.data?.user?.role,
+              //  user: result?.data,
             })
           );
         } catch (err) {}
