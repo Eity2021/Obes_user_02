@@ -3,7 +3,7 @@ import { Footprints , FileDiff,ReceiptText ,Captions  ,PictureInPicture2  ,FileT
 
 const iconClasses = `h-6 w-6`;
 
-const userRoutes  = [
+const doctorRoutes   = [
 
   {
     path: "/",
@@ -77,26 +77,26 @@ const userRoutes  = [
     ],
   },
 
-  // {
-  //   path: "learn",
-  //   icon: <BookOpenText  className={`${iconClasses} inline`} />,
-  //   name: "Learning Material",
-  //   submenu: [
-  //     {
-  //       path: "/learn/Pdf Documentation",
-  //       icon: <FileText  className={iconClasses} />,
-  //       name: "PDF Documentation",
-  //     },
+  {
+    path: "learn",
+    icon: <BookOpenText  className={`${iconClasses} inline`} />,
+    name: "Learning Material",
+    submenu: [
+      {
+        path: "/learn/Pdf Documentation",
+        icon: <FileText  className={iconClasses} />,
+        name: "PDF Documentation",
+      },
 
-  //     {
-  //       path: "/learn/videos",
-  //       icon: <PictureInPicture2  className={iconClasses} />,
-  //       name: "Videos",
-  //     },
+      {
+        path: "/learn/videos",
+        icon: <PictureInPicture2  className={iconClasses} />,
+        name: "Videos",
+      },
       
-  //   ],
-  // },
+    ],
+  },
 
 ];
 
-export default userRoutes ;
+export default doctorRoutes;

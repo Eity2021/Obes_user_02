@@ -4,12 +4,20 @@ import SidebarSubmenu from "./SidebarSubmenu";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
 import logo from "../images/logo.png";
+import { useGetProfileQuery } from "../features/profile/profileApi";
+import doctorRoutes from "../constants/routes/doctorSidebar";
+import userRoutes from "../constants/routes/sidebar";
 function LeftSidebar() {
   const location = useLocation();
 
   const close = (e) => {
     document.getElementById("left-sidebar-drawer").click();
   };
+
+    const { data: profile } = useGetProfileQuery();
+     console.log("profile",profile )
+    
+     const routes = profile?.role === "doctor" ? doctorRoutes : userRoutes;
 
   return (
     <div className="drawer-side  z-30  ">
@@ -42,7 +50,7 @@ function LeftSidebar() {
                   {route.icon} {route.name}
                   {location.pathname === route.path ? (
                     <span
-                      className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md  "
+                      className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md"
                       aria-hidden="true"
                     ></span>
                   ) : null}

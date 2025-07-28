@@ -1,8 +1,6 @@
 // All components mapping with path for internal routes
 
 import { lazy } from "react";
-
-
 const Dashboard = lazy(() => import("../../pages/obes/protected/Dashboard"));
 const Page404 = lazy(() => import("../../pages/obes/protected/404"));
 const Blank = lazy(() => import("../../pages/obes/protected/Blank"));
@@ -15,12 +13,13 @@ const Steps = lazy(() => import("../../pages/obes/protected/Steps"));
 const ExerciseRoutine = lazy(() => import("../../pages/obes/protected/ExerciseRoutine"));
 const DailyTrack  = lazy(() => import("../../pages/obes/protected/DailyTrack"));
 const ObesVideos = lazy(() => import("../../pages/obes/protected/ObesVideos"));
-
 const ProfileSettings = lazy(() => import("../../pages/obes/protected/ProfileSettings"));
 const GettingStarted = lazy(() => import("../../pages/obes/GettingStarted"));
 const DocFeatures = lazy(() => import("../../pages/obes/DocFeatures"));
 const DocComponents = lazy(() => import("../../pages/obes/DocComponents"));
 const Survey = lazy(() => import("../../pages/obes/protected/Survey"));
+
+
 
 const routes = [
   {
