@@ -20,7 +20,7 @@ const StatusCell = ({ value }) => {
 
 export default function StepsLists() {
     const { data: profile } = useGetProfileQuery();
-    const { data: stepsList } = useGetStepsQuery(profile?.data?.role);
+    const { data: stepsList } = useGetStepsQuery({role:profile?.data?.role,id:profile?.data?.id });
 
     const formatDate = (dateString) =>
         new Date(dateString).toLocaleDateString("en-US", {

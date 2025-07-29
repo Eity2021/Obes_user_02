@@ -13,7 +13,7 @@ export const stepsApi = apiSlice.injectEndpoints({
     }),
         
         getSteps:builder.query({
-            query:(role) => `/public/api/${role}/my7step`
+            query:({role,id}) => `/public/api/${role}/my7step/${id}`
   
         })
     })
