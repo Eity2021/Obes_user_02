@@ -14,10 +14,10 @@ function LeftSidebar() {
     document.getElementById("left-sidebar-drawer").click();
   };
 
-    const { data: profile } = useGetProfileQuery();
-     console.log("profile",profile )
-    
-     const routes = profile?.role === "doctor" ? doctorRoutes : userRoutes;
+const auth = JSON.parse(localStorage.getItem("auth"));
+const role = auth?.role;
+    console.log("role", role)
+     const routes = auth?.role === "doctor" ? doctorRoutes : userRoutes;
 
   return (
     <div className="drawer-side  z-30  ">
