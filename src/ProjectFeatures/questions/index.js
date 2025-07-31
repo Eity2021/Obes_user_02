@@ -257,13 +257,13 @@ function Questions() {
                             ) : item.qatype === "input" ? (
                               <>
                                 {Array.isArray(item.qaoptioneng) ? (
-                                  item.qaoptioneng.map((option, i) => (
-                                    <div className="flex gap-3 py-1" key={option.qid}>
+                                  item?.qaoptioneng.map((option, i) => (
+                                    <div className="flex gap-3 py-1" key={option?.qid}>
                                       <input
                                         type="text"
                                         placeholder="Type here"
                                         className="input w-full"
-                                        {...register(`ansjson.${item.qid}`)}
+                                        {...register(`ansjson.${item?.qid}`)}
                                         defaultValue={option}
 
                                       />
