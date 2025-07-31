@@ -8,6 +8,7 @@ import bmiSliceReducer from "../features/bmi/bmiSlice";
 import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
 import stepsSliceReducer from "../features/steps/stepsSlice";
+import dietSliceReducer from "../features/dietChart/dietSlice";
 import { apiSlice } from '../features/api/apiSlice';
 
 export const store = configureStore({
@@ -19,6 +20,7 @@ reducer:{
   question:questionSliceReducer,
   answer:answerSliceReducer,
   steps:stepsSliceReducer,
+  diet:dietSliceReducer,
   header : headerSlice,
   rightDrawer : rightDrawerSlice,
   modal : modalSlice,
