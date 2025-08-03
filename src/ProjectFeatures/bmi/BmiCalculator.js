@@ -10,8 +10,10 @@ function BmiCalculator() {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
+  const [calories, setCalories] = useState(null);
   const { data: profile } = useGetProfileQuery();
-  // console.log("role", profile?.data?.role)
+  console.log("role", profile)
+  console.log("role", profile?.data?.ogender)
   const [createBmi, { isLoading, error }] = useCreateBmiMutation();
 
   const {
@@ -30,12 +32,27 @@ useEffect(() => {
     setBmi(formattedBMI);
     setValue("bmi", formattedBMI);
     setValue("category", bmiCategory.category);
+
+    const gender = profile?.data?.ogender; 
+    let calResult = 0;
+    if (gender === "male") {
+      calResult = weight * 15 - 500;
+    } else {
+      calResult = weight * 13 - 500;
+    }
+    setCalories(calResult);
+    setValue("calory", calResult);
+
+
+
   } else {
     setBmi("");
     setValue("bmi", "");
     setValue("category", "");
+    setValue("calory", "");
   }
 }, [weight, height, setValue]);
+
 
 
  
@@ -191,6 +208,18 @@ useEffect(() => {
                       />
                     </div>
                   )}
+
+                  <div className="form-control mt-4">
+                    <input
+                      type="number"
+                      placeholder="e.g. 175 inches"
+                      name="calory"
+                      {...register("calory", { required: true })}
+                       value={calories || ""}
+                      // onChange={(e) => setHeight(e.target.value)}
+                      className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                    />
+                  </div>
 
                   <div className="flex gap-2 mt-4">
                     <button className="btn bg-outline flex-1 border border-solid">

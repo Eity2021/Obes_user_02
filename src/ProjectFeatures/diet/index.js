@@ -3,7 +3,11 @@ import { CalendarDays } from "lucide-react";
 import TitleCard from "../../components/Cards/TitleCard";
 import PlanBuilder from "./PlanBuilder";
 import DailySummery from "./DailySummery";
+import { useGetProfileQuery } from "../../features/profile/profileApi";
 export default function DietPlan() {
+     const { data: profile } = useGetProfileQuery();
+
+    console.log("profile", profile)
   return (
     <TitleCard title="Your Diet Plan" topMargin="mt-2">
       <div className="container mx-auto py-12 px-4">
@@ -26,13 +30,13 @@ export default function DietPlan() {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2">
+        <div className="">
+          <div className="">
             <PlanBuilder />
           </div>
-          <div>
+          {/* <div>
             <DailySummery />
-          </div>
+          </div> */}
         </div>
       </div>
     </TitleCard>

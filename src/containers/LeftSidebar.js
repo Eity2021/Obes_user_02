@@ -1,12 +1,11 @@
-import routes from "../constants/routes/sidebar";
-import { Routes, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SidebarSubmenu from "./SidebarSubmenu";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
 import logo from "../images/logo.png";
-import { useGetProfileQuery } from "../features/profile/profileApi";
 import doctorRoutes from "../constants/routes/doctorSidebar";
 import userRoutes from "../constants/routes/sidebar";
+
 function LeftSidebar() {
   const location = useLocation();
 
@@ -14,10 +13,8 @@ function LeftSidebar() {
     document.getElementById("left-sidebar-drawer").click();
   };
 
-const auth = JSON.parse(localStorage.getItem("auth"));
-const role = auth?.role;
-    console.log("role", role)
-     const routes = auth?.role === "doctor" ? doctorRoutes : userRoutes;
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const routes = auth?.role === "doctor" ? doctorRoutes : userRoutes;
 
   return (
     <div className="drawer-side  z-30  ">
@@ -44,9 +41,7 @@ const role = auth?.role;
                 <Link
                   end
                   to={route.path}
-                    className={({isActive}) => `${isActive ? 'font-semibold  ' : 'font-normal'}`}
-               
-                >
+                  className={({ isActive }) => `${isActive ? 'font-semibold  ' : 'font-normal'}`}>
                   {route.icon} {route.name}
                   {location.pathname === route.path ? (
                     <span
