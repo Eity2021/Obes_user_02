@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateBmiMutation } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
-import { TrendingUpDown, Calculator } from 'lucide-react';
+import { TrendingUpDown, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 function BmiCalculator() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
+  console.log(" calories", calories);
   const { data: profile } = useGetProfileQuery();
-  console.log("role", profile)
-  console.log("role", profile?.data?.ogender)
+  console.log("role", profile);
+  // console.log("role", profile?.data?.ogender)
   const [createBmi, { isLoading, error }] = useCreateBmiMutation();
 
   const {
@@ -24,70 +25,64 @@ function BmiCalculator() {
     formState: { errors },
   } = useForm();
 
-useEffect(() => {
-  if (weight > 0 && height > 0) {
-    const bmiValue = (weight * 703) / (height * height);
-    const formattedBMI = bmiValue.toFixed(2);
-    const bmiCategory = getBMICategory(formattedBMI);
-    setBmi(formattedBMI);
-    setValue("bmi", formattedBMI);
-    setValue("category", bmiCategory.category);
+  useEffect(() => {
+    if (weight > 0 && height > 0) {
+      const bmiValue = (weight * 703) / (height * height);
+      const formattedBMI = bmiValue.toFixed(2);
+      const bmiCategory = getBMICategory(formattedBMI);
+      setBmi(formattedBMI);
+      setValue("bmi", formattedBMI);
+      setValue("category", bmiCategory.category);
 
-    const gender = profile?.data?.ogender; 
-    let calResult = 0;
-    if (gender === "male") {
-      calResult = weight * 15 - 500;
+      const gender = profile?.data?.ogender;
+      let calResult = 0;
+      if (gender === "male") {
+        calResult = weight * 15 - 500;
+      } else {
+        calResult = weight * 13 - 500;
+      }
+      setCalories(calResult);
+      setValue("calory", calResult);
     } else {
-      calResult = weight * 13 - 500;
+      setBmi("");
+      setValue("bmi", "");
+      setValue("category", "");
+      setValue("calory", "");
     }
-    setCalories(calResult);
-    setValue("calory", calResult);
+  }, [weight, height, setValue]);
 
-
-
-  } else {
-    setBmi("");
-    setValue("bmi", "");
-    setValue("category", "");
-    setValue("calory", "");
-  }
-}, [weight, height, setValue]);
-
-
-
- 
   const onSubmit = async (formData) => {
-    console.log("bmiData",formData);
+    console.log("bmiData", formData);
 
-   try{
-        const submissionData = {
+    try {
+      const submissionData = {
         user_id: formData.user_id,
         weight: formData.weight,
         height: formData.height,
         bmi: formData.bmi,
         category: formData.category,
-
+        calory: formData.calory,
       };
 
       const role = profile?.data?.role;
       const response = await createBmi({ data: submissionData, role });
-        
-      if (response?.data?.status === 200) {
-          toast.success(response?.data?.message);
-          reset();
-          navigate("/bmi");
-        } else {
-          toast.error(response?.data?.message || "Submission failed. Please try again.");
-        }
-  
-      } catch (error) {
-        console.error("Submission error:", error);
-        toast.error(error?.response?.data?.message || "Failed to submit answer.");
-      }
 
+      if (response?.data?.status === 200) {
+        toast.success(response?.data?.message);
+        reset();
+        navigate("/bmi");
+      } else {
+        toast.error(
+          response?.data?.message || "Submission failed. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error(error?.response?.data?.message || "Failed to submit answer.");
+    }
   };
 
-   const getBMICategory = (bmi) => {
+  const getBMICategory = (bmi) => {
     if (bmi < 18.5)
       return {
         category: "Underweight",
@@ -116,7 +111,9 @@ useEffect(() => {
           <Calculator className="h-6 w-6 text-primary" />
           BMI Calculator
         </h2>
-        <p className="text-sm text-gray-500 mt-1">Track your BMI changes over time</p>
+        <p className="text-sm text-gray-500 mt-1">
+          Track your BMI changes over time
+        </p>
       </div>
 
       <div className="grid  grid-cols-2 px-12 h-[100%] ">
@@ -126,7 +123,6 @@ useEffect(() => {
               <div className="bg-primary p-8 rounded-t-lg">
                 <h2 className="card-title text-white font-bold">
                   BMI Calculator (Imperial)
-
                 </h2>
                 <p className="text-sm text-whiteGraph">
                   Calculate your Body Mass Index
@@ -148,7 +144,6 @@ useEffect(() => {
                       />
                     </div>
                   )}
-
 
                   <div className="form-control mt-2">
                     <label className="label">
@@ -209,13 +204,13 @@ useEffect(() => {
                     </div>
                   )}
 
-                  <div className="form-control mt-4">
+                  <div className="form-control mt-4 hidden">
                     <input
                       type="number"
                       placeholder="e.g. 175 inches"
                       name="calory"
                       {...register("calory", { required: true })}
-                       value={calories || ""}
+                      value={calories || ""}
                       // onChange={(e) => setHeight(e.target.value)}
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
@@ -242,7 +237,6 @@ useEffect(() => {
           {bmi !== null && (
             <div className="mt-6 bg-base-100 rounded-xl p-4 shadow border">
               <div className="flex items-center gap-4">
-
                 <TrendingUpDown />
 
                 <h3 className="text-left font-bold text-[28px] ">
@@ -261,8 +255,9 @@ useEffect(() => {
               </div>
 
               <p
-                className={`text-center  text-[30px] font-bold ${getBMICategory(bmi).color
-                  }`}
+                className={`text-center  text-[30px] font-bold ${
+                  getBMICategory(bmi).color
+                }`}
               >
                 {getBMICategory(bmi).category}
               </p>
@@ -310,7 +305,6 @@ useEffect(() => {
           )}
         </div>
       </div>
-
     </>
   );
 }
