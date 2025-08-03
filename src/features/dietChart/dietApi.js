@@ -12,7 +12,7 @@ export const dietApi = apiSlice.injectEndpoints({
     // }),
 
     getDiet: builder.query({
-      query: ({role,id}) => `/public/api/${role}/bmiu/${id}`,
+      query: ({role,mycalory}) => `/public/api/${role}/dietchartmy/${mycalory}`,
     }),
   }),
 });

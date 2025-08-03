@@ -11,9 +11,8 @@ function BmiCalculator() {
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
-  console.log(" calories", calories);
   const { data: profile } = useGetProfileQuery();
-  console.log("role", profile);
+  // console.log("role", profile);
   // console.log("role", profile?.data?.ogender)
   const [createBmi, { isLoading, error }] = useCreateBmiMutation();
 
@@ -35,11 +34,26 @@ function BmiCalculator() {
       setValue("category", bmiCategory.category);
 
       const gender = profile?.data?.ogender;
+      let result = 0;
       let calResult = 0;
       if (gender === "male") {
-        calResult = weight * 15 - 500;
+        result = Math.floor(weight * 15 - 500);
       } else {
-        calResult = weight * 13 - 500;
+        result = Math.floor(weight * 13 - 500);
+      }
+
+      if (result >= 600 && result <= 1000) {
+        calResult = 1000;
+      } else if (result >= 1001 && result <= 1200) {
+        calResult = 1200;
+      } else if (result >= 1201 && result <= 1300) {
+        calResult = 1300;
+      } else if (result >= 1301 && result <= 1400) {
+        calResult = 1400;
+      } else if (result >= 1401 && result <= 1500) {
+        calResult = 1500;
+      } else {
+        calResult = result;
       }
       setCalories(calResult);
       setValue("calory", calResult);

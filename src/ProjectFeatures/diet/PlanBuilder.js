@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import MealSection from "./MealSection";
-
+import { useGetProfileQuery } from "../../features/profile/profileApi";
+import { useGetDietQuery } from "../../features/dietChart/dietApi";
 export default function PlanBuilder() {
   const [tab, setTab] = useState("breakfast");
+
+ const { data: profile } = useGetProfileQuery();
+     console.log("profile", profile?.data?.mycalory)
+  const {
+    data: bmi,
+    isLoading,
+    isError,
+    error,
+  } = useGetDietQuery({mycalory: profile?.data?.mycalory ,role: profile?.data?.role});
+
 
   return (
     <div className="w-full">
