@@ -322,35 +322,7 @@ function Questions() {
                       ))}
                     </div>
 
-                  ) 
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  :
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  (
+                  ) : (
                     <div>
                       {questions?.map((item, index) => (
                         <div
