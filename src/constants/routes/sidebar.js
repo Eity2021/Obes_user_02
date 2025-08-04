@@ -1,5 +1,5 @@
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
-import { Footprints , FileDiff,ReceiptText ,Captions  ,PictureInPicture2  ,FileText,SquareActivity  ,BookOpenText ,Calculator,LayoutDashboard  , BookCheck    } from 'lucide-react';
+import { Footprints , Salad , FileDiff,ReceiptText ,Captions  ,PictureInPicture2  ,FileText,SquareActivity  ,BookOpenText ,Calculator,LayoutDashboard  , BookCheck    } from 'lucide-react';
 
 const iconClasses = `h-6 w-6`;
 
@@ -55,7 +55,7 @@ const userRoutes  = [
     submenu: [
       {
         path: "/obes/dietPlan",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
+        icon: <Salad  className={iconClasses} />,
         name: "Diet Plan",
       },
 
