@@ -46,11 +46,9 @@ const routes = [
     component: Survey,
   },
   {
-    path: "/stepsOfSeven",
+    path: "obes/stepsOfSeven",
     component: Steps,
   },
-
-
 
   {
     path: "/settings-team",

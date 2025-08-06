@@ -42,12 +42,7 @@ const userRoutes  = [
     ],
   },
 
-  {
-    path: "/stepsOfSeven",
-    icon: <Footprints  className={iconClasses} />,
-    name: "7 Best Practice",
-  },
-
+ 
   {
     path: "obes",
     icon: <BookCheck   className={`${iconClasses} inline`} />,
@@ -58,6 +53,12 @@ const userRoutes  = [
         icon: <Salad  className={iconClasses} />,
         name: "Diet Plan",
       },
+
+ {
+    path: "/obes/stepsOfSeven",
+    icon: <Footprints  className={iconClasses} />,
+    name: "7 Best Practice",
+  },
 
       {
         path: "/obes/exerciseRoutine",

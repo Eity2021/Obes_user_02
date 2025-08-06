@@ -17,8 +17,8 @@ function Questions() {
   const { register, handleSubmit, reset, setValue } = useForm();
 
   const { data: question, isLoading, isError, error } = useGetQuestionQuery(profile?.data?.role);
-   console.log( "question",question)
-    
+  console.log("question", question)
+
   const [createAnswer] = useCreateAnswerMutation();
 
   useEffect(() => {
@@ -62,8 +62,8 @@ function Questions() {
         langtype: formData.langtype,
 
       };
-        const role = profile?.data?.role;
-      const response = await createAnswer({data: submissionData, role});
+      const role = profile?.data?.role;
+      const response = await createAnswer({ data: submissionData, role });
 
       if (response?.data?.status === 201) {
         toast.success(response?.data?.message);
@@ -418,7 +418,7 @@ function Questions() {
                                   <select defaultValue="" className="select w-full font-poppins text-[18px]"
                                     onChange={(e) => updateAnswer(item.qid, e.target.value)}>
                                     <option disabled value="">
-                                     একটি মান নির্বাচন করুন
+                                      একটি মান নির্বাচন করুন
                                     </option>
                                     {(() => {
                                       let options = [];
