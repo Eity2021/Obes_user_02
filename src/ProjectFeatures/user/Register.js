@@ -1,25 +1,36 @@
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useForm, Controller } from "react-hook-form";
 import LandingIntro from "./LandingIntro";
-import useNavigator from "../../hooks/useNavigator";
 import { useEffect, useState } from "react";
+import useNavigator from "../../hooks/useNavigator";
+import { useForm, Controller } from "react-hook-form";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import DatePicker from "../../components/datepicker/Datepicker";
-import { toast } from "react-toastify";
 
 function Register() {
   const { handleNavigation } = useNavigator();
   const [selected, setSelected] = useState("user");
   const [showPassword, setShowPassword] = useState(false);
   const [smsNumber, setSmsNumber] = useState(null);
+  const [error, setError] = useState("");
+  const [showCalendar, setShowCalendar] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
 
   const handleSmsNumber = (e) => {
     const newValue = e.target.value;
     setSmsNumber(newValue);
+    setValue("smsmobile", newValue)
   };
 
-  const [error, setError] = useState("");
-  const [showCalendar, setShowCalendar] = useState(false);
+
   const [resRegister, { data, isLoading, error: resError }] =
     useRegisterMutation();
 
@@ -33,12 +44,7 @@ function Register() {
     }
   }, [data, handleNavigation, resError]);
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm();
+
 
   const onSubmit = (formData) => {
     console.log("data", formData);
@@ -123,6 +129,7 @@ function Register() {
                     </label>
                     <input
                       value={smsNumber}
+                      onChange={handleSmsNumber}
                       name="smsmobile"
                       type="number"
                       autoComplete="smsmobile"

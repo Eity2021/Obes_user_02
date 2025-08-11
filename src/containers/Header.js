@@ -42,7 +42,8 @@ function Header() {
         window.location.href = '/'
     }
 
-      const { data: profile} = useGetProfileQuery();
+    const auth = JSON.parse(localStorage.getItem("auth"));
+    const { data: profile } = useGetProfileQuery(auth?.role);
 
     return (
         // navbar fixed  flex-none justify-between bg-base-300  z-10 shadow-md
@@ -83,13 +84,13 @@ function Header() {
                     <div className="dropdown dropdown-end ml-4">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src={profile?.data?.imgpath}  alt="profile" />
+                                <img src={profile?.data?.imgpath} alt="profile" />
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li className="justify-between">
                                 <Link to={'/profile'}>
-                                    Profile Settings
+                                    Profile
                                     <span className="badge">New</span>
                                 </Link>
                             </li>

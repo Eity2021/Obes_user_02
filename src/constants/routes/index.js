@@ -1,13 +1,14 @@
 // All components mapping with path for internal routes
 
 import { lazy } from "react";
+const Education = lazy(() => import("../../ProjectFeatures/education"));
 const Dashboard = lazy(() => import("../../pages/obes/protected/Dashboard"));
 const Page404 = lazy(() => import("../../pages/obes/protected/404"));
 const Blank = lazy(() => import("../../pages/obes/protected/Blank"));
 const Health = lazy(() => import("../../pages/obes/protected/Health"))
 const Bmi = lazy(() => import("../../pages/obes/protected/Bmi"));
 const Questions = lazy(() => import("../../pages/obes/protected/ObesQuestion"));
-const Team = lazy(() => import("../../pages/obes/protected/Team"));
+const Motivation = lazy(() => import("../../pages/obes/protected/Motivation"));
 const DietPlan = lazy(() => import("../../pages/obes/protected/DietPlan"));
 const Steps = lazy(() => import("../../pages/obes/protected/Steps"));
 const ExerciseRoutine = lazy(() => import("../../pages/obes/protected/ExerciseRoutine"));
@@ -51,13 +52,17 @@ const routes = [
   },
 
   {
-    path: "/settings-team",
-    component: Team,
+    path: "obes/motivation",
+    component: Motivation,
   },
 
   {
     path: "obes/dietPlan",
     component: DietPlan,
+  },
+  {
+    path: "obes/education",
+    component: Education,
   },
 
   {
