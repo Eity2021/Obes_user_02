@@ -5,6 +5,7 @@ import rightDrawerSlice from '../ProjectFeatures/common/rightDrawerSlice';
 import authSliceReducer from "../features/auth/authSlice";
 import profileSliceReducer from "../features/profile/profileSlice";
 import bmiSliceReducer from "../features/bmi/bmiSlice";
+import videosSliceReducer from "../features/videos/videosSlice";
 import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
 import stepsSliceReducer from "../features/steps/stepsSlice";
@@ -17,6 +18,7 @@ reducer:{
   auth: authSliceReducer,
   profile:profileSliceReducer,
   bmi:bmiSliceReducer,
+  videos:videosSliceReducer,
   question:questionSliceReducer,
   answer:answerSliceReducer,
   steps:stepsSliceReducer,

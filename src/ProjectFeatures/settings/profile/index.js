@@ -7,7 +7,7 @@ function Profile() {
 
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
-  console.log("user", profile)
+
 
 
   const formatDate = (dateString) => {

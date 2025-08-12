@@ -1,5 +1,5 @@
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
-import { Footprints, Salad, FileDiff, ReceiptText, Captions, PictureInPicture2, FileText, SquareActivity, BookOpenText, Calculator, LayoutDashboard, BookCheck,BookText  } from 'lucide-react';
+import { TruckElectric, Salad, FileDiff, ReceiptText, Captions, PictureInPicture2,ChartNoAxesGantt , HandCoins  ,PersonStanding , SquareActivity, BookOpenText, Calculator, LayoutDashboard, BookCheck,BookText  } from 'lucide-react';
 
 const iconClasses = `h-6 w-6`;
 
@@ -56,30 +56,30 @@ const userRoutes = [
 
       {
         path: "/obes/stepsOfSeven",
-        icon: <Footprints className={iconClasses} />,
+        icon: <ChartNoAxesGantt  className={iconClasses} />,
         name: "7 Best Practice",
       },
 
       {
         path: "/obes/education",
-        icon: <Footprints className={iconClasses} />,
+        icon: <BookOpenText className={iconClasses} />,
         name: "Obes Education",
       },
 
       {
         path: "/obes/motivation",
-        icon: <BookOpenText className={iconClasses} />,
+        icon: <HandCoins  className={iconClasses} />,
         name: "Obes Motivation",
       },
 
       {
         path: "/obes/exerciseRoutine",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
+        icon: <PersonStanding  className={iconClasses} />,
         name: "Exercise Routine",
       },
       {
         path: "/obes/dailyTrack",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
+        icon: <TruckElectric className={iconClasses} />,
         name: "Daily Track",
       },
       {
