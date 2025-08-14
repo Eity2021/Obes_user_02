@@ -66,12 +66,7 @@ const userRoutes = [
         name: "Obes Education",
       },
 
-      {
-        path: "/obes/motivation",
-        icon: <HandCoins  className={iconClasses} />,
-        name: "Obes Motivation",
-      },
-
+    
       {
         path: "/obes/exerciseRoutine",
         icon: <PersonStanding  className={iconClasses} />,

@@ -1,12 +1,12 @@
 import { BookOpen } from "lucide-react";
 
-export default function BmiInfo() {
+export default function LifeModification() {
   return (
     <>
       <div className="p-6 border-b border-gray-200">
         <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-800">
           <BookOpen className="h-6 w-6 text-primary" />
-          BMI Information
+          BMI Information 2
         </h2>
         <p className="text-sm text-gray-500 mt-1">
           Track your BMI changes over time

@@ -15,8 +15,8 @@ function Questions() {
   const { data: profile } = useGetProfileQuery();
   console.log("profile,", profile?.data?.role);
   const { register, handleSubmit, reset, setValue } = useForm();
-
-  const { data: question, isLoading, isError, error } = useGetQuestionQuery(profile?.data?.role);
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const { data: question, isLoading, isError, error } = useGetQuestionQuery(auth?.role);
   console.log("question", question)
 
   const [createAnswer] = useCreateAnswerMutation();

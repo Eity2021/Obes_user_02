@@ -1,43 +1,89 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import Motivation from "./Motivation";
+import Assessment from "./Assessment";
+import ObeEducation from "./ObeEducation";
+import LifeModification from "./LifeModification";
 import TitleCard from "../../components/Cards/TitleCard";
+import { Calculator, Clock, PencilOff, Hand } from "lucide-react";
+import { useGetEduQuery } from "../../features/education/educationApi";
+import { useGetProfileQuery } from "../../features/profile/profileApi";
 
-import { Calculator, Clock, Info } from "lucide-react";
 function Education() {
- const [activeTab, setActiveTab] = useState('calculator');
+  const [activeTab, setActiveTab] = useState('Assessment');
+
+
+  const auth = JSON.parse(localStorage.getItem("auth"));
+
+  const { data: profile } = useGetProfileQuery(auth?.role);
+  
+  console.log("profile" , profile?.data?.dob);
+
+
+    const dob = profile?.data?.dob;
+    let age = null;
+
+if (dob) {
+  const birthYear = new Date(dob).getFullYear();
+  const currentYear = new Date().getFullYear();
+  age = currentYear - birthYear;
+}
+
+console.log("Age:", age);
+  const {
+    data: educationList,
+    isLoading,
+    isError,
+    error,
+  } = useGetEduQuery(auth?.role);
+ 
+  // console.log("educationList ", educationList)
+const iconMap = {
+  Assessment: <Calculator className="w-4 h-4 mr-1" />,
+  Education: <Clock className="w-4 h-4 mr-1" />,
+  Motivation: <Hand className="w-4 h-4 mr-1" />,
+  LifeModification: <PencilOff className="w-4 h-4 mr-1" />
+};
+
+const filteredData = educationList?.data?.filter(item => item.modtype === activeTab) || [];
+
+const tabs = Array.from(new Set(educationList?.data?.map(item => item.modtype)));
+
+useEffect(() => {
+  if (tabs.length > 0 && !activeTab) {
+    setActiveTab(tabs[0]);
+  }
+}, [tabs, activeTab]);
+
+
   return (
     <>
       <TitleCard title="BMI" topMargin="mt-2">
-        <div className=" mt-4 w-full">
-      <div className="grid  grid-cols-3 tabs bg-base-200 rounded-[10px]">
-        <a
-          className={`tab tab-bordered text-[15px] ${activeTab === 'calculator' ? 'tab-active rounded-[10px] bg-primary text-[15px] font-medium text-white' : ''}`}
-          onClick={() => setActiveTab('calculator')}
-        >
-          <Calculator className="w-4 h-4 mr-1" /> Calculator
-        </a>
-        <a
-          className={`tab tab-bordered text-[15px] ${activeTab === 'history' ? 'tab-active rounded-[10px] bg-primary text-[15px] font-medium text-white' : ''}`}
-          onClick={() => setActiveTab('history')}
-        >
-          <Clock className="w-4 h-4 mr-1" />History
-        </a>
-        <a
-          className={`tab tab-bordered text-[15px] ${activeTab === 'info' ? 'tab-active rounded-[10px] bg-primary text-[15px] font-medium text-white' : ''}`}
-          onClick={() => setActiveTab('info')}
-        >
-          <Info className="w-4 h-4 mr-1" /> Information
-        </a>
-      </div>
-    </div>
+        <div className=" mt-4 w-full ">
+          <div className="grid  grid-cols-4 tabs bg-base-200 rounded-[10px]">
+ 
 
-
-{/*     
-      <div className="mt-4" >
-        {activeTab === 'calculator' && <BmiCalculator />}
-        {activeTab === 'history' && <BmiList />}
-        {activeTab === 'info' && <BmiInfo />}
-      </div> */}
+            {tabs.map((tab) => (
+      <a
+        key={tab}
+        className={`tab tab-bordered h-[50px] leading-[50px] text-[15px] 
+          ${activeTab === tab
+            ? "tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white"
+            : ""
+          }`}
+        onClick={() => setActiveTab(tab)}
+      >
+       {iconMap[tab] || null} 
+        {tab}
+      </a>
+    ))}
+          </div>
+        </div>
+        <div className="mt-4" >
+          {activeTab === 'Assessment' && <Assessment filteredData={filteredData} age={age} />}
+          {activeTab === 'Education' && <ObeEducation filteredData={filteredData} age={age}/>}
+          {activeTab === 'Motivation' && <Motivation filteredData={filteredData} age={age}/>}
+          {activeTab === ' LifeModification' && <LifeModification filteredData={filteredData} age={age}/>}
+        </div>
 
       </TitleCard>
     </>
@@ -45,3 +91,33 @@ function Education() {
 }
 
 export default Education;
+
+
+
+
+
+
+           {/* <a
+              className={`tab tab-bordered h-[50px] leading-[50px] text-[15px] ${activeTab === 'Assessment' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
+              onClick={() => setActiveTab('Assessment')}
+            >
+              <Calculator className="w-4 h-4 mr-1" /> Assessment
+            </a>
+            <a
+              className={`tab tab-bordered  h-[50px] leading-[50px] text-[15px] ${activeTab === 'Education' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
+              onClick={() => setActiveTab('Education')}
+            >
+              <Clock className="w-4 h-4 mr-1" />Education
+            </a>
+            <a
+              className={`tab tab-bordered  h-[50px] leading-[50px] text-[15px] ${activeTab === 'Motivation' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
+              onClick={() => setActiveTab('Motivation')}
+            >
+              <Hand className="w-4 h-4 mr-1" /> Motivation
+            </a>
+            <a
+              className={`tab tab-bordered  h-[50px] leading-[50px] text-[15px] ${activeTab === 'LifeModification' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
+              onClick={() => setActiveTab(' LifeModification')}
+            >
+              <PencilOff className="w-4 h-4 mr-1" />  Life Modification
+            </a> */}

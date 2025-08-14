@@ -2,7 +2,7 @@ import TitleCard from "../../components/Cards/TitleCard";
 import { useGetBmiQuery } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { History, User } from "lucide-react";
-export default function BmiList() {
+export default function Motivation() {
   const { data: profile } = useGetProfileQuery();
   const {
     data: bmi,

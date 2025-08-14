@@ -8,6 +8,7 @@ import bmiSliceReducer from "../features/bmi/bmiSlice";
 import videosSliceReducer from "../features/videos/videosSlice";
 import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
+import educationSliceReducer from "../features/education/educationSlice";
 import stepsSliceReducer from "../features/steps/stepsSlice";
 import dietSliceReducer from "../features/dietChart/dietSlice";
 import { apiSlice } from '../features/api/apiSlice';
@@ -20,6 +21,7 @@ reducer:{
   bmi:bmiSliceReducer,
   videos:videosSliceReducer,
   question:questionSliceReducer,
+  education:educationSliceReducer,
   answer:answerSliceReducer,
   steps:stepsSliceReducer,
   diet:dietSliceReducer,

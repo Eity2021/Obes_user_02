@@ -8,7 +8,6 @@ const Blank = lazy(() => import("../../pages/obes/protected/Blank"));
 const Health = lazy(() => import("../../pages/obes/protected/Health"))
 const Bmi = lazy(() => import("../../pages/obes/protected/Bmi"));
 const Questions = lazy(() => import("../../pages/obes/protected/ObesQuestion"));
-const Motivation = lazy(() => import("../../pages/obes/protected/Motivation"));
 const DietPlan = lazy(() => import("../../pages/obes/protected/DietPlan"));
 const Steps = lazy(() => import("../../pages/obes/protected/Steps"));
 const ExerciseRoutine = lazy(() => import("../../pages/obes/protected/ExerciseRoutine"));
@@ -51,10 +50,7 @@ const routes = [
     component: Steps,
   },
 
-  {
-    path: "obes/motivation",
-    component: Motivation,
-  },
+
 
   {
     path: "obes/dietPlan",
