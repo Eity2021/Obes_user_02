@@ -1,8 +1,6 @@
-import { GraduationCap, BookOpen, AlertTriangle, Heart } from "lucide-react";
+import { History,Target,Calendar } from "lucide-react";
 
 function ObeEducation({ filteredData, age }) {
-  console.log("filteredData", filteredData)
-  console.log("Age:", age);
 
   const items = Array.isArray(filteredData) ? filteredData : [];
 
@@ -11,33 +9,39 @@ function ObeEducation({ filteredData, age }) {
     return age >= 18 ? cat === 'adult' : cat === 'child';
   });
 
-  console.log("visibleItems:", visibleItems);
+
 
     const parseContent = (content) => {
     if (!content) return [];
     return content.split("\n").map((line) => line.trim()).filter(Boolean);
   };
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   return (
     <>
 
- <div className="min-h-screen bg-gradient-to-br from-[rgba(123,30,25,0.1)] to-orange-50 p-4">
-      <div className="max-w-6xl mx-auto space-y-8">
-        
-        {/* HEADER */}
-        <div className="text-center space-y-2 mt-4">
-          <h1 className="text-4xl font-poppins font-bold text-[#7B1E19]">
-            Obesity Education Center
-          </h1>
-          <p className="text-[16px] text-gray-600 font-poppins">
-            Learn about obesity, its risks, and prevention strategies
-          </p>
-
-        </div>
-
-        {/* MODULE CARDS */}
-        <div className="space-y-8">
-          {visibleItems?.map((module, index) => {
+     <div className="h-full  p-4 flex items-center justify-center font-inter">
+          <div className="w-full space-y-6">
+            <div className=" overflow-hidden ">
+              {/* CardHeader Simulation */}
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="flex items-center gap-2 text-xl font-bold text-gray-800">
+                  <History className="h-6 w-6 text-primary" />
+                  Educational Modules
+                </h2>
+                <p className="text-sm text-gray-500 mt-1">
+                  Comprehensive learning materials covering key aspects of obesity and BMI education
+                </p>
+              </div>
+              {/* CardContent Simulation */}
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1  mx-auto my-12">
+           {visibleItems?.map((module, index) => {
             const content = parseContent(module.modinfo);
             const isListContent = content.some((line) => line.match(/^\d+\./));
             const isEven = index % 2 === 0;
@@ -45,13 +49,33 @@ function ObeEducation({ filteredData, age }) {
             return (
               <div
                 key={module.id}
-                className="overflow-hidden shadow-xl border-0 bg-white hover:shadow-2xl transition-all duration-300"
+                className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
+
+
+                   <div className="p-6 border-b border-gray-100">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Calendar className="w-4 h-4" />
+                      {formatDate(module.created_at)}
+                    </div>
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <Target className="w-6 h-6 text-primary" />
+                    {module.topic} Focus Module
+                  </h2>
+                </div>
+
+
+
                 <div
                   className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"} min-h-[400px]`}
                 >
                   {/* IMAGE */}
-                  <div className="lg:w-1/2 relative bg-gradient-to-br from-cyan-100 to-orange-100">
+                
+                  <div className="lg:w-1/2 relative ">
                     <img
                       src={module.mimage}
                       alt={module.id}
@@ -59,7 +83,7 @@ function ObeEducation({ filteredData, age }) {
                       className="object-cover"
                 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                    <div className="absolute " />
                     <div className="absolute bottom-6 left-6 text-white">
                       {/* <span className="inline-block bg-white/20 text-white border border-white/30 px-3 py-1 rounded-md text-sm">
                         {module.modnum}
@@ -104,10 +128,10 @@ function ObeEducation({ filteredData, age }) {
               </div>
             );
           })}
+              </div>
+            </div>
+          </div>
         </div>
- 
-      </div>
-    </div>
     </>
   );
 }

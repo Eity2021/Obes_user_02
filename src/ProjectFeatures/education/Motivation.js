@@ -1,96 +1,137 @@
-import TitleCard from "../../components/Cards/TitleCard";
-import { useGetBmiQuery } from "../../features/bmi/bmiApi";
-import { useGetProfileQuery } from "../../features/profile/profileApi";
-import { History, User } from "lucide-react";
-export default function Motivation() {
-  const { data: profile } = useGetProfileQuery();
-  const {
-    data: bmi,
-    isLoading,
-    isError,
-    error,
-  } = useGetBmiQuery({ id: profile?.data?.id ,role: profile?.data?.role}, { skip: !profile?.data?.id });
-  const getBMIColor = (category) => {
-    switch (category) {
-      case "Underweight":
-        return "bg-yellow-100 text-yellow-800";
-      case "Normal weight":
-        return "bg-green-100 text-green-800";
-      case "Overweight":
-        return "bg-orange-100 text-orange-800";
-      case "Obesity":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+import { History, Calendar, Target } from "lucide-react";
+
+export default function Motivation({ age, filteredData }) {
+
+
+  const items = Array.isArray(filteredData) ? filteredData : [];
+
+  const visibleItems = items.filter(item => {
+    const cat = String(item.category || '').toLowerCase();
+    return age >= 18 ? cat === 'adult' : cat === 'child';
+  });
+
+
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   };
+
+
+  const parseContent = (content) => {
+    if (!content) return [];
+    return content.split("\n").map((line) => line.trim()).filter(Boolean);
+  };
+
   return (
-    <div className="h-full bg-gray-50 p-4 flex items-center justify-center font-inter">
+    <div className="h-full  p-4 flex items-center justify-center font-inter">
       <div className="w-full space-y-6">
-        <div className="bg-white rounded-lg shadow-md overflow-hidden ">
+        <div >
           {/* CardHeader Simulation */}
           <div className="p-6 border-b border-gray-200">
             <h2 className="flex items-center gap-2 text-xl font-bold text-gray-800">
               <History className="h-6 w-6 text-primary" />
-              BMI History
+              Health & Wellness Motivation
             </h2>
             <p className="text-sm text-gray-500 mt-1">
-              Track your BMI changes over time
+              Discover personalized motivation modules designed to support your journey toward better health and wellness.
             </p>
           </div>
-
           {/* CardContent Simulation */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1 mx-auto my-12">
+            {visibleItems?.map((module,index) => {
+          const content = parseContent(module?.modinfo);
+            const isListContent = content.some((line) => line.match(/^\d+\./));
+            const isEven = index % 2 === 0;
 
-          <div className="p-6">
-            <div className="space-y-4">
-              {bmi?.data?.length > 0 ? (
-                bmi.data.map((entry, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-                  >
+return (
+  
+              <div
+                key={module?.id}
+                className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                {/* Header */}
+                <div className="p-6 border-b border-gray-100">
+                  <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="h-10 w-10 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "rgba(123, 30, 25, 0.2)" }}
-                      >
-                        <User className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {entry.recorded_at}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          BMI:{" "}
-                          <span className="font-semibold">{entry.bmi}</span>
-                        </p>
-                      </div>
                     </div>
-
-                    <div>
-                      <p className="text-sm text-gray-600">
-                        Height: {entry.height} Feet
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        Weight: {entry.weight} lbs
-                      </p>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Calendar className="w-4 h-4" />
+                      {formatDate(module?.created_at)}
                     </div>
-
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getBMIColor(
-                        entry.category
-                      )}`}
-                    >
-                      {entry.category}
-                    </span>
                   </div>
-                ))
-              ) : (
-                <div className="text-center text-gray-500">
-                  No BMI records found.
+                  <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <Target className="w-6 h-6 text-primary" />
+                    {module?.topic} Focus Module
+                  </h2>
                 </div>
-              )}
-            </div>
+                {/* Content */}
+                <div className="p-6 space-y-6">
+                  {/* className="grid md:grid-cols-2 gap-6 items-center"  */}
+                  <div  className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"} min-h-[400px]`}>
+                    <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-100">
+                      <img
+                        src={module?.mimage || "/placeholder.svg"}
+                        alt={`${module?.topic} motivation module`}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+
+
+                    {/* <div className="space-y-4 ">
+                      <div className="bg-gray-100 p-4 rounded-lg ">
+                        <h3 className="font-semibold text-gray-900 mb-2">
+                          Motivation Focus:
+                        </h3>
+                        <div className="text-gray-700 leading-relaxed">
+                          {formatModuleInfo(module.modinfo)}
+                        </div>
+                      </div>
+                    </div> */}
+
+                <div className="lg:w-1/2 flex flex-col justify-center">
+                    <div className="p-8 lg:p-12 space-y-6">
+                      <div className="space-y-4">
+                        {/* <h3 className="text-3xl font-serif font-bold text-cyan-800">
+                          {getModuleTitle(module.id)}
+                        </h3> */}
+
+                        {isListContent ? (
+                          <div className="space-y-4">
+                            <p className="text-lg font-sans font-semibold text-gray-900">
+                              {content[0]}
+                            </p>
+                            <ul className="space-y-3">
+                              {content.slice(1).map((item, idx) => (
+                                <li key={idx} className="text-gray-700 font-sans flex items-start gap-3">
+                                  <span className="text-orange-500 font-bold text-lg">•</span>
+                                  <span className="leading-relaxed">
+                                    {item?.replace(/^\d+\.\s*/, "")}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : (
+                          <p className="text-lg text-gray-700 font-sans leading-relaxed">
+                            {content[0]}
+                          </p>
+                        )}
+                      </div>
+                   
+                    </div>
+                  </div>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+)
+})}
           </div>
         </div>
       </div>

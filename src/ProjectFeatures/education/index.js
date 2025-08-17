@@ -16,8 +16,6 @@ function Education() {
 
   const { data: profile } = useGetProfileQuery(auth?.role);
   
-  console.log("profile" , profile?.data?.dob);
-
 
     const dob = profile?.data?.dob;
     let age = null;
@@ -28,7 +26,7 @@ if (dob) {
   age = currentYear - birthYear;
 }
 
-console.log("Age:", age);
+
   const {
     data: educationList,
     isLoading,
@@ -36,7 +34,7 @@ console.log("Age:", age);
     error,
   } = useGetEduQuery(auth?.role);
  
-  // console.log("educationList ", educationList)
+// console.log("educationList ", educationList)
 const iconMap = {
   Assessment: <Calculator className="w-4 h-4 mr-1" />,
   Education: <Clock className="w-4 h-4 mr-1" />,
@@ -82,7 +80,7 @@ useEffect(() => {
           {activeTab === 'Assessment' && <Assessment filteredData={filteredData} age={age} />}
           {activeTab === 'Education' && <ObeEducation filteredData={filteredData} age={age}/>}
           {activeTab === 'Motivation' && <Motivation filteredData={filteredData} age={age}/>}
-          {activeTab === ' LifeModification' && <LifeModification filteredData={filteredData} age={age}/>}
+          {activeTab === 'Life Style Modification' && <LifeModification filteredData={filteredData} age={age}/>}
         </div>
 
       </TitleCard>

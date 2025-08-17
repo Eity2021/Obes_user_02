@@ -4,8 +4,7 @@ import { BookOpen } from "lucide-react";
 
 
 export default function Assessment({ filteredData, age }) {
-  console.log("filteredData", filteredData)
-  console.log("Age:", age);
+
 
   const items = Array.isArray(filteredData) ? filteredData : [];
 
@@ -13,8 +12,6 @@ export default function Assessment({ filteredData, age }) {
     const cat = String(item.category || '').toLowerCase();
     return age >= 18 ? cat === 'adult' : cat === 'child';
   });
-
-  console.log("visibleItems:", visibleItems);
 
 
 

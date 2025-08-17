@@ -1,83 +1,111 @@
-import { BookOpen } from "lucide-react";
+import { Calendar, Target, History } from "lucide-react";
 
-export default function LifeModification() {
+export default function LifeModification({ age, filteredData }) {
+
+  const items = Array.isArray(filteredData) ? filteredData : [];
+  const visibleItems = items.filter(item => {
+    const cat = String(item.category || '').toLowerCase();
+    return age >= 18 ? cat === 'adult' : cat === 'child';
+  });
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  const parseContent = (content) => {
+    if (!content) return [];
+    return content.split("\n").map((line) => line.trim()).filter(Boolean);
+  };
+
   return (
     <>
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-800">
-          <BookOpen className="h-6 w-6 text-primary" />
-          BMI Information 2
-        </h2>
-        <p className="text-sm text-gray-500 mt-1">
-          Track your BMI changes over time
-        </p>
-      </div>
-
-      <div className="space-y-6">
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* BMI Categories Card */}
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title">BMI Categories</h2>
-              <p className="text-sm text-gray-500 mb-4">
-                Understanding BMI ranges and what they mean
+      <div className="h-full  p-4 flex items-center justify-center font-inter">
+        <div className="w-full space-y-6">
+          <div >
+            {/* CardHeader Simulation */}
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="flex items-center gap-2 text-xl font-bold text-gray-800">
+                <History className="h-6 w-6 text-primary" />
+                Life Style Modification
+              </h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Life Style Modification includes healthy eating, regular exercise, good sleep, stress control, avoiding smoking, and positive habits for better health
               </p>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center p-3 rounded-lg bg-blue-50">
-                  <span className="font-medium">Underweight</span>
-                  <span className="text-blue-600">&lt; 18.5</span>
-                </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-green-50">
-                  <span className="font-medium">Normal weight</span>
-                  <span className="text-green-600">18.5 - 24.9</span>
-                </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-yellow-50">
-                  <span className="font-medium">Overweight</span>
-                  <span className="text-yellow-600">25 - 29.9</span>
-                </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-red-50">
-                  <span className="font-medium">Obesity</span>
-                  <span className="text-red-600">&ge; 30</span>
-                </div>
-              </div>
             </div>
-          </div>
+            {/* CardContent Simulation */}
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1 mx-auto my-12">
+              {visibleItems?.map((module, index) => {
+                const content = parseContent(module?.modinfo);
+                const isListContent = content.some((line) => line.match(/^\d+\./));
+                const isEven = index % 2 === 0;
 
-          {/* Important Notes Card */}
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title text-[25px]">Important Notes</h2>
-              <span className="text-sm text-gray-500 mb-1">
-                Things to keep in mind about BMI
-              </span>
-              <div className="space-y-3 text-sm">
-                <div className="flex gap-3">
-                  <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0 " />
-                  <p className="text-[15px] font-[poppins]">
-                    BMI is a screening tool, not a diagnostic tool for body
-                    fatness or health.
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0 " />
-                  <p className="text-[15px] font-[poppins]">
-                    It may not be accurate for athletes with high muscle mass.
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0 " />
-                  <p className="text-[15px] font-[poppins]">
-                    Consult healthcare providers for personalized health
-                    assessments.
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0 " />
-                  <p className="text-[15px] font-[poppins]">
-                    BMI calculations may vary for children and older adults.
-                  </p>
-                </div>
-              </div>
+                return (
+                  <div
+                    key={module?.id}
+                    className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    {/* Header */}
+                    <div className="p-6 border-b border-gray-100">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                          <Calendar className="w-4 h-4" />
+                          {formatDate(module?.created_at)}
+                        </div>
+                      </div>
+                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                        <Target className="w-6 h-6 text-primary" />
+                        {module?.topic} Focus Module
+                      </h2>
+                    </div>
+                    {/* Content */}
+                    <div className="p-6 space-y-6">
+
+                      <div className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"} min-h-[400px]`}>
+                        <div className="relative aspect-video rounded-lg overflow-hidden bg-gray-100">
+                          <img
+                            src={module?.mimage || "/placeholder.svg"}
+                            alt={`${module?.topic} motivation module`}
+                            className="object-cover w-full h-full"
+                          />
+                        </div>
+                        <div className="lg:w-1/2 flex flex-col justify-center">
+                          <div className="p-8 lg:p-12 space-y-6">
+                            <div className="space-y-4">
+
+                              {isListContent ? (
+                                <div className="space-y-4">
+                                  <p className="text-lg font-sans font-semibold text-gray-900">
+                                    {content[0]}
+                                  </p>
+                                  <ul className="space-y-3">
+                                    {content.slice(1).map((item, idx) => (
+                                      <li key={idx} className="text-gray-700 font-sans flex items-start gap-3">
+                                        <span className="text-orange-500 font-bold text-lg">•</span>
+                                        <span className="leading-relaxed">
+                                          {item?.replace(/^\d+\.\s*/, "")}
+                                        </span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ) : (
+                                <p className="text-lg text-gray-700 font-sans leading-relaxed">
+                                  {content[0]}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
