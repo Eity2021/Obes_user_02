@@ -89,33 +89,3 @@ useEffect(() => {
 }
 
 export default Education;
-
-
-
-
-
-
-           {/* <a
-              className={`tab tab-bordered h-[50px] leading-[50px] text-[15px] ${activeTab === 'Assessment' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
-              onClick={() => setActiveTab('Assessment')}
-            >
-              <Calculator className="w-4 h-4 mr-1" /> Assessment
-            </a>
-            <a
-              className={`tab tab-bordered  h-[50px] leading-[50px] text-[15px] ${activeTab === 'Education' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
-              onClick={() => setActiveTab('Education')}
-            >
-              <Clock className="w-4 h-4 mr-1" />Education
-            </a>
-            <a
-              className={`tab tab-bordered  h-[50px] leading-[50px] text-[15px] ${activeTab === 'Motivation' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
-              onClick={() => setActiveTab('Motivation')}
-            >
-              <Hand className="w-4 h-4 mr-1" /> Motivation
-            </a>
-            <a
-              className={`tab tab-bordered  h-[50px] leading-[50px] text-[15px] ${activeTab === 'LifeModification' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
-              onClick={() => setActiveTab(' LifeModification')}
-            >
-              <PencilOff className="w-4 h-4 mr-1" />  Life Modification
-            </a> */}

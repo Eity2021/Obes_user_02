@@ -3,8 +3,8 @@ import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useGetAnswerListQuery } from "../../features/answer/answerApi";
 
 function Survey() {
-  const { data: profile } = useGetProfileQuery();
- const auth = JSON.parse(localStorage.getItem("auth"));
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const { data: profile } = useGetProfileQuery(auth?.role);
   const {
     data: surveyList,
     isLoading,
@@ -18,8 +18,8 @@ function Survey() {
       <TitleCard title="List Of Survey" topMargin="mt-2">
         <div>
           <div className=" mx-auto p-6 space-y-6">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Obesity List Of Survey</h1>
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2 font-poppins">Obesity List Of Survey</h1>
               <p className="text-gray-600">Quiz Results & Responses</p>
             </div>
             {surveyList?.data?.map((item) => (
