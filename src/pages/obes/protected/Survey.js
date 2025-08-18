@@ -7,7 +7,7 @@ function InternalPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPageTitle({ title: "Bmi" }));
+    dispatch(setPageTitle({ title: "Survey" }));
   }, []);
 
   return (

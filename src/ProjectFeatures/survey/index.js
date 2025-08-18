@@ -4,13 +4,13 @@ import { useGetAnswerListQuery } from "../../features/answer/answerApi";
 
 function Survey() {
   const { data: profile } = useGetProfileQuery();
-
+ const auth = JSON.parse(localStorage.getItem("auth"));
   const {
     data: surveyList,
     isLoading,
     isError,
     error,
-  } = useGetAnswerListQuery({ id: profile?.data?.id ,role: profile?.data?.role}, { skip: !profile?.data?.id });
+  } = useGetAnswerListQuery({ id: profile?.data?.id ,role: auth?.role}, { skip: !profile?.data?.id });
 
 
   return (

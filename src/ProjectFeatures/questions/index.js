@@ -12,12 +12,12 @@ function Questions() {
   const [currentStep, setCurrentStep] = useState(1);
   const [answerList, setAnswerList] = useState([]);
   const [language, setLanguage] = useState("en");
-  const { data: profile } = useGetProfileQuery();
-  console.log("profile,", profile?.data?.role);
-  const { register, handleSubmit, reset, setValue } = useForm();
   const auth = JSON.parse(localStorage.getItem("auth"));
+  const { data: profile } = useGetProfileQuery(auth?.role);
+  console.log("profile,", profile?.data);
+  const { register, handleSubmit, reset, setValue } = useForm();
   const { data: question, isLoading, isError, error } = useGetQuestionQuery(auth?.role);
-  console.log("question", question)
+  // console.log("question", question)
 
   const [createAnswer] = useCreateAnswerMutation();
 
@@ -144,7 +144,7 @@ function Questions() {
             <div className="card-body">
 
               <div className="space-y-4">
-                <div className="hidden">
+                <div className="                          ">
                   {profile?.data?.id && (
                     <div className="form-control mt-2">
                       <label className="label">
@@ -189,6 +189,107 @@ function Questions() {
                     />
                   </div>
                 </div>
+
+                <div>
+                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                    <div className="flex justify-between">
+                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                        Question 1 :
+                      </h2>
+                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[18px] font-semibold font-poppins  p-3">Mobile</p>
+                     <div className="bg-gray-50 p-3 rounded">  
+                   <input type="text" placeholder="Type here" {...register("mobile", { required: true })} className="input w-full border" />
+                     </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                    <div className="flex justify-between">
+                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                        Question 2 : 
+                      </h2>
+                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[18px] font-semibold font-poppins  p-3">Email</p>
+                     <div className="bg-gray-50 p-3 rounded">  
+                   <input type="text" placeholder="Type here" {...register("email", { required: true })} className="input w-full border" />
+                     </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                    <div className="flex justify-between">
+                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                        Question 3 : 
+                      </h2>
+                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[18px] font-semibold font-poppins  p-3">Age</p>
+                     <div className="bg-gray-50 p-3 rounded">  
+                   <input type="text" placeholder="Type here" {...register("age", { required: true })} className="input w-full border" />
+                     </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                    <div className="flex justify-between">
+                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                        Question 4 : 
+                      </h2>
+                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[18px] font-semibold font-poppins  p-3">Gender</p>
+                     <div className="bg-gray-50 p-3 rounded">  
+                   <input type="text" placeholder="Type here" {...register("gender", { required: true })} className="input w-full border" />
+                     </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                    <div className="flex justify-between">
+                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                        Question 4 : 
+                      </h2>
+                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[18px] font-semibold font-poppins  p-3">Weight</p>
+                     <div className="bg-gray-50 p-3 rounded">  
+                   <input type="text" placeholder="Type here" {...register("weight", { required: true })} className="input w-full border" />
+                     </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                    <div className="flex justify-between">
+                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                        Question 4 : 
+                      </h2>
+                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[18px] font-semibold font-poppins  p-3">height</p>
+                     <div className="bg-gray-50 p-3 rounded">  
+                   <input type="text" placeholder="Type here" {...register("Weight", { required: true })} className="input w-full border" />
+                     </div>
+                  </div>
+                </div>
+
+
                 {
                   language === "en" ? (
                     <div>
