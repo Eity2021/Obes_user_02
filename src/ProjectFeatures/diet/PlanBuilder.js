@@ -1,21 +1,8 @@
 import { useState } from "react";
+import { Utensils, Coffee, Moon, Zap, } from "lucide-react";
 
-import { useGetProfileQuery } from "../../features/profile/profileApi";
-import { useGetDietQuery } from "../../features/dietChart/dietApi";
-import { Clock, Utensils, Coffee, Moon, Zap, } from "lucide-react";
-
-export default function PlanBuilder() {
+export default function PlanBuilder({dietMealData}) {
   const [activeTab, setActiveTab] = useState("english");
-
-  const { data: profile } = useGetProfileQuery();
-
-  const {
-    data: dietMealData,
-    isLoading,
-    isError,
-    error,
-  } = useGetDietQuery({ mycalory: profile?.data?.mycalory, role: profile?.data?.role });
-
 
   const MealCard = ({ title, content, icon: Icon, isEmpty = false }) => (
     <div className={`rounded-xl border bg-white shadow p-4 h-full ${isEmpty ? "opacity-50" : ""}`}>
@@ -66,7 +53,7 @@ export default function PlanBuilder() {
               <div className="flex justify-center mb-6">
                 <div className="flex items-center bg-primary text-white px-4 py-2 rounded-full text-lg font-medium">
                   <Zap className="w-4 h-4 mr-2" />
-                  মোট ক্যালোরি: {dietMealData?.data?.calorybn}
+                  মোট ক্যালোরি : {dietMealData?.data?.calorybn}
                 </div>
               </div>
 
@@ -102,11 +89,6 @@ export default function PlanBuilder() {
             </div>
           )}
 
-          {/* Footer */}
-          <div className="mt-8 text-center text-sm text-gray-500 flex justify-center items-center gap-2">
-            <Clock className="w-4 h-4" />
-            Plan created: {new Date(dietMealData?.data?.created_at).toLocaleDateString()}
-          </div>
         </div>
       </div>
     </div>

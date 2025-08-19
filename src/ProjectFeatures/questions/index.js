@@ -1,41 +1,41 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { ArrowDownRight } from "lucide-react";
 import { toast } from 'react-toastify';
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { ArrowDownRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import TitleCard from "../../components/Cards/TitleCard";
+import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useGetQuestionQuery } from "../../features/question/questionApi";
 import { useCreateAnswerMutation } from "../../features/answer/answerApi";
-import { useGetProfileQuery } from "../../features/profile/profileApi";
-import { useNavigate } from "react-router-dom";
+
 function Questions() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [answerList, setAnswerList] = useState([]);
   const [language, setLanguage] = useState("en");
+  const [createAnswer] = useCreateAnswerMutation();
+
   const auth = JSON.parse(localStorage.getItem("auth"));
+
   const { data: profile } = useGetProfileQuery(auth?.role);
-  console.log("profile,", profile?.data);
+
   const { register, handleSubmit, reset, setValue } = useForm();
   const { data: question, isLoading, isError, error } = useGetQuestionQuery(auth?.role);
-  // console.log("question", question)
 
-  const [createAnswer] = useCreateAnswerMutation();
+
 
   useEffect(() => {
     setValue("langtype", language === "en" ? "english" : "bangla");
   }, [language, setValue]);
 
+  const dob = profile?.data?.dob;
+  let age = null;
 
-    const dob = profile?.data?.dob;
-    let age = null;
-
-if (dob) {
-  const birthYear = new Date(dob).getFullYear();
-  const currentYear = new Date().getFullYear();
-  age = currentYear - birthYear;
-}
-
-console.log("age", age)
+  if (dob) {
+    const birthYear = new Date(dob).getFullYear();
+    const currentYear = new Date().getFullYear();
+    age = currentYear - birthYear;
+  }
   const updateAnswer = (qid, value, type) => {
     setAnswerList((prev) => {
       const filtered = prev.filter(([id]) => id !== qid);
@@ -51,6 +51,7 @@ console.log("age", age)
       return [...filtered, [qid, value]];
     });
   };
+
 
   const onSubmit = async (formData) => {
 
@@ -98,10 +99,8 @@ console.log("age", age)
 
   };
 
-
-
   if (isLoading) {
-    return <div className="text-center mt-10">Loading...</div>;
+    return <div className="card bg-base-100 shadow h-full flex justify-center items-center h-full"> <p className="text-center mt-10">Loading...</p> </div>;
   }
 
   if (isError) {
@@ -111,12 +110,16 @@ console.log("age", age)
       </div>
     );
   }
-
   const questions = question?.data || [];
-
   if (questions.length === 0) {
-    return <div className="text-center mt-10">No questions found.</div>;
+    return <div className="">
+      <p className="text-center mt-10 ">
+        No Questions Found
+      </p>
+    </div>
+
   }
+
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
       <div className=" mx-auto p-6 space-y-6">
@@ -124,7 +127,6 @@ console.log("age", age)
           <div className="px-10 pt-6">
             <div className="flex justify-between items-center mb-2">
               <div>
-                {/* <h2 className="card-title text-[20px] font-semibold font-[poppins]">Survey</h2> */}
                 <p className="text-lg font-bold text-[#333">
                   Question {questions?.length}
                 </p>
@@ -209,201 +211,192 @@ console.log("age", age)
                 </div>
 
 
-{profile?.data?.logmobile && (
-               <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 1 :
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                {profile?.data?.logmobile && (
+                  <div>
+                    <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                      <div className="flex justify-between">
+                        <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                          Question 1 :
+                        </h2>
+                        <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-[18px] font-semibold font-poppins  p-3">Mobile</p>
+                      <div className="bg-gray-50 p-3 rounded">
+                        <input type="text" value={profile?.data?.logmobile}
+                          {...register("mobile", { required: true })} className="input w-full border" />
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Mobile</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text"  value={profile?.data?.logmobile}  
-                   {...register("mobile", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-)}
+                )}
 
-{profile?.data?.logemail && (
- <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 2 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                {profile?.data?.logemail && (
+                  <div>
+                    <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                      <div className="flex justify-between">
+                        <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                          Question 2 :
+                        </h2>
+                        <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-[18px] font-semibold font-poppins  p-3">Email</p>
+                      <div className="bg-gray-50 p-3 rounded">
+                        <input type="text" value={profile?.data?.logemail} {...register("email", { required: true })} className="input w-full border" />
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Email</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.logemail} {...register("email", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
 
-)
-}    
-               
-
-{
-  profile?.data?.dob && (
- <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 4 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Age</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={age} {...register("age", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-  )
-}
-              
-{
-  profile?.data?.ogender && (
- <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 5 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Gender</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.ogender } {...register("gender", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-  )
-}
-              
-   
-               {
-                profile?.data?.myweight  && (
-     <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 6 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Weight</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.myweight} {...register("weight", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
                 )
-               }
+                }
 
-           {
-              profile?.data?.myhight  && (
-                        <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 7 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+
+                {
+                  profile?.data?.dob && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 4 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">Age</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={age} {...register("age", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Height</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.myhight}  {...register("height", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-              )
-           }
-        
+                  )
+                }
 
-
-
-{
-  profile?.data?.mybmi  && (
-       <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 8 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                {
+                  profile?.data?.ogender && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 5 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">Gender</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={profile?.data?.ogender} {...register("gender", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">BMI</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.mybmi} {...register("bmi", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-  )
-}
-             
-{
-  profile?.data?.bmicat && (
- <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 9 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Obesity Category</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.bmicat} {...register("obesity_category", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-  )
-}
-               
-              {
-                profile?.data?.mycalory && (
- <div>
-                  <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
-                    <div className="flex justify-between">
-                      <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                        Question 10 : 
-                      </h2>
-                      <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-[18px] font-semibold font-poppins  p-3">Calory</p>
-                     <div className="bg-gray-50 p-3 rounded">  
-                   <input type="text" value={profile?.data?.mycalory} {...register("calory", { required: true })} className="input w-full border" />
-                     </div>
-                  </div>
-                </div>
-                )
-              }
-               
+                  )
+                }
 
 
+                {
+                  profile?.data?.myweight && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 6 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">Weight</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={profile?.data?.myweight} {...register("weight", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+
+                {
+                  profile?.data?.myhight && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 7 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">Height</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={profile?.data?.myhight}  {...register("height", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                {
+                  profile?.data?.mybmi && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 8 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">BMI</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={profile?.data?.mybmi} {...register("bmi", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                {
+                  profile?.data?.bmicat && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 9 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">Obesity Category</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={profile?.data?.bmicat} {...register("obesity_category", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                {
+                  profile?.data?.mycalory && (
+                    <div>
+                      <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
+                        <div className="flex justify-between">
+                          <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
+                            Question 10 :
+                          </h2>
+                          <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-[18px] font-semibold font-poppins  p-3">Calory</p>
+                        <div className="bg-gray-50 p-3 rounded">
+                          <input type="text" value={profile?.data?.mycalory} {...register("calory", { required: true })} className="input w-full border" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
                 {
                   language === "en" ? (
                     <div>
@@ -536,7 +529,6 @@ console.log("age", age)
                         </div>
                       ))}
                     </div>
-
                   ) : (
                     <div>
                       {questions?.map((item, index) => (

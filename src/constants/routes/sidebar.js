@@ -16,11 +16,6 @@ const userRoutes = [
     name: "Bmi",
   },
 
-  {
-    path: "/health",
-    icon: <SquareActivity className={iconClasses} />,
-    name: "Heath Review",
-  },
 
   {
     path: "question",
@@ -66,12 +61,6 @@ const userRoutes = [
         name: "Obes Education",
       },
 
-    
-      {
-        path: "/obes/exerciseRoutine",
-        icon: <PersonStanding  className={iconClasses} />,
-        name: "Exercise Routine",
-      },
       {
         path: "/obes/dailyTrack",
         icon: <TruckElectric className={iconClasses} />,

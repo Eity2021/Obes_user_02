@@ -13,8 +13,6 @@ export default function Assessment({ filteredData, age }) {
     return age >= 18 ? cat === 'adult' : cat === 'child';
   });
 
-
-
   return (
     <>
       <div className="p-6 border-b border-gray-200">

@@ -2,56 +2,7 @@ import TitleCard from "../../components/Cards/TitleCard";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import { Play, Calendar, User, ExternalLink } from "lucide-react";
 function Videos() {
-  // const videos = [
-  //   {
-  //     title: "Workout Routine",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Healthy Cooking",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Yoga for Beginners",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Meditation Guide",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Workout Routine",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Healthy Cooking",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Yoga for Beginners",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Meditation Guide",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Workout Routine",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Healthy Cooking",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Yoga for Beginners",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  //   {
-  //     title: "Meditation Guide",
-  //     url: "https://www.youtube.com/embed/76HQy9NxNU0?si=N-1qxCAhiLhsb59w",
-  //   },
-  // ];
+
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
@@ -59,8 +10,6 @@ function Videos() {
       day: "numeric",
     });
   };
-
-
 
   const auth = JSON.parse(localStorage.getItem("auth"));
   const {

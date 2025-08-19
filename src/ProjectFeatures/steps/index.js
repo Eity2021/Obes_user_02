@@ -22,11 +22,12 @@ const healthSteps = [
 function StepsOfSeven() {
 
   const navigate = useNavigate();
-  const { data: profile } = useGetProfileQuery();
   const [hoveredStep, setHoveredStep] = useState(null)
   const [completedSteps, setCompletedSteps] = useState([]);
   const [createSteps, { isLoading, error }] = useCreateStepsMutation();
-
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  
+  const {data: profile} = useGetProfileQuery(auth?.role);
   const {
     register,
     handleSubmit,
@@ -54,10 +55,10 @@ function StepsOfSeven() {
       };
       const role = profile?.data?.role;
       const response = await createSteps({ data: submissionData, role });
-      if (response?.data?.status === 200) {
+      if (response?.data?.status === 201) {
         toast.success(response?.data?.message);
         reset();
-        navigate("/bmi");
+        navigate("/");
       } else {
         toast.error(response?.data?.message || "Submission failed. Please try again.");
       }
@@ -82,7 +83,7 @@ function StepsOfSeven() {
           <div className="relative max-w-7xl mx-auto">
             {/* Header */}
             <div className="text-center mb-4">
-              <p className="text-2xl text-slate-600 mb-6 font-poppins font-bold">7 Best Practices For a Healthy Life</p>
+              <p className="text-3xl text-slate-600 mb-6 font-poppins font-bold">7 Best Practices For a Healthy Life</p>
               <div className="flex justify-center items-center gap-4 text-sm text-slate-500 font-poppins">
                 <span>Progress: {completedSteps.length}/7</span>
                 <div className="w-32 h-2 bg-slate-200 rounded-full overflow-hidden">
@@ -156,12 +157,13 @@ function StepsOfSeven() {
                     </div>
                   )
                 })}
-              </div>
-              <div className="flex justify-end mb-14">
-                <button type="submit" className="bg-primary text-white px-10 py-2 rounded-md font-semibold font-poppins ">
+                 <div className="flex justify-center items-center ">
+                <button type="submit" className="bg-primary text-white text-[20px] h-[130px] w-[130px]  rounded-full font-semibold font-poppins ">
                   Submit
                 </button>
               </div>
+              </div>
+             
             </form>
             <StepsLists></StepsLists>
           </div>

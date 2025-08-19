@@ -31,11 +31,11 @@ function ObeEducation({ filteredData, age }) {
             <div className=" overflow-hidden ">
               {/* CardHeader Simulation */}
               <div className="p-6 border-b border-gray-200">
-                <h2 className="flex items-center gap-2 text-xl font-bold text-gray-800">
+                <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 font-[poppins]">
                   <History className="h-6 w-6 text-primary" />
                   Educational Modules
                 </h2>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-gray-500 mt-1 font-[poppins]">
                   Comprehensive learning materials covering key aspects of obesity and BMI education
                 </p>
               </div>
@@ -71,42 +71,29 @@ function ObeEducation({ filteredData, age }) {
 
 
                 <div
-                  className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"} min-h-[400px]`}
-                >
+                  className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"} min-h-[400px]`}>
                   {/* IMAGE */}
-                
                   <div className="lg:w-1/2 relative ">
                     <img
                       src={module.mimage}
                       alt={module.id}
-             
-                      className="object-cover"
-                
-                    />
+                      className="object-cover"/>
                     <div className="absolute " />
                     <div className="absolute bottom-6 left-6 text-white">
-                      {/* <span className="inline-block bg-white/20 text-white border border-white/30 px-3 py-1 rounded-md text-sm">
-                        {module.modnum}
-                      </span> */}
                     </div>
                   </div>
-
                   {/* CONTENT */}
                   <div className="lg:w-1/2 flex flex-col justify-center">
                     <div className="p-8 lg:p-12 space-y-6">
                       <div className="space-y-4">
-                        {/* <h3 className="text-3xl font-serif font-bold text-cyan-800">
-                          {getModuleTitle(module.id)}
-                        </h3> */}
-
                         {isListContent ? (
                           <div className="space-y-4">
-                            <p className="text-lg font-sans font-semibold text-gray-900">
+                            <p className="text-xl  font-semibold text-gray-900 font-[poppins]">
                               {content[0]}
                             </p>
                             <ul className="space-y-3">
                               {content.slice(1).map((item, idx) => (
-                                <li key={idx} className="text-gray-700 font-sans flex items-start gap-3">
+                                <li key={idx} className="text-gray-700 font-[poppins] flex items-start gap-3">
                                   <span className="text-orange-500 font-bold text-lg">•</span>
                                   <span className="leading-relaxed">
                                     {item.replace(/^\d+\.\s*/, "")}
@@ -116,7 +103,7 @@ function ObeEducation({ filteredData, age }) {
                             </ul>
                           </div>
                         ) : (
-                          <p className="text-lg text-gray-700 font-sans leading-relaxed">
+                          <p className="text-lg text-gray-700 font-[poppins] leading-relaxed">
                             {content[0]}
                           </p>
                         )}

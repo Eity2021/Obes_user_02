@@ -3,7 +3,9 @@ import { useGetBmiQuery } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { History, User } from "lucide-react";
 export default function BmiList() {
-  const { data: profile } = useGetProfileQuery();
+    const auth = JSON.parse(localStorage.getItem("auth"));
+
+  const { data: profile } = useGetProfileQuery(auth?.role);
   const {
     data: bmi,
     isLoading,

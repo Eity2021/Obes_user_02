@@ -1,7 +1,6 @@
-import { useGetProfileQuery } from "../../features/profile/profileApi";
-import { useGetStepsQuery } from "../../features/steps/stepsApi";
 import { CheckCircle, XCircle } from "lucide-react"
-
+import { useGetStepsQuery } from "../../features/steps/stepsApi";
+import { useGetProfileQuery } from "../../features/profile/profileApi";
 
 
 const StatusCell = ({ value }) => {
@@ -17,10 +16,11 @@ const StatusCell = ({ value }) => {
     );
 };
 
-
 export default function StepsLists() {
-    const { data: profile } = useGetProfileQuery();
-    const { data: stepsList } = useGetStepsQuery({role:profile?.data?.role,id:profile?.data?.id });
+
+    const auth = JSON.parse(localStorage.getItem("auth"));
+    const { data: profile } = useGetProfileQuery(auth?.role);
+    const { data: stepsList } = useGetStepsQuery({ role: auth?.role, id: profile?.data?.id });
 
     const formatDate = (dateString) =>
         new Date(dateString).toLocaleDateString("en-US", {
@@ -61,7 +61,6 @@ export default function StepsLists() {
                         {stepsList?.data?.map((entry) => (
                             <tr key={entry.id} className="hover:bg-gray-50 border-t">
                                 <td className="px-4 py-2 font-medium">{entry.id}</td>
-
                                 <td className="px-4 py-2">{formatDate(entry.recorded_at)}</td>
                                 <td className="px-4 py-2">
                                     <StatusCell value={entry.exercise} />
@@ -84,7 +83,6 @@ export default function StepsLists() {
                                 <td className="px-4 py-2">
                                     <StatusCell value={entry.treatment} />
                                 </td>
-
                             </tr>
                         ))}
                     </tbody>

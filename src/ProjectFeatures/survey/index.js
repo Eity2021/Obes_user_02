@@ -4,15 +4,36 @@ import { useGetAnswerListQuery } from "../../features/answer/answerApi";
 
 function Survey() {
   const auth = JSON.parse(localStorage.getItem("auth"));
-  const { data: profile } = useGetProfileQuery(auth?.role);
+  const { data: profile, isLoading: profileLoading, isError: profileError, error: profileErr } = useGetProfileQuery(auth?.role);
   const {
     data: surveyList,
     isLoading,
     isError,
     error,
-  } = useGetAnswerListQuery({ id: profile?.data?.id ,role: auth?.role}, { skip: !profile?.data?.id });
+  } = useGetAnswerListQuery({ id: profile?.data?.id, role: auth?.role }, { skip: !profile?.data?.id });
 
+  //  Handle loading state
+  if (profileLoading || isLoading) {
+    return (
 
+      <div className="flex justify-center items-center h-full bg-white rounded-md">
+        <p className="text-gray-600">Loading survey data...</p>
+      </div>
+
+    );
+  }
+
+  //  Handle error state
+  if (profileError || isError) {
+    return (
+
+      <div className="flex justify-center items-center h-full bg-white rounded-m">
+        <p className="text-red-500">
+          {profileErr?.data?.message || error?.data?.message || "Something went wrong while fetching survey data."}
+        </p>
+      </div>
+    );
+  }
   return (
     <>
       <TitleCard title="List Of Survey" topMargin="mt-2">
@@ -29,7 +50,7 @@ function Survey() {
                     <h2 className="text-md font-semibold text-gray-800  font-[poppins]">Question {item.qid}</h2>
                     <div className="flex gap-2">
                       <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">{item.category}</span>
-           
+
                     </div>
                   </div>
                 </div>
@@ -62,13 +83,13 @@ function Survey() {
                           <span className="text-gray-500 italic font-[poppins]">No specific response provided</span>
 
                         ) : (
-                          
-                           <div className="flex items-center gap-2 p-2 bg-white rounded border">
-                              <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                                <path d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span className="text-gray-800 font-[poppins]">{item.ans}</span>
-                            </div>
+
+                          <div className="flex items-center gap-2 p-2 bg-white rounded border">
+                            <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                              <path d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span className="text-gray-800 font-[poppins]">{item.ans}</span>
+                          </div>
                         )}
                       </div>
                     ) : (

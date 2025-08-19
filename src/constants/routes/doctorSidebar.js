@@ -15,11 +15,7 @@ const doctorRoutes   = [
     icon: <Calculator   className={iconClasses} />,
     name: "Bmi",
   },
-  {
-    path: "/health",
-    icon: <SquareActivity  className={iconClasses} />,
-    name: "Heath Review",
-  },
+
     {
     path: "question",
     icon: <Captions      className={`${iconClasses} inline`} />,
@@ -55,16 +51,6 @@ const doctorRoutes   = [
         name: "Diet Plan",
       },
 
-      {
-        path: "/obes/exerciseRoutine",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
-        name: "Exercise Routine",
-      },
-       {
-        path: "/obes/dailyTrack",
-        icon: <CurrencyDollarIcon className={iconClasses} />,
-        name: "Daily Track",
-      },
        {
         path: "/obes/videos",
         icon: <PictureInPicture2 className={iconClasses} />,
