@@ -7,6 +7,7 @@ import useNavigator from "../../hooks/useNavigator";
 import { useEffect, useState } from "react";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { userLoggedIn } from "../../features/auth/authSlice";
+import { setUser } from "../../features/profile/profileSlice";
 
 function Login() {
   const { handleNavigation } = useNavigator();
@@ -21,11 +22,10 @@ function Login() {
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
 
-  // console.log("data", data?.token);
-
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());
+      dispatch(setUser(data));
       handleNavigation("/");
     }
   }, [data, dispatch]);
