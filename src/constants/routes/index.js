@@ -1,6 +1,7 @@
 // All components mapping with path for internal routes
 
 import { lazy } from "react";
+
 const Education = lazy(() => import("../../ProjectFeatures/education"));
 const Dashboard = lazy(() => import("../../pages/obes/protected/Dashboard"));
 const Page404 = lazy(() => import("../../pages/obes/protected/404"));
@@ -86,6 +87,7 @@ const routes = [
     path: "/blank",
     component: Blank,
   },
+
 ];
 
 export default routes;

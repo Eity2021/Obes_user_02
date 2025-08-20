@@ -1,6 +1,7 @@
 import TitleCard from "../../components/Cards/TitleCard";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useGetAnswerListQuery } from "../../features/answer/answerApi";
+import BasicInfo from "./BasicInfo";
 
 function Survey() {
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -12,6 +13,7 @@ function Survey() {
     error,
   } = useGetAnswerListQuery({ id: profile?.data?.id, role: auth?.role }, { skip: !profile?.data?.id });
 
+  console.log("surveyList", surveyList)
   //  Handle loading state
   if (profileLoading || isLoading) {
     return (
@@ -43,14 +45,21 @@ function Survey() {
               <h1 className="text-3xl font-bold text-gray-900 mb-2 font-poppins">Obesity List Of Survey</h1>
               <p className="text-gray-600">Quiz Results & Responses</p>
             </div>
-            {surveyList?.data?.map((item) => (
+
+<div>
+  <BasicInfo surveyList={surveyList}></BasicInfo>
+ 
+
+
+</div>
+
+            {surveyList?.data?.answerArray?.map((item) => (
               <div key={item.qid} className="rounded-lg shadow-lg border-l-4 border-primary bg-white">
                 <div className="px-6 py-4 bg-gradient-to-r from-[#7B1E19]/10 to-[#7B1E19]/10 rounded-t-lg">
                   <div className="flex items-center justify-between">
                     <h2 className="text-md font-semibold text-gray-800  font-[poppins]">Question {item.qid}</h2>
                     <div className="flex gap-2">
                       <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">{item.category}</span>
-
                     </div>
                   </div>
                 </div>

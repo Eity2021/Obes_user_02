@@ -100,7 +100,7 @@ function Questions() {
   };
 
   if (isLoading) {
-    return <div className="card bg-base-100 shadow h-full flex justify-center items-center h-full"> <p className="text-center mt-10">Loading...</p> </div>;
+    return <div className="card bg-base-100 shadow h-full flex justify-center items-center"> <p className="text-center mt-10">Loading...</p> </div>;
   }
 
   if (isError) {
@@ -259,7 +259,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 4 :
+                            Question 3 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>
@@ -280,7 +280,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 5 :
+                            Question 4 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>
@@ -302,7 +302,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 6 :
+                            Question 5 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>
@@ -323,7 +323,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 7 :
+                            Question 6 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>
@@ -343,7 +343,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 8 :
+                            Question 7 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>
@@ -363,7 +363,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 9 :
+                            Question 8 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>
@@ -383,7 +383,7 @@ function Questions() {
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                            Question 10 :
+                            Question 9 :
                           </h2>
                           <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">Basic Information</span>
                         </div>

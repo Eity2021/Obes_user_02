@@ -1,4 +1,5 @@
 import TitleCard from "../../../components/Cards/TitleCard";
+import { useCreateEmailVerifyMutation } from "../../../features/emailVerify/emailApi";
 import { useGetProfileQuery } from "../../../features/profile/profileApi";
 import { CalendarDays, Mail, Phone, User, Shield, Clock } from "lucide-react";
 
@@ -7,8 +8,18 @@ function Profile() {
 
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
+  console.log("id", profile?.data?.id)
 
+  const [verifyEmail, { data, isLoading, isError, isSuccess, error }] =
+    useCreateEmailVerifyMutation();
 
+  const handleClick = () => {
+    if (profile?.data?.id) {
+      verifyEmail(profile.data.id); // ✅ pass id when calling
+    } else {
+      console.log("User ID not available yet");
+    }
+  };
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -85,14 +96,37 @@ function Profile() {
                 Contact Information
               </h3>
               <div className="space-y-3 text-sm text-gray-800">
+
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-gray-500" />
                   <span>{profile?.data?.logemail}</span>
-                  {!profile?.data?.email_verified_at && (
+
+
+                  <div className="flex gap-2">
+                    {/* <div>
+                    {!profile?.data?.email_verified_at && (
                     <span className="ml-2 px-2 py-0.5 text-xs bg-red-100 text-red-700 rounded font-poppins">
                       Unverified
                     </span>
                   )}
+                  </div> */}
+                    <div>
+                      <div>
+                        <button
+                          onClick={handleClick}
+                          disabled={isLoading}
+                          className="bg-primary text-white  px-2 py-1 text-xs rounded font-poppins"
+                        >
+                          {isLoading ? "Verifying..." : "Verify Email"}
+                        </button>
+
+                        {isSuccess && (
+                          <p className="text-green-600">{data?.message || "Email verified ✅"}</p>
+                        )}
+                        {isError && <p className="text-red-600">Error: {error?.data?.message}</p>}
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3 font-poppins">
                   <Phone className="w-4 h-4 text-gray-500" />

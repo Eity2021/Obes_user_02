@@ -60,12 +60,6 @@ const userRoutes = [
         icon: <BookOpenText className={iconClasses} />,
         name: "Obes Education",
       },
-
-      {
-        path: "/obes/dailyTrack",
-        icon: <TruckElectric className={iconClasses} />,
-        name: "Daily Track",
-      },
       {
         path: "/obes/videos",
         icon: <PictureInPicture2 className={iconClasses} />,

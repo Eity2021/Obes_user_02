@@ -1,13 +1,11 @@
-
-import ForgotPassword from '../../ProjectFeatures/user/ForgotPassword'
-
+import VerifyEmail from '../../ProjectFeatures/user/VerifyEmail'
 
 function ExternalPage(){
 
 
     return(
         <div className="">
-                <ForgotPassword />
+                <VerifyEmail />
         </div>
     )
 }

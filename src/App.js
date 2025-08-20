@@ -10,13 +10,14 @@ import { themeChange } from "theme-change";
 import checkAuth from "./app/auth";
 import initializeApp from "./app/init";
 
+
 // Importing pages
 const Layout = lazy(() => import("./containers/Layout"));
 const Login = lazy(() => import("./constants/auth/Login"));
 const ForgotPassword = lazy(() => import("./constants/auth/ForgotPassword"));
 const Register = lazy(() => import("./constants/auth/Register"));
 const Documentation = lazy(() => import("./constants/auth/Documentation"));
-
+const VerifyEmail = lazy(() => import("./ProjectFeatures/user/VerifyEmail"));
 // Initializing different libraries
 initializeApp();
 
@@ -37,14 +38,17 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/email-verify" element={<VerifyEmail />} />
 
           {/* Place new routes over this */}
           <Route path="/*" element={<Layout />} />
-
           <Route
             path="*"
             element={<Navigate to={token ? "/welcome" : "/login"} replace />}
           />
+
+
+
         </Routes>
       </Router>
     </>
