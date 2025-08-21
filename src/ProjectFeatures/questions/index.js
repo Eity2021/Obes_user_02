@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { ArrowDownRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TitleCard from "../../components/Cards/TitleCard";
@@ -10,26 +10,21 @@ import { useCreateAnswerMutation } from "../../features/answer/answerApi";
 
 function Questions() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
   const [answerList, setAnswerList] = useState([]);
+  const [currentStep, setCurrentStep] = useState(1);
   const [language, setLanguage] = useState("en");
   const [createAnswer] = useCreateAnswerMutation();
-
   const auth = JSON.parse(localStorage.getItem("auth"));
-
   const { data: profile } = useGetProfileQuery(auth?.role);
-
   const { register, handleSubmit, reset, setValue } = useForm();
   const { data: question, isLoading, isError, error } = useGetQuestionQuery(auth?.role);
-
-
+  const dob = profile?.data?.dob;
+  let age = null;
 
   useEffect(() => {
     setValue("langtype", language === "en" ? "english" : "bangla");
   }, [language, setValue]);
 
-  const dob = profile?.data?.dob;
-  let age = null;
 
   if (dob) {
     const birthYear = new Date(dob).getFullYear();
@@ -52,12 +47,10 @@ function Questions() {
     });
   };
 
-
   const onSubmit = async (formData) => {
-
     try {
       const formattedAnsjson = Object?.entries(formData.ansjson)
-        .filter(([_, value]) => value != null && value !== false)
+        .filter(([_, value]) => value != null && value !== false) 
         .map(([qid, value]) => {
           if (Array.isArray(value)) {
             return [qid, ...[value].filter(v => v != null)];

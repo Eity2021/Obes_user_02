@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
+import { useEffect, useState } from "react";
 import LandingIntro from "./LandingIntro";
 import useNavigator from "../../hooks/useNavigator";
-import { useEffect, useState } from "react";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { userLoggedIn } from "../../features/auth/authSlice";
 import { setUser } from "../../features/profile/profileSlice";
@@ -26,7 +26,7 @@ function Login() {
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());
-      dispatch(setUser(data?.token));
+      dispatch(setUser(data));
       handleNavigation("/");
     }
   }, [data, dispatch, handleNavigation]);

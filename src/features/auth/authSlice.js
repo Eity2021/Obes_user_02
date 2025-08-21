@@ -5,7 +5,7 @@ const auth = localStorage.getItem("auth")
   : null;
 
 const initialState = {
-  token: auth?.accessToken || null,
+  token: auth?.token || null,
   role: auth?.role || null,
 };
 // const initialState = {
@@ -18,7 +18,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userLoggedIn: (state, action) => {
-      state.accessToken = action?.payload?.accessToken;
+      state.token = action?.payload?.token;
        state.role = action?.payload?.role;
     },
 

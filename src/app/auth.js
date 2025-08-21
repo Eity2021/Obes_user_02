@@ -20,10 +20,7 @@ const checkAuth = () => {
   }
 
   if (TOKEN) {
-    // ✅ always set token on axios headers
     axios.defaults.headers.common["Authorization"] = `Bearer ${TOKEN}`;
-
-    // ✅ add interceptors only once
     if (!axios.interceptors.request.handlers.length) {
       axios.interceptors.request.use(
         function (config) {
@@ -34,7 +31,6 @@ const checkAuth = () => {
           return Promise.reject(error);
         }
       );
-
       axios.interceptors.response.use(
         function (response) {
           document.body.classList.remove("loading-indicator");

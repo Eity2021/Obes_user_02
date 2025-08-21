@@ -1,15 +1,15 @@
-import { themeChange } from 'theme-change'
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import BellIcon from '@heroicons/react/24/outline/BellIcon'
-import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon'
-import MoonIcon from '@heroicons/react/24/outline/MoonIcon'
-import SunIcon from '@heroicons/react/24/outline/SunIcon'
+import { Link } from 'react-router-dom';
+import { themeChange } from 'theme-change';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import BellIcon from '@heroicons/react/24/outline/BellIcon';
+import SunIcon from '@heroicons/react/24/outline/SunIcon';
+import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
+import { useGetProfileQuery } from '../features/profile/profileApi';
+import MoonIcon from '@heroicons/react/24/outline/MoonIcon';
+import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil';
 import { openRightDrawer } from '../ProjectFeatures/common/rightDrawerSlice';
-import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil'
 
-import { Link } from 'react-router-dom'
-import { useGetProfileQuery } from '../features/profile/profileApi'
 
 
 function Header() {
@@ -32,13 +32,14 @@ function Header() {
     const openNotification = () => {
         dispatch(openRightDrawer({ header: "Notifications", bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION }))
     }
-    
+
     function logoutUser() {
         localStorage.clear();
         window.location.href = '/'
     }
 
     const auth = JSON.parse(localStorage.getItem("auth"));
+    console.log("auth", auth)
     const { data: profile} = useGetProfileQuery(auth?.role);
   console.log("profile", profile) 
     return (
