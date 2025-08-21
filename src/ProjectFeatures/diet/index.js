@@ -38,7 +38,7 @@ export default function DietPlan() {
   }
   
   return (
-    <TitleCard title="Your Diet Plan" topMargin="mt-2">
+     <div className="bg-[#ffff] rounded-xl"> 
       <div className="container mx-auto py-6 px-4">
         <header className="mb-8">
           <h1
@@ -58,6 +58,6 @@ export default function DietPlan() {
           <PlanBuilder dietMealData={dietMealData} />
         </div>
       </div>
-    </TitleCard>
+</div>
   );
 }

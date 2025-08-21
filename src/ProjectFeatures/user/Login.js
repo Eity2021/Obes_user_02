@@ -52,7 +52,7 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 w-100">
                 <div className="mb-3">
-                  <p className="font-serif  text-[16px] mb-1">Mobile Number*</p>
+                  <p className="font-serif  text-[16px] mb-1">Mobile Number/Email*</p>
                   <input
                     type=""
                     name="login"

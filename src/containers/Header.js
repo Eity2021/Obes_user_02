@@ -39,12 +39,9 @@ function Header() {
     }
 
     const auth = JSON.parse(localStorage.getItem("auth"));
-    console.log("auth", auth)
     const { data: profile} = useGetProfileQuery(auth?.role);
-  console.log("profile", profile) 
+
     return (
-
-
         <>
             <div className="navbar sticky top-0 bg-base-100  z-10 shadow-md ">
                 <div className="flex-1">

@@ -21,7 +21,7 @@ export default function Assessment({ filteredData, age }) {
           BMI Information
         </h2>
         <p className="text-sm text-gray-500 mt-1">
-          Track your BMI changes over time
+          Track your BMI Information
         </p>
       </div>
 
