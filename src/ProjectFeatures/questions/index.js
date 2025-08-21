@@ -212,7 +212,7 @@ function Questions() {
 
 
                 {profile?.data?.logmobile && (
-                  <div>
+                  <div className="hidden">
                     <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                       <div className="flex justify-between">
                         <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -232,7 +232,7 @@ function Questions() {
                 )}
 
                 {profile?.data?.logemail && (
-                  <div>
+                  <div className="hidden">
                     <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                       <div className="flex justify-between">
                         <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -255,7 +255,7 @@ function Questions() {
 
                 {
                   profile?.data?.dob && (
-                    <div>
+                    <div className="hidden">
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -276,7 +276,7 @@ function Questions() {
 
                 {
                   profile?.data?.ogender && (
-                    <div>
+                    <div className="hidden"> 
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -298,7 +298,7 @@ function Questions() {
 
                 {
                   profile?.data?.myweight && (
-                    <div>
+                    <div className="hidden">
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -319,7 +319,7 @@ function Questions() {
 
                 {
                   profile?.data?.myhight && (
-                    <div>
+                    <div className="hidden">
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -339,7 +339,7 @@ function Questions() {
                 }
                 {
                   profile?.data?.mybmi && (
-                    <div>
+                    <div className="hidden">
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -359,7 +359,7 @@ function Questions() {
                 }
                 {
                   profile?.data?.bmicat && (
-                    <div>
+                    <div className="hidden">
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -379,7 +379,7 @@ function Questions() {
                 }
                 {
                   profile?.data?.mycalory && (
-                    <div>
+                    <div className="hidden">
                       <div className="bg-[#7B1E19]/20 rounded-lg  p-4" >
                         <div className="flex justify-between">
                           <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
@@ -426,9 +426,7 @@ function Questions() {
                                         {...register(`ansjson.${item.qid}`)}
                                         value={option}
                                         id={`${item.qid}-${option}`}
-                                        className="w-5 h-7 flex justify-center items-center"
-
-                                      />
+                                        className="w-5 h-7 flex justify-center items-center"/>
                                       <p className="text-[#333] font-poppins text-[18px]">
                                         {option}
                                       </p>

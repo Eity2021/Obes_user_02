@@ -5,8 +5,8 @@ const auth = localStorage.getItem("auth")
   : null;
 
 const initialState = {
-  token: auth?.accessToken,
-  role: auth?.role,
+  token: auth?.accessToken || null,
+  role: auth?.role || null,
 };
 // const initialState = {
 //   accessToken: auth?.accessToken,
@@ -21,7 +21,6 @@ const authSlice = createSlice({
       state.accessToken = action?.payload?.accessToken;
        state.role = action?.payload?.role;
     },
-
 
     // userLoggedOut: (state) => {
     //   state.accessToken = null;

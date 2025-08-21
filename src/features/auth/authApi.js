@@ -39,6 +39,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      
 
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -50,10 +51,10 @@ export const authApi = apiSlice.injectEndpoints({
               role: result?.data?.data?.role,
             })
           );
-          console.log("Saved to localStorage:", {
-            accessToken: result.data.token,
-            user: result?.data?.data?.role,
-          });
+          // console.log("Saved to localStorage:", {
+          //   accessToken: result.data.token,
+          //   user: result?.data?.data?.role,
+          // });
           dispatch(
             userLoggedIn({
               accessToken: result.data.token,

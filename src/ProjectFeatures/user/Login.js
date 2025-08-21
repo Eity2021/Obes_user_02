@@ -22,15 +22,15 @@ function Login() {
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
 
+  console.log("data", data)
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());
-      dispatch(setUser(data));
+      dispatch(setUser(data?.token));
       handleNavigation("/");
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, handleNavigation]);
 
-  
 
   const onSubmit = (formData) => {
     setError("");

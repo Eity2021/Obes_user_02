@@ -6,8 +6,15 @@ export const profileApi = apiSlice.injectEndpoints({
     endpoints:(builder) => ({
         getProfile:builder.query({
             query:(role) => `/public/api/${role}/profile`,
-            // providesTags: ['Profile']
         }),
+
+    })
+});
+
+export const {useGetProfileQuery} = profileApi;
+
+
+
 
 
         //  updateProfile: builder.mutation({
@@ -18,9 +25,3 @@ export const profileApi = apiSlice.injectEndpoints({
         //     }),
         //     invalidatesTags: ['Profile']
         // })
-
-
-    })
-});
-
-export const {useGetProfileQuery} = profileApi;
