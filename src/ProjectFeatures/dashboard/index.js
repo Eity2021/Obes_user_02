@@ -21,9 +21,9 @@ function Dashboard() {
                 <PieChart />
             </div>
             {/** ---------------------- Different stats content 2 ------------------------- */}
-            <div className="">
+            {/* <div className="">
                  <AmountStats avgInfo={avgInfo}/> 
-            </div>
+            </div> */}
         </>
     )
 }

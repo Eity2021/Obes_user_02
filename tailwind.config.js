@@ -17,8 +17,8 @@ module.exports = {
         customGray: "#F3F4F6",
         white:'#fff',
         whiteGraph:'#dcdddd',
-          "neutral": "#1f2937",  // customize to your dark bg
-        "neutral-content": "#ffffff",  // text color on that bg
+          "neutral": "#1f2937",  
+        "neutral-content": "#ffffff",  
       },
     },
      

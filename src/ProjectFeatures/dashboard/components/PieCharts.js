@@ -1,6 +1,6 @@
-import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import TitleCard from "../../../components/Cards/TitleCard";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -11,7 +11,7 @@ const PieChart = () => {
     datasets: [
       {
         label: "BMI Categories",
-        data: [10, 40, 30, 20], // Example data (you can use your API values)
+        data: [10, 40], 
         backgroundColor: [
           "#FD8695", // pink
           "#4CAF50", // green
@@ -40,14 +40,15 @@ const PieChart = () => {
   };
 
   return (
-    <div className="mx-auto w-full bg-white p-4 rounded-2xl shadow-md">
-         <h2 className="text-lg font-semibold mb-3 text-center">BMI Distribution</h2>
-  <div className=" flex justify-center">
-       <div className="w-[65%]">
-      <Pie data={data} options={options} />
-     </div>
-  </div>
-    </div>
+
+    <TitleCard title={"7 Steps"}>
+        <div className=" flex justify-center">
+          <div className="w-[65%]">
+            <Pie data={data} options={options} />
+         </div>
+       </div>
+  </TitleCard>
+ 
   );
 };
 
