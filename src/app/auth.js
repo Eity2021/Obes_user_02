@@ -33,5 +33,4 @@ const checkAuth = () => {
         return TOKEN
     }
 }
-
 export default checkAuth

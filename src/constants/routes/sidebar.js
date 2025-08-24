@@ -68,25 +68,7 @@ const userRoutes = [
     ],
   },
 
-  // {
-  //   path: "learn",
-  //   icon: <BookOpenText  className={`${iconClasses} inline`} />,
-  //   name: "Learning Material",
-  //   submenu: [
-  //     {
-  //       path: "/learn/Pdf Documentation",
-  //       icon: <FileText  className={iconClasses} />,
-  //       name: "PDF Documentation",
-  //     },
-
-  //     {
-  //       path: "/learn/videos",
-  //       icon: <PictureInPicture2  className={iconClasses} />,
-  //       name: "Videos",
-  //     },
-
-  //   ],
-  // },
+ 
 
 ];
 

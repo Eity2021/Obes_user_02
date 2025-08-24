@@ -41,9 +41,6 @@ const routes = [
     path: "obes/stepsOfSeven",
     component: Steps,
   },
-
-
-
   {
     path: "obes/dietPlan",
     component: DietPlan,
@@ -53,14 +50,10 @@ const routes = [
     component: Education,
   },
 
-
-
   {
     path: "obes/videos",
     component: ObesVideos,
   },
-
-
   {
     path: "/profile",
     component: ProfileSettings,

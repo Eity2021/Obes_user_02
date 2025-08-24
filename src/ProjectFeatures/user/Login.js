@@ -22,10 +22,11 @@ function Login() {
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
 
+  console.log("data", data)
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());
-      dispatch(setUser(data));
+      dispatch(setUser(data?.data?.role));
       handleNavigation("/");
     }
   }, [data, dispatch]);
