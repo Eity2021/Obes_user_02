@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
+import { useEffect, useState } from "react";
 import LandingIntro from "./LandingIntro";
 import useNavigator from "../../hooks/useNavigator";
-import { useEffect, useState } from "react";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { userLoggedIn } from "../../features/auth/authSlice";
 import { setUser } from "../../features/profile/profileSlice";
@@ -29,9 +29,8 @@ function Login() {
       dispatch(setUser(data?.data?.role));
       handleNavigation("/");
     }
-  }, [data, dispatch]);
+  }, [data, dispatch, handleNavigation]);
 
-  
 
   const onSubmit = (formData) => {
     setError("");
@@ -53,7 +52,7 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 w-100">
                 <div className="mb-3">
-                  <p className="font-serif  text-[16px] mb-1">Mobile Number*</p>
+                  <p className="font-serif  text-[16px] mb-1">Mobile Number/Email*</p>
                   <input
                     type=""
                     name="login"

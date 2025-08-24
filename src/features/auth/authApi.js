@@ -16,14 +16,14 @@ export const authApi = apiSlice.injectEndpoints({
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              accessToken: result.data.token,
+              token: result.data.token,
               role: result?.data?.data?.role,
             })
           );
 
           dispatch(
             userLoggedIn({
-              accessToken: result.data.token,
+              token: result.data.token,
               role: result?.data?.data?.role,
             })
           );
@@ -39,6 +39,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      
 
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -46,17 +47,17 @@ export const authApi = apiSlice.injectEndpoints({
           localStorage.setItem(
             "auth",
             JSON.stringify({
-              accessToken: result.data.token,
+              token: result.data.token,
               role: result?.data?.data?.role,
             })
           );
-          console.log("Saved to localStorage:", {
-            accessToken: result.data.token,
-            user: result?.data?.data?.role,
-          });
+          // console.log("Saved to localStorage:", {
+          //   accessToken: result.data.token,
+          //   user: result?.data?.data?.role,
+          // });
           dispatch(
             userLoggedIn({
-              accessToken: result.data.token,
+              token: result.data.token,
               user: result?.data?.data?.role,
             })
           );

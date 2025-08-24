@@ -55,7 +55,7 @@ useEffect(() => {
 
   return (
     <>
-      <TitleCard title="BMI" topMargin="mt-2">
+      <TitleCard title="Obes School" topMargin="mt-2">
         <div className=" mt-4 w-full ">
           <div className="grid  grid-cols-4 tabs bg-base-200 rounded-[10px]">
  
