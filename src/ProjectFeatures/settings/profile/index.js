@@ -1,21 +1,37 @@
 import TitleCard from "../../../components/Cards/TitleCard";
 import { useCreateEmailVerifyMutation } from "../../../features/emailVerify/emailApi";
+import { useCreateResetMutation } from "../../../features/reset/resetApi";
 import { useGetProfileQuery } from "../../../features/profile/profileApi";
-import { CalendarDays, Mail, Phone, User, Shield, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import {
+  CalendarDays,
+  Mail,
+  Phone,
+  User,
+  Shield,
+  Clock,
+  KeyRound,
+} from "lucide-react";
 
 function Profile() {
-
-
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
-  console.log("id", profile?.data?.id)
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const [verifyEmail, { data, isLoading, isError, isSuccess, error }] =
     useCreateEmailVerifyMutation();
 
   const handleClick = () => {
     if (profile?.data?.id) {
-      verifyEmail(profile.data.id); // ✅ pass id when calling
+      verifyEmail(profile.data.id);
     } else {
       console.log("User ID not available yet");
     }
@@ -50,7 +66,36 @@ function Profile() {
       .join("")
       .toUpperCase();
   };
+  const [createReset] = useCreateResetMutation();
 
+  const onSubmit = async (formData) => {
+    console.log(formData);
+
+    try {
+      const submissionData = {
+        password: formData.password,
+        password_confirmation: formData.password_confirmation,
+      };
+
+      const role = profile?.data?.role;
+      const response = await createReset({ data: submissionData, role });
+
+      if (response?.data?.status === 200) {
+        toast.success(response?.data?.message);
+        reset();
+        navigate("/");
+      } else {
+        toast.error(
+          response?.data?.message || "Submission failed. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error(
+        error?.response?.data?.message || "Failed to reset password."
+      );
+    }
+  };
   return (
     <>
       <TitleCard title="Welcome to User Profile" topMargin="mt-2">
@@ -73,10 +118,11 @@ function Profile() {
                 </h2>
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
                   <span
-                    className={`px-2 py-1 text-[16px] rounded ${profile?.data?.status === "active"
-                      ? "bg-green-100 text-green-700 font-medium font-poppins"
-                      : "bg-gray-200 text-gray-600 font-medium font-poppins"
-                      }`}
+                    className={`px-2 py-1 text-[16px] rounded ${
+                      profile?.data?.status === "active"
+                        ? "bg-green-100 text-green-700 font-medium font-poppins"
+                        : "bg-gray-200 text-gray-600 font-medium font-poppins"
+                    }`}
                   >
                     {profile?.data?.status}
                   </span>
@@ -96,11 +142,9 @@ function Profile() {
                 Contact Information
               </h3>
               <div className="space-y-3 text-sm text-gray-800">
-
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-gray-500" />
                   <span>{profile?.data?.logemail}</span>
-
 
                   <div className="flex gap-2">
                     {/* <div>
@@ -121,9 +165,15 @@ function Profile() {
                         </button>
 
                         {isSuccess && (
-                          <p className="text-green-600">{data?.message || "Email verified ✅"}</p>
+                          <p className="text-green-600">
+                            {data?.message || "Email verified ✅"}
+                          </p>
                         )}
-                        {isError && <p className="text-red-600">Error: {error?.data?.message}</p>}
+                        {isError && (
+                          <p className="text-red-600">
+                            Error: {error?.data?.message}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -200,6 +250,57 @@ function Profile() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 font-poppins">
+                <KeyRound className="w-5 h-5" />
+                Reset Password
+              </h3>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="space-y-3 text-sm text-gray-800">
+                  <div className="flex gap-3">
+                    <span className="w-24 text-gray-500 font-poppins">
+                      Old Password:
+                    </span>
+
+                    <div className="form-control">
+                      <input
+                        type="password"
+                        placeholder="Old password"
+                        name="password"
+                        {...register("password", { required: true })}
+                        className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="w-24 text-gray-500 font-poppins">
+                      New password:
+                    </span>
+
+                    <div className="form-control">
+                      <input
+                        type="password"
+                        placeholder="New password"
+                        name="password_confirmation"
+                        {...register("password_confirmation", {
+                          required: true,
+                        })}
+                        className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="ml-48 mt-4">
+                  <button
+                    type="submit"
+                    className="btn px-10 bg-primary hover:bg-secondary flex-1 text-white"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

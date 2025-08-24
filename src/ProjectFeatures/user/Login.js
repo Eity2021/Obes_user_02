@@ -22,7 +22,7 @@ function Login() {
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
 
-  console.log("data", data)
+  console.log("data", data);
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());
@@ -30,7 +30,6 @@ function Login() {
       handleNavigation("/");
     }
   }, [data, dispatch, handleNavigation]);
-
 
   const onSubmit = (formData) => {
     setError("");
@@ -52,7 +51,9 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 w-100">
                 <div className="mb-3">
-                  <p className="font-serif  text-[16px] mb-1">Mobile Number/Email*</p>
+                  <p className="font-serif  text-[16px] mb-1">
+                    Mobile Number/Email*
+                  </p>
                   <input
                     type=""
                     name="login"

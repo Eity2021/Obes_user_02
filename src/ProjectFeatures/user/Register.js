@@ -6,6 +6,8 @@ import useNavigator from "../../hooks/useNavigator";
 import { useForm, Controller } from "react-hook-form";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import DatePicker from "../../components/datepicker/Datepicker";
+import { setUser } from "../../features/profile/profileSlice";
+import { useDispatch } from "react-redux";
 
 function Register() {
   const { handleNavigation } = useNavigator();
@@ -14,7 +16,7 @@ function Register() {
   const [smsNumber, setSmsNumber] = useState(null);
   const [error, setError] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -23,13 +25,11 @@ function Register() {
     formState: { errors },
   } = useForm();
 
-
   const handleSmsNumber = (e) => {
     const newValue = e.target.value;
     setSmsNumber(newValue);
-    setValue("smsmobile", newValue)
+    setValue("smsmobile", newValue);
   };
-
 
   const [resRegister, { data, isLoading, error: resError }] =
     useRegisterMutation();
@@ -39,12 +39,12 @@ function Register() {
       setError(resError.data);
     }
     if (data?.token) {
-      handleNavigation("/");
+      dispatch(setUser(data?.data?.role));
       toast.success("successfully! Sign Up ");
+      handleNavigation("/login");
+      localStorage.clear();
     }
   }, [data, handleNavigation, resError]);
-
-
 
   const onSubmit = (formData) => {
     console.log("data", formData);
@@ -123,7 +123,7 @@ function Register() {
                 </div>
 
                 {smsNumber && (
-                  <div>
+                  <div className="hidden">
                     <label className="font-poppins  text-[14px]">
                       sms Number
                     </label>

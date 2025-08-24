@@ -1,5 +1,4 @@
-import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
-import { TruckElectric, Salad, FileDiff, ReceiptText, Captions, PictureInPicture2,ChartNoAxesGantt , HandCoins  ,PersonStanding , SquareActivity, BookOpenText, Calculator, LayoutDashboard, BookCheck,BookText  } from 'lucide-react';
+import { Salad, FileDiff, ReceiptText, Captions, PictureInPicture2,ChartNoAxesGantt , HandCoins  ,PersonStanding , SquareActivity, BookOpenText, Calculator, LayoutDashboard, BookCheck,BookText  } from 'lucide-react';
 
 const iconClasses = `h-6 w-6`;
 

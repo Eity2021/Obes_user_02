@@ -5,6 +5,8 @@ import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { TrendingUpDown, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+
 function BmiCalculator() {
   const navigate = useNavigate();
   const [height, setHeight] = useState("");
