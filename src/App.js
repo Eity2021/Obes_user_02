@@ -37,7 +37,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/documentation" element={<Documentation />} />
-          <Route path="/email-verify" element={<VerifyEmail />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           {/* Place new routes over this */}
           <Route path="/*" element={<Layout />} />
           <Route path="*" element={<Navigate to={token ? "/welcome" : "/login"} replace />}/>

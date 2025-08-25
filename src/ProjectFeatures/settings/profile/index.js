@@ -18,6 +18,7 @@ import {
 function Profile() {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
+  console.log("profile", profile);
   const navigate = useNavigate();
   const {
     register,
@@ -149,19 +150,26 @@ function Profile() {
                   <div className="flex gap-2">
                     <div>
                       <div>
-                        <button
-                          onClick={handleClick}
-                          disabled={isLoading}
-                          className="bg-primary text-white  px-2 py-1 text-xs rounded font-poppins"
-                        >
-                          {isLoading ? "Verifying..." : "Verify Email"}
-                        </button>
-
-                        {isSuccess && (
-                          <p className="text-green-600">
+                        {profile?.data?.email_verified_at === null && (
+                          <button
+                            onClick={handleClick}
+                            disabled={isLoading}
+                            className="bg-primary text-white  px-2 py-1 text-xs rounded font-poppins"
+                          >
+                            {isLoading ? "Verifying..." : "Verify Email"}
+                          </button>
+                        )}
+                        {profile?.data?.email_verified_at !== null && (
+                           <p className="text-green-600">
                             {data?.message || "Email verified ✅"}
                           </p>
                         )}
+
+                        {/* {isSuccess && (
+                          <p className="text-green-600">
+                            {data?.message || "Email verified ✅"}
+                          </p>
+                        )} */}
                         {isError && (
                           <p className="text-red-600">
                             Error: {error?.data?.message}
@@ -191,9 +199,7 @@ function Profile() {
                   <span className="w-24 text-gray-500 font-poppins">
                     Full Name:
                   </span>
-                  <span className="font-poppins">
-                    {profile?.data?.fulname}
-                  </span>
+                  <span className="font-poppins">{profile?.data?.fulname}</span>
                 </div>
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">
