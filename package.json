@@ -2,6 +2,7 @@
   "name": "user-dashboard",
   "version": "1.0.0",
   "description": "Obesity dashboard",
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

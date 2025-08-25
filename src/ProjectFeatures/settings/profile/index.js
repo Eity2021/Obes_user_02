@@ -147,13 +147,6 @@ function Profile() {
                   <span>{profile?.data?.logemail}</span>
 
                   <div className="flex gap-2">
-                    {/* <div>
-                    {!profile?.data?.email_verified_at && (
-                    <span className="ml-2 px-2 py-0.5 text-xs bg-red-100 text-red-700 rounded font-poppins">
-                      Unverified
-                    </span>
-                  )}
-                  </div> */}
                     <div>
                       <div>
                         <button
@@ -194,6 +187,14 @@ function Profile() {
                 Personal Information
               </h3>
               <div className="space-y-3 text-sm text-gray-800 font-poppins">
+                <div className="flex gap-3">
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Full Name:
+                  </span>
+                  <span className="font-poppins">
+                    {profile?.data?.fulname}
+                  </span>
+                </div>
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">
                     Birthday:

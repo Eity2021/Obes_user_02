@@ -6,14 +6,14 @@ import { TrendingUpDown, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 function BmiCalculator() {
   const navigate = useNavigate();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
-  const { data: profile } = useGetProfileQuery();
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const { data: profile } = useGetProfileQuery(auth?.role);
   // console.log("role", profile);
   // console.log("role", profile?.data?.ogender)
   const [createBmi, { isLoading, error }] = useCreateBmiMutation();
@@ -68,8 +68,6 @@ function BmiCalculator() {
   }, [weight, height, setValue]);
 
   const onSubmit = async (formData) => {
-    console.log("bmiData", formData);
-
     try {
       const submissionData = {
         user_id: formData.user_id,
@@ -131,7 +129,6 @@ function BmiCalculator() {
           Track your BMI changes over time
         </p>
       </div>
-
       <div className="grid  grid-cols-2 px-12 h-[100%] ">
         <div className="">
           <div className="p-6">

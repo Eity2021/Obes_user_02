@@ -21,12 +21,11 @@ const VerifyEmail = lazy(() => import("./ProjectFeatures/user/VerifyEmail"));
 // Initializing different libraries
 initializeApp();
 
-// Check for login and initialize axios
 const token = checkAuth();
 
 function App() {
   useEffect(() => {
-    // 👆 daisy UI themes initialization
+   
     themeChange(false);
   }, []);
 
@@ -39,16 +38,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/documentation" element={<Documentation />} />
           <Route path="/email-verify" element={<VerifyEmail />} />
-
           {/* Place new routes over this */}
           <Route path="/*" element={<Layout />} />
-          <Route
-            path="*"
-            element={<Navigate to={token ? "/welcome" : "/login"} replace />}
-          />
-
-
-
+          <Route path="*" element={<Navigate to={token ? "/welcome" : "/login"} replace />}/>
         </Routes>
       </Router>
     </>
