@@ -58,7 +58,7 @@ export default function Assessment({ filteredData, age }) {
           {/* Important Notes Card */}
           <div>
             {visibleItems?.map((filter) => (
-              <div key={filter.id} className="card bg-base-100 shadow-md">
+              <div key={filter.id} className="card bg-base-100 shadow-md h-full">
                 <div className="card-body">
                   <h2 className="card-title text-[25px]">Do you know about Obesity info?</h2>
                   <span className="text-[16px] text-[#333] font-poppins font-medium  mb-1">
