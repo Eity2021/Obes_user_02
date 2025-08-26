@@ -1,7 +1,12 @@
 // CustomDatePicker.jsx
 import dayjs from "dayjs";
 import { useState } from "react";
-import { ChevronDown,ChevronUp ,ChevronsRight ,ChevronsLeft  } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronUp,
+  ChevronsRight,
+  ChevronsLeft,
+} from "lucide-react";
 export default function DatePicker({ value, onChange }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [viewDate, setViewDate] = useState(dayjs());
@@ -25,20 +30,25 @@ export default function DatePicker({ value, onChange }) {
   };
 
   return (
-     <div className="relative ">
+    <div className="relative ">
       <input
         readOnly
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-transparent"
         value={selectedDate?.format("YYYY-MM-DD")}
-        placeholder='choose date'
+        placeholder="choose date"
         onClick={() => setShowCalendar(!showCalendar)}
       />
 
-        {showCalendar && (
+      {showCalendar && (
         <div className="absolute top-full mt-2 left-0 w-full bg-white border rounded-md shadow-md p-4 z-10">
           {/* Header */}
           <div className="flex items-center justify-between mb-3">
-            <button onClick={handlePrevMonth} className="px-2 text-gray-600 hover:text-black">< ChevronsLeft /></button>
+            <button
+              onClick={handlePrevMonth}
+              className="px-2 text-gray-600 hover:text-black"
+            >
+              <ChevronsLeft />
+            </button>
             <div className="flex items-center gap-2">
               <span className="font-semibold">{viewDate.format("MMMM")}</span>
               <select
@@ -56,7 +66,13 @@ export default function DatePicker({ value, onChange }) {
                 })}
               </select>
             </div>
-            <button onClick={handleNextMonth} className="px-2 text-gray-600 hover:text-black">    <ChevronsRight /></button>
+            <button
+              onClick={handleNextMonth}
+              className="px-2 text-gray-600 hover:text-black"
+            >
+              {" "}
+              <ChevronsRight />
+            </button>
           </div>
 
           {/* Weekdays */}
@@ -92,11 +108,8 @@ export default function DatePicker({ value, onChange }) {
         </div>
       )}
 
-
       <div className="absolute top-3 right-2">
-        {
-          showCalendar ?  <ChevronDown size={16}/> : <ChevronUp  size={16}/>
-        }
+        {showCalendar ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
       </div>
     </div>
   );

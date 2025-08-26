@@ -18,19 +18,19 @@ function Bmi() {
           className={`tab tab-bordered h-[50px] leading-[50px] text-[15px]${activeTab === 'calculator' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
           onClick={() => setActiveTab('calculator')}
         >
-          <Calculator className="w-4 h-4 mr-1" /> Calculator
+          <Calculator className="w-4 h-4 mr-1 md:block hidden" /> Calculator
         </a>
         <a
           className={`tab tab-bordered h-[50px] leading-[50px] text-[15px] ${activeTab === 'history' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
           onClick={() => setActiveTab('history')}
         >
-          <Clock className="w-4 h-4 mr-1" />History
+          <Clock className="w-4 h-4 mr-1 md:block hidden" />History
         </a>
         <a
           className={`tab tab-bordered h-[50px] leading-[50px] text-[15px] ${activeTab === 'info' ? 'tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white' : ''}`}
           onClick={() => setActiveTab('info')}
         >
-          <Info className="w-4 h-4 mr-1" /> Information
+          <Info className="w-4 h-4 mr-1 md:block hidden" /> Information
         </a>
       </div>
     </div>

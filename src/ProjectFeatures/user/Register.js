@@ -181,7 +181,6 @@ function Register() {
                       Date Of Birth
                     </label>
                     <Controller
-                    
                       name="dob"
                       control={control}
                       rules={{ required: true }}

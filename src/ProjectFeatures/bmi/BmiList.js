@@ -3,7 +3,7 @@ import { useGetBmiQuery } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { History, User } from "lucide-react";
 export default function BmiList() {
-    const auth = JSON.parse(localStorage.getItem("auth"));
+  const auth = JSON.parse(localStorage.getItem("auth"));
 
   const { data: profile } = useGetProfileQuery(auth?.role);
   const {
@@ -11,7 +11,10 @@ export default function BmiList() {
     isLoading,
     isError,
     error,
-  } = useGetBmiQuery({ id: profile?.data?.id ,role: profile?.data?.role}, { skip: !profile?.data?.id });
+  } = useGetBmiQuery(
+    { id: profile?.data?.id, role: profile?.data?.role },
+    { skip: !profile?.data?.id }
+  );
   const getBMIColor = (category) => {
     switch (category) {
       case "Underweight":

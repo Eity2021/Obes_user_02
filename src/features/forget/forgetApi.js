@@ -1,33 +1,34 @@
 import { apiSlice } from "../api/apiSlice";
 
-
-
 export const forgetApi = apiSlice.injectEndpoints({
-    endpoints:(builder) => ({
+  endpoints: (builder) => ({
     createForget: builder.mutation({
       query: (data) => ({
         url: `/public/api/forgot-password`,
         method: "POST",
-        body:data
+        body: data,
       }),
     }),
     createForgetOtp: builder.mutation({
       query: (data) => ({
         url: `/public/api/otpmatch-password`,
         method: "POST",
-        body:data
+        body: data,
       }),
     }),
-      
+
     createChangePassword: builder.mutation({
       query: (data) => ({
         url: `/public/api/update-forgotpassword`,
         method: "POST",
-        body:data
+        body: data,
       }),
     }),
-      
-    })
+  }),
 });
 
-export const {useCreateForgetMutation,useCreateForgetOtpMutation ,useCreateChangePasswordMutation} = forgetApi;
+export const {
+  useCreateForgetMutation,
+  useCreateForgetOtpMutation,
+  useCreateChangePasswordMutation,
+} = forgetApi;

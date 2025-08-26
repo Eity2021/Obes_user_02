@@ -120,7 +120,7 @@ function BmiCalculator() {
 
   return (
     <>
-      <div className="p-6 border-b border-gray-200">
+      <div className="p-6 border-b border-gray-200 ">
         <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-800">
           <Calculator className="h-6 w-6 text-primary" />
           BMI Calculator
@@ -129,10 +129,10 @@ function BmiCalculator() {
           Track your BMI changes over time
         </p>
       </div>
-      <div className="grid  grid-cols-2 px-12 h-[100%] ">
-        <div className="">
-          <div className="p-6">
-            <div className="card w-full max-w-md bg-white shadow-lg rounded-lg">
+      <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-1 xl:grid-cols-2 gap-6 px-2 lg:px-12 h-[100%] ">
+        <div className="pt-6">
+          <div className="">
+            <div className="card w-full container mx-auto bg-white shadow-lg rounded-lg">
               <div className="bg-primary p-8 rounded-t-lg">
                 <h2 className="card-title text-white font-bold">
                   BMI Calculator (Imperial)
@@ -252,7 +252,7 @@ function BmiCalculator() {
               <div className="flex items-center gap-4">
                 <TrendingUpDown />
 
-                <h3 className="text-left font-bold text-[28px] ">
+                <h3 className="text-left font-bold text-[18px] md:text-[28px] ">
                   Your BMI Result
                 </h3>
               </div>
