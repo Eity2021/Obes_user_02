@@ -115,45 +115,47 @@ function Questions() {
 
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
-      <div className=" mx-auto p-6 space-y-6">
+      <div className=" mx-auto p-0 md:p-6 space-y-6">
         <div className="card bg-base-100 shadow">
           <div className="px-10 pt-6">
-            <div className="flex justify-between items-center mb-2">
+            <div className="block sm:flex justify-between items-center mb-2 border-b pb-3">
               <div>
-                <p className="text-lg font-bold text-[#333">
-                  Question {questions?.length}
+                <p className="text-lg font-bold text-[#333] flex items-center font-[poppins] ">
+                  Questionnaire {questions?.length}
                 </p>
               </div>
-              <div className="text-right flex gap-2">
-                <div className="text-xl font-bold text-primary">
+              <div className="text-right flex gap-2 mt-2 sm:mt-0  sm:m-0">
+                {/* <div className="text-xl font-bold text-primary">
                   {currentStep}/{questions?.length}
-                </div>
+                </div> */}
+
 
                 <div className="flex items-center">
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`px-4 py-2 rounded-l-md font-[poppins] transition text-[14px]  ${language === "en"
+                    className={`px-3 py-1 rounded-l-md font-[poppins] transition text-[12px] font-semibold ${language === "en"
                       ? "bg-primary text-white"
                       : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                       }`}
                   >
-                    English
+                    EN
                   </button>
                   <button
                     onClick={() => setLanguage("bn")}
-                    className={`px-4 py-2 rounded-r-md font-[poppins] transition text-[14px] ${language === "bn"
+                    className={`px-3 py-1 rounded-r-md font-[poppins] transition text-[12px] font-semibold ${language === "bn"
                       ? "bg-primary text-white"
                       : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                       }`}
                   >
-                    বাংলা
+                    BN
                   </button>
                 </div>
+
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <div className="card-body">
 
               <div className="space-y-4">

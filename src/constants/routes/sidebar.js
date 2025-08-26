@@ -19,7 +19,7 @@ const userRoutes = [
   {
     path: "question",
     icon: <Captions className={`${iconClasses} inline`} />,
-    name: "Question",
+    name: "Questionnaire",
     submenu: [
       {
         path: "/question/survey",
