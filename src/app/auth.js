@@ -7,7 +7,9 @@ const checkAuth = () => {
     "forgot-password",
     "register",
     "documentation",
-    "email-verify"
+    "email-verify",
+    "otp",
+    "change-password",
   ];
 
   const isPublicPage = PUBLIC_ROUTES.some((r) =>

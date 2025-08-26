@@ -175,12 +175,13 @@ function Register() {
                   {/* {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>} */}
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4">
+                  <div className="w-full">
                     <label className="font-poppins  text-[14px]">
                       Date Of Birth
                     </label>
                     <Controller
+                    
                       name="dob"
                       control={control}
                       rules={{ required: true }}
@@ -192,6 +193,7 @@ function Register() {
                           value={field.value}
                           onChange={(date) => field.onChange(date)}
                           format="YYYY-MM-DD"
+                          className="w-full"
                         />
                       )}
                     />

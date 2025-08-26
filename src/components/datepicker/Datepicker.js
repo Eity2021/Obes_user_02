@@ -25,7 +25,7 @@ export default function DatePicker({ value, onChange }) {
   };
 
   return (
-     <div className="relative w-64">
+     <div className="relative ">
       <input
         readOnly
         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-transparent"

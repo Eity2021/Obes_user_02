@@ -9,6 +9,8 @@ import {
 import { themeChange } from "theme-change";
 import checkAuth from "./app/auth";
 import initializeApp from "./app/init";
+import Otp from "./ProjectFeatures/user/Otp";
+import ChangePassword from "./ProjectFeatures/user/ChangePassword";
 
 
 // Importing pages
@@ -38,6 +40,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/documentation" element={<Documentation />} />
           <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           {/* Place new routes over this */}
           <Route path="/*" element={<Layout />} />
           <Route path="*" element={<Navigate to={token ? "/welcome" : "/login"} replace />}/>

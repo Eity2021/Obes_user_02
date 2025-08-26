@@ -8,7 +8,7 @@ export default function VerifyEmail() {
   const token = searchParams.get("token");
 
 const { data: verifyEmail,isLoading,isError,isSuccess,error } = useGetEmailVerifyTokenQuery(token, {
-    skip: !token, // skip API call if token is missing
+    skip: !token, 
   });
 
   console.log("verifyEmail", verifyEmail)

@@ -21,8 +21,6 @@ function Login() {
   } = useForm();
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
-
-  console.log("data", data);
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());

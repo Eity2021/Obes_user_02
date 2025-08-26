@@ -6,6 +6,7 @@ import authSliceReducer from "../features/auth/authSlice";
 import profileSliceReducer from "../features/profile/profileSlice";
 import bmiSliceReducer from "../features/bmi/bmiSlice";
 import resetSliceReducer from "../features/reset/resetSlice";
+import forgetSliceReducer from "../features/forget/forgetSlice";
 import videosSliceReducer from "../features/videos/videosSlice";
 import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
@@ -21,6 +22,7 @@ export const store = configureStore({
     profile: profileSliceReducer,
     bmi: bmiSliceReducer,
     reset: resetSliceReducer,
+    forget: forgetSliceReducer,
     videos: videosSliceReducer,
     question: questionSliceReducer,
     education: educationSliceReducer,
