@@ -1,47 +1,50 @@
-import PageContent from "./PageContent"
-import LeftSidebar from "./LeftSidebar"
-import { useSelector, useDispatch } from 'react-redux'
-import RightSidebar from './RightSidebar'
-import { useEffect } from "react"
-import  {  removeNotificationMessage } from "../ProjectFeatures/common/headerSlice"
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import PageContent from "./PageContent";
+import LeftSidebar from "./LeftSidebar";
+import { useSelector, useDispatch } from "react-redux";
+import RightSidebar from "./RightSidebar";
+import { useEffect } from "react";
+import { removeNotificationMessage } from "../ProjectFeatures/common/headerSlice";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
+import Modal from "./Modal";
 
-
-function Layout(){
-  const dispatch = useDispatch()
-  const {newNotificationMessage, newNotificationStatus} = useSelector(state => state.header)
-
+function Layout() {
+  const dispatch = useDispatch();
+  const { newNotificationMessage, newNotificationStatus } = useSelector(
+    (state) => state.header
+  );
 
   useEffect(() => {
-      if(newNotificationMessage !== ""){
-          if(newNotificationStatus === 1)NotificationManager.success(newNotificationMessage, 'Success')
-          if(newNotificationStatus === 0)NotificationManager.error( newNotificationMessage, 'Error')
-          dispatch(removeNotificationMessage())
-      }
-  }, [newNotificationMessage])
+    if (newNotificationMessage !== "") {
+      if (newNotificationStatus === 1)
+        NotificationManager.success(newNotificationMessage, "Success");
+      if (newNotificationStatus === 0)
+        NotificationManager.error(newNotificationMessage, "Error");
+      dispatch(removeNotificationMessage());
+    }
+  }, [newNotificationMessage]);
 
-    return(
-      <>
-        { /* Left drawer - containing page content and side bar (always open) */ }
-        <div className="drawer  lg:drawer-open">
-            <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
-            <PageContent/>
-            <LeftSidebar />
-        </div>
+  return (
+    <>
+    
+      <div className="drawer  lg:drawer-open">
+        <input
+          id="left-sidebar-drawer"
+          type="checkbox"
+          className="drawer-toggle"
+        />
+        <PageContent />
+        <LeftSidebar />
+      </div>
+      <RightSidebar />
+      <NotificationContainer />
 
-        { /* Right drawer - containing secondary content like notifications list etc.. */ }
-        <RightSidebar />
-
-
-        {/** Notification layout container */}
-        <NotificationContainer />
-
-      {/* Modal layout container */}
-     
-
-      </>
-    )
+      <Modal></Modal>
+    </>
+  );
 }
 
-export default Layout
+export default Layout;
