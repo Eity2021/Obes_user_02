@@ -84,7 +84,7 @@ function BmiCalculator() {
       if (response?.data?.status === 200) {
         toast.success(response?.data?.message);
         reset();
-        navigate("/bmi");
+        navigate("/profile");
       } else {
         toast.error(
           response?.data?.message || "Submission failed. Please try again."

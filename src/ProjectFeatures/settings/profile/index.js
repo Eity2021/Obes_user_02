@@ -18,7 +18,6 @@ import {
 function Profile() {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
-  console.log("profile", profile);
   const navigate = useNavigate();
   const {
     register,
@@ -27,7 +26,7 @@ function Profile() {
     formState: { errors },
   } = useForm();
 
-  const [verifyEmail, { data, isLoading, isError, isSuccess, error }] =
+  const [verifyEmail, { data, isLoading, isError, error }] =
     useCreateEmailVerifyMutation();
 
   const handleClick = () => {
@@ -160,7 +159,7 @@ function Profile() {
                           </button>
                         )}
                         {profile?.data?.email_verified_at !== null && (
-                           <p className="text-green-600">
+                          <p className="text-green-600">
                             {data?.message || "Email verified ✅"}
                           </p>
                         )}
@@ -217,9 +216,54 @@ function Profile() {
                     {profile?.data?.ogender}
                   </span>
                 </div>
+              </div>
+            </div>
+
+            <hr />
+
+            <div>
+              <h3 className="flex items-center gap-2 text-lg font-semibold mb-4 font-poppins">
+                <CalendarDays className="w-5 h-5" />
+                Physical Information
+              </h3>
+              <div className="space-y-3 text-sm text-gray-800 font-poppins">
                 <div className="flex gap-3">
-                  <span className="w-24 text-gray-500 font-poppins">Code:</span>
-                  <span className="font-poppins">{profile?.data?.code}</span>
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Height:
+                  </span>
+                  <span className="font-poppins">
+                    {profile?.data?.myhight} Inch
+                  </span>
+                </div>
+                <div className="flex gap-3">
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Weight:
+                  </span>
+                  <span className="font-poppins">
+                    {profile?.data?.myweight} lbs
+                  </span>
+                </div>
+
+                <div className="flex gap-3">
+                  <span className="w-24 text-gray-500 font-poppins">BMI:</span>
+                  <span className="font-poppins">{profile?.data?.mybmi}</span>
+                </div>
+                <div className="flex gap-3">
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Calory:
+                  </span>
+                  <span className="font-poppins">
+                    {profile?.data?.mycalory}
+                  </span>
+                </div>
+
+                <div className="flex gap-3">
+                  <span className="w-24 text-gray-500 font-poppins">
+                    Category:
+                  </span>
+                  <span className="capitalize font-poppins">
+                    {profile?.data?.bmicat}
+                  </span>
                 </div>
               </div>
             </div>

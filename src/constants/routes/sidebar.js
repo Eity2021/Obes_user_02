@@ -1,9 +1,19 @@
-import { Salad, FileDiff, ReceiptText, Captions, PictureInPicture2,ChartNoAxesGantt , HandCoins  ,PersonStanding , SquareActivity, BookOpenText, Calculator, LayoutDashboard, BookCheck,BookText  } from 'lucide-react';
+import {
+  Salad,
+  FileDiff,
+  ReceiptText,
+  Captions,
+  PictureInPicture2,
+  ChartNoAxesGantt,
+  BookOpenText,
+  Calculator,
+  LayoutDashboard,
+  BookCheck,
+} from "lucide-react";
 
 const iconClasses = `h-6 w-6`;
 
 const userRoutes = [
-
   {
     path: "/",
     icon: <LayoutDashboard className={iconClasses} />,
@@ -14,7 +24,6 @@ const userRoutes = [
     icon: <Calculator className={iconClasses} />,
     name: "Bmi",
   },
-
 
   {
     path: "question",
@@ -32,10 +41,8 @@ const userRoutes = [
         icon: <ReceiptText className={iconClasses} />,
         name: "List of Survey",
       },
-
     ],
   },
-
 
   {
     path: "obes",
@@ -50,7 +57,7 @@ const userRoutes = [
 
       {
         path: "/obes/stepsOfSeven",
-        icon: <ChartNoAxesGantt  className={iconClasses} />,
+        icon: <ChartNoAxesGantt className={iconClasses} />,
         name: "7 Best Practice",
       },
 
@@ -66,9 +73,6 @@ const userRoutes = [
       },
     ],
   },
-
-
-
 ];
 
 export default userRoutes;

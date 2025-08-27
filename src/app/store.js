@@ -13,6 +13,7 @@ import questionSliceReducer from "../features/question/questionSlice";
 import educationSliceReducer from "../features/education/educationSlice";
 import stepsSliceReducer from "../features/steps/stepsSlice";
 import dietSliceReducer from "../features/dietChart/dietSlice";
+import logoutSlice from "../features/logout/logoutSlice";
 import { apiSlice } from "../features/api/apiSlice";
 
 export const store = configureStore({
@@ -32,6 +33,7 @@ export const store = configureStore({
     header: headerSlice,
     rightDrawer: rightDrawerSlice,
     modal: modalSlice,
+    logout: logoutSlice,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddlewares) =>

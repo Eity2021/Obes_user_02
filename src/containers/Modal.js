@@ -22,8 +22,6 @@ export default function Modal() {
     formState: { errors },
   } = useForm();
 
-  console.log("profile", profile?.data);
-
   useEffect(() => {
     if (weight > 0 && height > 0) {
       const bmiValue = (weight * 703) / (height * height);

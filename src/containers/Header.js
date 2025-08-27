@@ -9,6 +9,8 @@ import { useGetProfileQuery } from '../features/profile/profileApi';
 import MoonIcon from '@heroicons/react/24/outline/MoonIcon';
 import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil';
 import { openRightDrawer } from '../ProjectFeatures/common/rightDrawerSlice';
+import { useCreateLogoutMutation } from '../features/logout/logoutApi';
+import { clearCredentials } from '../features/logout/logoutSlice';
 
 
 
@@ -33,13 +35,29 @@ function Header() {
         dispatch(openRightDrawer({ header: "Notifications", bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION }))
     }
 
-    function logoutUser() {
-        localStorage.clear();
-        window.location.href = '/'
-    }
-
     const auth = JSON.parse(localStorage.getItem("auth"));
     const { data: profile} = useGetProfileQuery(auth?.role);
+    const [logoutUserApi] = useCreateLogoutMutation();
+
+    // function logoutUser() {
+    //     localStorage.clear();
+    //     window.location.href = '/'
+    // }
+
+
+    const logoutUser = async () => {
+    try {
+      await logoutUserApi().unwrap(); 
+      dispatch(clearCredentials());   
+      localStorage.clear();           
+      window.location.href = "/";     
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+
+
 
     return (
         <>
