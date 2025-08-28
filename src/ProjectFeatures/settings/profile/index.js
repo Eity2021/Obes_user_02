@@ -26,7 +26,7 @@ function Profile() {
     formState: { errors },
   } = useForm();
 
-  const [verifyEmail, { data, isLoading, isError, error }] =
+  const [verifyEmail, { data, isLoading, isError, isSuccess, error }] =
     useCreateEmailVerifyMutation();
 
   const handleClick = () => {
@@ -149,6 +149,7 @@ function Profile() {
                   <div className="flex gap-2">
                     <div>
                       <div>
+
                         {profile?.data?.email_verified_at === null && (
                           <button
                             onClick={handleClick}
@@ -158,17 +159,19 @@ function Profile() {
                             {isLoading ? "Verifying..." : "Verify Email"}
                           </button>
                         )}
+
+
                         {profile?.data?.email_verified_at !== null && (
                           <p className="text-green-600">
                             {data?.message || "Email verified ✅"}
                           </p>
                         )}
 
-                        {/* {isSuccess && (
+                        {isSuccess && (
                           <p className="text-green-600">
-                            {data?.message || "Email verified ✅"}
+                           Verification email sent
                           </p>
-                        )} */}
+                        )}
                         {isError && (
                           <p className="text-red-600">
                             Error: {error?.data?.message}

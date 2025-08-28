@@ -1,4 +1,5 @@
 function DashboardStats({ profileData }) {
+
   const getGradient = () => {
     if (profileData?.bmi < 18.5) return "from-blue-300 to-blue-500"; // Underweight
     if (profileData?.bmi < 23) return "from-green-300 to-green-500"; // Normal
@@ -6,12 +7,6 @@ function DashboardStats({ profileData }) {
     return "from-red-400 to-red-600"; // Obese
   };
 
-  const getLabel = () => {
-    if (profileData?.bmi < 18.5) return "Underweight";
-    if (profileData?.bmi < 25) return "Healthy Weight";
-    if (profileData?.bmi < 30) return "Overweight";
-    return "Obese";
-  };
 
   return (
     <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
@@ -23,7 +18,6 @@ function DashboardStats({ profileData }) {
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
             {profileData?.bmi}
           </p>
-          {/* <p className="text-lg font-semibold font-[poppins] text-[#fff]">{getLabel()}</p> */}
         </div>
       </div>
       <div className="stats shadow">
@@ -32,7 +26,7 @@ function DashboardStats({ profileData }) {
             Category
           </h1>
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
-            {getLabel()}
+           {profileData?.category}
           </p>
         </div>
       </div>
@@ -54,7 +48,7 @@ function DashboardStats({ profileData }) {
             Weight
           </h1>
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
-            {profileData?.weight}
+            {profileData?.weight} Ibs
           </p>
         </div>
       </div>
