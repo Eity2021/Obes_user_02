@@ -144,7 +144,7 @@ export default function Modal() {
           <div className="">
             <div className=" w-full mx-auto rounded-sm p-1  px-2">
               <div className="bg-[#f1f1f1] rounded-sm p-2">
-                <p className="text-lg text-black text-center font-[poppins]">
+                <p className="text-lg text-[#333] font-semibold text-center font-poppins">
                   Must Be Calculate your BMI
                 </p>
               </div>

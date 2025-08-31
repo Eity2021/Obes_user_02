@@ -45,16 +45,17 @@ function Header() {
     // }
 
 
-    const logoutUser = async () => {
-    try {
-      await logoutUserApi().unwrap(); 
-      dispatch(clearCredentials());   
-      localStorage.clear();           
-      window.location.href = "/";     
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+const logoutUser = async () => {
+  try {
+    await logoutUserApi().unwrap();  // must be correct method
+    dispatch(clearCredentials());
+    localStorage.clear();
+    window.location.href = "/";
+  } catch (error) {
+    console.error("Logout failed:", error);
+    alert("Logout failed. Please try again.");
+  }
+};
 
 
 
