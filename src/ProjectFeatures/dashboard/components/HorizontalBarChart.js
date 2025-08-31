@@ -20,13 +20,13 @@ const HorizontalBarChart = ({ mySteps }) => {
     datasets: [
       {
         label: "Yes",
-        data: [mySteps?.ExYesCount, mySteps?.FVYesCount, mySteps?.MYesCount, mySteps?.SleepNoCount, mySteps?.SYesCount, mySteps?.STYesCount, mySteps?.TYesCount],
-        backgroundColor: "#4CAF50", // green
+        data: [(mySteps?.ExYesCount || 10), (mySteps?.FVYesCount || 10), (mySteps?.MYesCount || 10),( mySteps?.SleepNoCount || 10),( mySteps?.SYesCount || 10),( mySteps?.STYesCount || 10), (mySteps?.TYesCount || 10)],
+        backgroundColor: "#4CAF50", 
       },
       {
         label: "No",
-        data: [mySteps?.ExNoCount, mySteps?.FVNoCount, mySteps?.MNoCount, mySteps?.SleepYesCount, mySteps?.SNoCount, mySteps?.STNoCount, mySteps?.TNoCount],
-        backgroundColor: "#4CBFC8", // pink
+        data: [(mySteps?.ExNoCount || 10),( mySteps?.FVNoCount || 10), (mySteps?.MNoCount || 10), (mySteps?.SleepYesCount || 10),( mySteps?.SNoCount || 10), (mySteps?.STNoCount || 10), (mySteps?.TNoCount || 10)],
+        backgroundColor: "#E14954",
       },
     ],
   };
