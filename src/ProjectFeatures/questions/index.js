@@ -121,6 +121,8 @@ function Questions() {
     );
   }
 
+  console.log("questions", questions);
+
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">
       <div className=" mx-auto p-0 md:p-6 space-y-6">
@@ -609,7 +611,7 @@ function Questions() {
                         <div className="bg-[#7B1E19]/20 rounded-lg  p-4">
                           <div className="flex justify-between">
                             <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
-                              Question {index + 1} :
+                              Question {index} :
                             </h2>
                             <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">
                               {item.category_bangla}
@@ -733,6 +735,27 @@ function Questions() {
                                 </select>
                               </div>
                             </>
+                          ) : item.qatype === "clock" ? (
+                            <div>
+                              {Array.isArray(item.qaoptionbng) ? (
+                                item.qaoptionbng.map((option, i) => (
+                                  <div className="flex gap-3 py-1">
+                                    <input
+                                      type="time"
+                                      className="input w-full font-poppins text-[18px]"
+                                      {...register(`ansjson.${item.qid}`)}
+                                       defaultValue={option}
+                                    />
+                                  </div>
+                                ))
+                              ) : (
+                                <p className="text-gray-700">
+                                  {typeof item.qaoptionbng === "string"
+                                    ? item.qaoptionbng
+                                    : "No options available"}
+                                </p>
+                              )}
+                            </div>
                           ) : (
                             <></>
                           )}
@@ -742,6 +765,7 @@ function Questions() {
                   </div>
                 )}
               </div>
+
               <div className="flex justify-end">
                 <button
                   className="btn bg-primary hover:bg-primary text-white text-[18px] font-semibold w-28 h-28 rounded-full mt-3 "

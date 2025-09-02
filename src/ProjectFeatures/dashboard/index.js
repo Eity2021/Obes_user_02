@@ -17,10 +17,10 @@ function Dashboard() {
         <DashboardStats profileData={profileData} />
       </div>
       {/** ---------------------- Different charts ------------------------- */}
-      <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
+       <div className="grid lg:grid-cols-2 mt-4 grid-cols-1 gap-6">
         <LineChart bmiList={bmiList}/>
         <HorizontalBarChart mySteps={mySteps} />
-      </div>
+      </div> 
       <div>
         <div className="bg-[#ffff] py-4 shadow-md rounded-[13px] mt-3">
           <h2 className="px-4 text-[18px] font-semibold font-[poppins]">
