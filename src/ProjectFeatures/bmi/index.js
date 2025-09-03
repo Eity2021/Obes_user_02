@@ -38,7 +38,7 @@ function Bmi() {
 
     
       <div className="mt-4" >
-        {activeTab === 'calculator' && <BmiCalculator />}
+        {activeTab === 'calculator' && <BmiCalculator setActiveTab={setActiveTab}/>}
         {activeTab === 'history' && <BmiList />}
         {activeTab === 'info' && <BmiInfo />}
       </div>

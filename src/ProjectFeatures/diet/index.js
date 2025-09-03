@@ -15,6 +15,7 @@ export default function DietPlan() {
     error,
   } = useGetDietQuery({ mycalory: profile?.data?.mycalory, role: profile?.data?.role });
 
+  console.log("dietMealData",dietMealData)
   if (profileLoading || isLoading) {
     return (
 

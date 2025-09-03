@@ -6,7 +6,7 @@ import { TrendingUpDown, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function BmiCalculator() {
+function BmiCalculator({setActiveTab}) {
   const navigate = useNavigate();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -84,7 +84,8 @@ function BmiCalculator() {
       if (response?.data?.status === 200) {
         toast.success(response?.data?.message);
         reset();
-        navigate("/profile");
+        // navigate("/profile");
+        setActiveTab("history")
       } else {
         toast.error(
           response?.data?.message || "Submission failed. Please try again."
