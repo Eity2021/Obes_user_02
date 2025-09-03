@@ -533,28 +533,14 @@ function Questions() {
                             </>
                           ) : item.qatype === "input" ? (
                             <>
-                              {Array.isArray(item.qaoptioneng) ? (
-                                item?.qaoptioneng.map((option, i) => (
-                                  <div
-                                    className="flex gap-3 py-1"
-                                    key={option?.qid}
-                                  >
-                                    <input
-                                      type="text"
-                                      placeholder="Type here"
-                                      className="input w-full"
-                                      {...register(`ansjson.${item?.qid}`)}
-                                      defaultValue={option}
-                                    />
-                                  </div>
-                                ))
-                              ) : (
-                                <p className="text-gray-700">
-                                  {typeof item.qaoptioneng === "string"
-                                    ? item.qaoptioneng
-                                    : "No options available"}
-                                </p>
-                              )}
+                              <div className="flex gap-3 py-1">
+                                <input
+                                  type="text"
+                                  placeholder="Type here"
+                                  className="input w-full"
+                                  {...register(`ansjson.${item?.qid}`)}
+                                />
+                              </div>
                             </>
                           ) : item.qatype === "dropdown" ? (
                             <>
@@ -597,6 +583,16 @@ function Questions() {
                                 </select>
                               </div>
                             </>
+                          ) : item.qatype === "clock" ? (
+                            <div>
+                              <div className="flex gap-3 py-1">
+                                <input
+                                  type="time"
+                                  className="input w-full font-poppins text-[18px]"
+                                  {...register(`ansjson.${item.qid}`)}
+                                />
+                              </div>
+                            </div>
                           ) : (
                             <></>
                           )}
@@ -674,25 +670,14 @@ function Questions() {
                             </>
                           ) : item.qatype === "input" ? (
                             <>
-                              {Array.isArray(item.qaoptionbng) ? (
-                                item.qaoptionbng.map((option, i) => (
-                                  <div className="flex gap-3 py-1">
-                                    <input
-                                      type="text"
-                                      placeholder="Type here"
-                                      className="input w-full"
-                                      {...register(`ansjson.${item.qid}`)}
-                                      defaultValue={option}
-                                    />
-                                  </div>
-                                ))
-                              ) : (
-                                <p className="text-gray-700">
-                                  {typeof item.qaoptionbng === "string"
-                                    ? item.qaoptionbng
-                                    : "No options available"}
-                                </p>
-                              )}
+                              <div className="flex gap-3 py-1">
+                                <input
+                                  type="text"
+                                  placeholder="Type here"
+                                  className="input w-full"
+                                  {...register(`ansjson.${item.qid}`)}
+                                />
+                              </div>
                             </>
                           ) : item.qatype === "dropdown" ? (
                             <>
@@ -737,24 +722,13 @@ function Questions() {
                             </>
                           ) : item.qatype === "clock" ? (
                             <div>
-                              {Array.isArray(item.qaoptionbng) ? (
-                                item.qaoptionbng.map((option, i) => (
-                                  <div className="flex gap-3 py-1">
-                                    <input
-                                      type="time"
-                                      className="input w-full font-poppins text-[18px]"
-                                      {...register(`ansjson.${item.qid}`)}
-                                       defaultValue={option}
-                                    />
-                                  </div>
-                                ))
-                              ) : (
-                                <p className="text-gray-700">
-                                  {typeof item.qaoptionbng === "string"
-                                    ? item.qaoptionbng
-                                    : "No options available"}
-                                </p>
-                              )}
+                              <div className="flex gap-3 py-1">
+                                <input
+                                  type="time"
+                                  className="input w-full font-poppins text-[18px]"
+                                  {...register(`ansjson.${item.qid}`)}
+                                />
+                              </div>
                             </div>
                           ) : (
                             <></>
