@@ -12,7 +12,7 @@ import Subtitle from "../Typography/Subtitle"
                 {
                     TopSideButtons && <div className="inline-block float-right">{TopSideButtons}</div>
                 }
-              </Subtitle> */}
+              </Subtitle> 
               
               {/* <div className="divider mt-2"></div> */}
           

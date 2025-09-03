@@ -1,12 +1,12 @@
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import TitleCard from "../../../components/Cards/TitleCard";
+import TitleCardSteps from "./TitleCardSteps";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const StepsPieChart = ({ yes, no, title, colors1, colors2 }) => {
   const data = {
-    labels: [Number(yes) || 0, Number(no) || 0],
+    labels: ["Yes", "No"],
     datasets: [
       {
         data: [Number(yes) || 0, Number(no) || 0],
@@ -36,13 +36,13 @@ const StepsPieChart = ({ yes, no, title, colors1, colors2 }) => {
   };
 
   return (
-    <TitleCard title={title}>
-      <div className="flex justify-center">
-        <div className="w-[60%]">
+    <TitleCardSteps title={title}>
+      <div className="flex justify-center" >
+        <div className="w-[60%] flex justify-center">
           <Pie data={data} options={options} />
         </div>
       </div>
-    </TitleCard>
+    </TitleCardSteps>
   );
 };
 

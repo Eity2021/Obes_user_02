@@ -32,52 +32,52 @@ function Dashboard() {
             title="Exercise"
             yes={mySteps?.ExYesCount || 50}
             no={mySteps?.ExNoCount || 50}
-            colors1="#4CAF50"
-            colors2="#FD8695"
+            colors1="#4CA4FF"
+            colors2="#00B6DF"
           ></StepsPieChart>
           <StepsPieChart
             title="Fruits & Vegetables"
             yes={mySteps?.FVYesCount || 50}
             no={mySteps?.FVNoCount || 50}
-            colors1="#FFC107"
-            colors2="#2196F3"
+            colors1="#95E500"
+            colors2="#00CB4D"
           ></StepsPieChart>
 
           <StepsPieChart
             title="Meals"
             yes={mySteps?.MYesCount || 50}
             no={mySteps?.MNoCount || 50}
-            colors1="#9C27B0"
-            colors2="#FF9800"
+            colors1="#00DE73"
+            colors2="#00C07C"
           ></StepsPieChart>
           <StepsPieChart
             title="Sleep"
             yes={mySteps?.SleepYesCount || 50}
             no={mySteps?.SleepNoCount || 50}
-            colors1="#3F51B5"
-            colors2="#E91E63"
+            colors1="#343F50"
+            colors2="#151C2D"
           ></StepsPieChart>
 
           <StepsPieChart
             title="Sugary Drinks"
             yes={mySteps?.SYesCount || 50}
             no={mySteps?.SNoCount || 50}
-            colors1="#00BCD4"
-            colors2="#8BC34A"
+            colors1="#FF850B"
+            colors2="#FC3835"
           ></StepsPieChart>
           <StepsPieChart
             title="Screen Time"
             yes={mySteps?.STYesCount || 50}
             no={mySteps?.STNoCount || 50}
-            colors1="#FF5722"
-            colors2="#607D8B"
+            colors1="#C578FF"
+            colors2="#F33CA2"
           ></StepsPieChart>
           <StepsPieChart
             title="treatment"
             yes={mySteps?.TYesCount || 50}
             no={mySteps?.TNoCount || 50}
-            colors1="#795548"
-            colors2="#009688"
+            colors1="#FF6080"
+            colors2="#F73997"
           ></StepsPieChart>
         </div>
       </div>

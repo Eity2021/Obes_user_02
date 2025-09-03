@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { themeChange } from 'theme-change';
-import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import  { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import BellIcon from '@heroicons/react/24/outline/BellIcon';
 import SunIcon from '@heroicons/react/24/outline/SunIcon';
 import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
 import { useGetProfileQuery } from '../features/profile/profileApi';
@@ -13,9 +13,9 @@ import { useCreateLogoutMutation } from '../features/logout/logoutApi';
 import { clearCredentials } from '../features/logout/logoutSlice';
 
 
-
 function Header() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { noOfNotifications, pageTitle } = useSelector(state => state.header)
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
 
@@ -31,9 +31,9 @@ function Header() {
   
     }, [])
 
-    const openNotification = () => {
-        dispatch(openRightDrawer({ header: "Notifications", bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION }))
-    }
+    // const openNotification = () => {
+    //     dispatch(openRightDrawer({ header: "Notifications", bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION }))
+    // }
 
     const auth = JSON.parse(localStorage.getItem("auth"));
     const { data: profile} = useGetProfileQuery(auth?.role);
@@ -50,7 +50,7 @@ const logoutUser = async () => {
     await logoutUserApi().unwrap();  // must be correct method
     dispatch(clearCredentials());
     localStorage.clear();
-    window.location.href = "/";
+    navigate("/login")
   } catch (error) {
     console.error("Logout failed:", error);
     alert("Logout failed. Please try again.");
