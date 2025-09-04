@@ -13,7 +13,7 @@ export const bmiApi = apiSlice.injectEndpoints({
 
     getBmi: builder.query({
       query: ({ role, id }) => `/public/api/${role}/bmiu/${id}`,
-       providesTags: ["Bmi"],
+      providesTags: ["Bmi"],
     }),
   }),
 });

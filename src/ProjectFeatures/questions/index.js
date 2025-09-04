@@ -11,7 +11,7 @@ import { useCreateAnswerMutation } from "../../features/answer/answerApi";
 function Questions() {
   const navigate = useNavigate();
   const [answerList, setAnswerList] = useState([]);
-  const [currentStep, setCurrentStep] = useState(1);
+  // const [currentStep, setCurrentStep] = useState(1);
   const [language, setLanguage] = useState("en");
   const [createAnswer] = useCreateAnswerMutation();
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -52,6 +52,7 @@ function Questions() {
   };
 
   const onSubmit = async (formData) => {
+    console.log("formData",formData);
     try {
       const formattedAnsjson = Object?.entries(formData.ansjson)
         .filter(([_, value]) => value != null && value !== false)
@@ -121,7 +122,7 @@ function Questions() {
     );
   }
 
-  console.log("questions", questions);
+  // console.log("questions", questions);
 
   return (
     <TitleCard title="Questions For Survey" topMargin="mt-2">

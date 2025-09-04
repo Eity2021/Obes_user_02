@@ -14,12 +14,8 @@ const logoutSlice = createSlice({
        state.token = action?.payload?.token;
        state.role = action?.payload?.role;
     },
-    clearCredentials: (state) => {
-      state.token = null;
-      state.role = null;
-    },
     }
 })
 
-export const {setCredentials, clearCredentials} = logoutSlice.actions;
+export const {setCredentials} = logoutSlice.actions;
 export default logoutSlice.reducer;

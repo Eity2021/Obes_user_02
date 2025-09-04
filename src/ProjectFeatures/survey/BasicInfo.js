@@ -2,8 +2,6 @@ import React from "react";
 
 export default function BasicInfo({ surveyList }) {
   let basicInfo = surveyList?.data?.anslist;
-  console.log("data", basicInfo);
-
   const questions = [
     {
       id: 1,

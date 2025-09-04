@@ -7,14 +7,14 @@ import SunIcon from '@heroicons/react/24/outline/SunIcon';
 import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
 import { useGetProfileQuery } from '../features/profile/profileApi';
 import MoonIcon from '@heroicons/react/24/outline/MoonIcon';
-import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil';
-import { openRightDrawer } from '../ProjectFeatures/common/rightDrawerSlice';
+// import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil';
+// import { openRightDrawer } from '../ProjectFeatures/common/rightDrawerSlice';
 import { useCreateLogoutMutation } from '../features/logout/logoutApi';
-import { clearCredentials } from '../features/logout/logoutSlice';
+
 
 
 function Header() {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const navigate = useNavigate()
     const { noOfNotifications, pageTitle } = useSelector(state => state.header)
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
@@ -48,7 +48,6 @@ function Header() {
 const logoutUser = async () => {
   try {
     await logoutUserApi().unwrap();  // must be correct method
-    dispatch(clearCredentials());
     localStorage.clear();
     navigate("/login")
   } catch (error) {
@@ -63,7 +62,7 @@ const logoutUser = async () => {
                 <div className="flex-1">
                     <label htmlFor="left-sidebar-drawer" className="btn bg-primary text-white drawer-button lg:hidden">
                         <Bars3Icon className="h-5 inline-block w-5" /></label>
-                    <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
+                    {/* <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1> */}
                 </div>
                 <div className="flex-none ">
                     <label className="swap">

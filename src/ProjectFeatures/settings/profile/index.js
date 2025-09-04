@@ -13,11 +13,16 @@ import {
   Shield,
   Clock,
   KeyRound,
+  UserRoundPen,
 } from "lucide-react";
+
+import { useState } from "react";
+import EditProfile from "./EditProfile";
 
 function Profile() {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -57,15 +62,7 @@ function Profile() {
     });
   };
 
-  const getInitials = (name) => {
-    if (!name) return "";
 
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
   const [createReset] = useCreateResetMutation();
 
   const onSubmit = async (formData) => {
@@ -103,15 +100,24 @@ function Profile() {
           <div className="bg-white shadow-md rounded-2xl p-6 space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row items-center gap-6">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-100 text-center text-xl flex items-center justify-center font-semibold">
-                <img
-                  src={profile?.data?.imgpath}
-                  alt={profile?.data?.fullname}
-                  className="object-cover w-full h-full"
-                />
-                {!profile?.data?.imgpath &&
-                  getInitials(profile?.data?.fullname)}
+              <div className="relative">
+                <div className=" w-24 h-24 rounded-full overflow-hidden bg-gray-100 text-center text-xl flex items-center justify-center font-semibold">
+                  <img
+                    src={profile?.data?.imgpath}
+                    alt={profile?.data?.fullname}
+                    className="object-cover w-full h-full"
+                  />
+                  {/* {!profile?.data?.imgpath &&
+                  getInitials(profile?.data?.fullname)} */}
+                </div>
+                <div
+                  className="absolute top-[64px] right-0 bg-primary rounded-[50%] shadow-md p-1 cursor-pointer"
+                  onClick={() => setIsOpen(true)}
+                >
+                  <UserRoundPen size={20} color="#fff" />
+                </div>
               </div>
+
               <div className="text-center sm:text-left flex-1">
                 <h2 className="text-2xl font-bold font-[poppins]">
                   {profile?.data?.fullname}
@@ -149,7 +155,6 @@ function Profile() {
                   <div className="flex gap-2">
                     <div>
                       <div>
-
                         {profile?.data?.email_verified_at === null && (
                           <button
                             onClick={handleClick}
@@ -160,7 +165,6 @@ function Profile() {
                           </button>
                         )}
 
-
                         {profile?.data?.email_verified_at !== null && (
                           <p className="text-green-600">
                             {data?.message || "Email verified ✅"}
@@ -169,7 +173,7 @@ function Profile() {
 
                         {isSuccess && (
                           <p className="text-green-600">
-                           Verification email sent
+                            Verification email sent
                           </p>
                         )}
                         {isError && (
@@ -359,6 +363,7 @@ function Profile() {
           </div>
         </div>
       </TitleCard>
+      <EditProfile isOpen={isOpen} setIsOpen={setIsOpen}></EditProfile>
     </>
   );
 }
