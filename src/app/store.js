@@ -11,6 +11,7 @@ import videosSliceReducer from "../features/videos/videosSlice";
 import answerSliceReducer from "../features/answer/answerSlice";
 import questionSliceReducer from "../features/question/questionSlice";
 import educationSliceReducer from "../features/education/educationSlice";
+import uploadSliceReducer from "../features/upload/uploadSlice";
 import stepsSliceReducer from "../features/steps/stepsSlice";
 import dietSliceReducer from "../features/dietChart/dietSlice";
 import logoutSlice from "../features/logout/logoutSlice";
@@ -27,6 +28,7 @@ export const store = configureStore({
     videos: videosSliceReducer,
     question: questionSliceReducer,
     education: educationSliceReducer,
+    upload: uploadSliceReducer,
     answer: answerSliceReducer,
     steps: stepsSliceReducer,
     diet: dietSliceReducer,

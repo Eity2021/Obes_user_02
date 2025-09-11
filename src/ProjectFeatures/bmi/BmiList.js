@@ -15,7 +15,7 @@ export default function BmiList() {
     { id: profile?.data?.id, role: profile?.data?.role },
     { skip: !profile?.data?.id }
   );
-  console.log("bmi",bmi)
+
   const getBMIColor = (category) => {
     switch (category) {
       case "Underweight":
@@ -66,12 +66,12 @@ export default function BmiList() {
                         <p className="font-medium text-gray-900">
                           {entry.recorded_at}
                         </p>
-                      
+
                         <p className="text-sm text-gray-600">
                           Calory:{" "}
                           <span className="font-semibold">{entry.calory}</span>
                         </p>
-                          <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600">
                           BMI:{" "}
                           <span className="font-semibold">{entry.bmi}</span>
                         </p>
