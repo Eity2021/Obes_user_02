@@ -65,11 +65,15 @@ const logoutUser = async () => {
                     {/* <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1> */}
                 </div>
                 <div className="flex-none ">
-                    <label className="swap">
+
+                      <label className="swap">
                         <input type="checkbox" />
                         <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 " + (currentTheme === "light" ? "swap-on" : "swap-off")} />
                         <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 " + (currentTheme === "dark" ? "swap-on" : "swap-off")} />
-                  </label>
+                  </label> 
+
+
+                   
                      {/*  <button className="btn btn-ghost ml-4  btn-circle" onClick={() => openNotification()}>
                         <div className="indicator">
                             <BellIcon className="h-6 w-6" />
