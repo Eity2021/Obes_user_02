@@ -6,7 +6,7 @@ import { useCreateUploadMutation } from "../../../features/upload/uploadApi";
 import { useForm, Controller } from "react-hook-form";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function EditProfile({ setIsOpen, isOpen }) {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const [preview, setPreview] = useState(null);
@@ -20,10 +20,16 @@ export default function EditProfile({ setIsOpen, isOpen }) {
     register,
     handleSubmit,
     reset,
+    setValue,
     control,
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    if (uploadedImageUrl) {
+      setValue("profilepicup", uploadedImageUrl);
+    }
+  }, [uploadedImageUrl, setValue]);
   const handleImageUpload = async (file) => {
     if (!file) return;
     setImageUploading(true);
@@ -201,14 +207,14 @@ export default function EditProfile({ setIsOpen, isOpen }) {
                     )}
                   />
                 </div>
-                <div className="hidden">
+
+                <div className="">
                   {uploadedImageUrl && (
                     <div>
                       <input
                         {...register("profilepicup", { required: true })}
                         type="text"
-                        value={uploadedImageUrl}
-                        rows={4}
+                        readOnly
                       />
                     </div>
                   )}
