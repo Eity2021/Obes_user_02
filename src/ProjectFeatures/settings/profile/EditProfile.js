@@ -1,21 +1,22 @@
+import { toast } from "react-toastify";
 import {
   useGetProfileQuery,
   useCreateProfileMutation,
 } from "../../../features/profile/profileApi";
-import { useCreateUploadMutation } from "../../../features/upload/uploadApi";
-import { useForm, Controller } from "react-hook-form";
-import { CheckCircle, Loader2 } from "lucide-react";
-import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { CheckCircle, Loader2 } from "lucide-react";
+import { useForm, Controller } from "react-hook-form";
+import { useCreateUploadMutation } from "../../../features/upload/uploadApi";
+
 export default function EditProfile({ setIsOpen, isOpen }) {
-  const auth = JSON.parse(localStorage.getItem("auth"));
   const [preview, setPreview] = useState(null);
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const { data: profile } = useGetProfileQuery(auth?.role);
+  const [createUpload, { error }] = useCreateUploadMutation();
   const [imageUploading, setImageUploading] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [updateProfile, { isLoading }] = useCreateProfileMutation(auth?.role);
-  const [createUpload, { error }] = useCreateUploadMutation();
-  const { data: profile } = useGetProfileQuery(auth?.role);
-  console.log(profile?.data?.id);
+
   const {
     register,
     handleSubmit,
@@ -78,15 +79,7 @@ export default function EditProfile({ setIsOpen, isOpen }) {
 
   return (
     <div>
-      <div className="flex items-center justify-center min-h-screen">
-        {/* Open Modal Button */}
-        <button
-          onClick={() => setIsOpen(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
-        >
-          Open Modal
-        </button>
-
+      <div className="flex items-center justify-center ">
         {/* Modal Overlay */}
         {isOpen && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
@@ -102,7 +95,7 @@ export default function EditProfile({ setIsOpen, isOpen }) {
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {profile?.data?.id && (
-                  <div>
+                  <div className="hidden">
                     <label className="block text-sm font-medium text-gray-700">
                       Name
                     </label>
@@ -211,7 +204,7 @@ export default function EditProfile({ setIsOpen, isOpen }) {
                   />
                 </div>
 
-                <div className="">
+                <div className="hidden">
                   {uploadedImageUrl && (
                     <div>
                       <input
