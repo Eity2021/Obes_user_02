@@ -6,9 +6,9 @@ export const profileApi = apiSlice.injectEndpoints({
     getProfile: builder.query({
       query: (role) => `/public/api/${role}/profile`,
     }),
-    updateProfile: builder.mutation({
+    createProfile: builder.mutation({
       query: ({ role, data }) => ({
-        url: `/public/api/${role}/profilepic`,
+        url: `/public/api/${role}/profilepicup`,
         method: "POST",
         body: data,
       }),
@@ -17,4 +17,4 @@ export const profileApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProfileQuery, useUpdateProfileMutation } = profileApi;
+export const { useGetProfileQuery, useCreateProfileMutation } = profileApi;

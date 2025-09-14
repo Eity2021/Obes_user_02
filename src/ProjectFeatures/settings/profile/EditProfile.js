@@ -1,6 +1,6 @@
 import {
   useGetProfileQuery,
-  useUpdateProfileMutation,
+  useCreateProfileMutation,
 } from "../../../features/profile/profileApi";
 import { useCreateUploadMutation } from "../../../features/upload/uploadApi";
 import { useForm, Controller } from "react-hook-form";
@@ -12,7 +12,7 @@ export default function EditProfile({ setIsOpen, isOpen }) {
   const [preview, setPreview] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
-  const [updateProfile, { isLoading }] = useUpdateProfileMutation(auth?.role);
+  const [updateProfile, { isLoading }] = useCreateProfileMutation(auth?.role);
   const [createUpload, { error }] = useCreateUploadMutation();
   const { data: profile } = useGetProfileQuery(auth?.role);
   console.log(profile?.data?.id);
@@ -64,7 +64,10 @@ export default function EditProfile({ setIsOpen, isOpen }) {
     formData.append("user_id", data.user_id);
 
     try {
-      const response = await updateProfile({ role: auth?.role, formData });
+      const response = await updateProfile({
+        role: auth?.role,
+        data: formData,
+      });
       toast.success(response?.data?.message);
       reset();
       setIsOpen(false);
