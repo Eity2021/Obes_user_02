@@ -30,7 +30,7 @@ function ObeEducation({ filteredData, age }) {
           <div className=" overflow-hidden ">
             {/* CardHeader Simulation */}
             <div className="p-6 border-b border-gray-200">
-              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 font-[poppins]">
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 font-poppins">
                 <History className="h-6 w-6 text-primary" />
                 Educational Modules
               </h2>
