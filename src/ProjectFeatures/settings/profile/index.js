@@ -62,7 +62,6 @@ function Profile() {
     });
   };
 
-
   const [createReset] = useCreateResetMutation();
 
   const onSubmit = async (formData) => {
@@ -119,7 +118,7 @@ function Profile() {
               </div>
 
               <div className="text-center sm:text-left flex-1">
-                <h2 className="text-2xl font-bold font-[poppins]">
+                <h2 className="text-2xl font-bold font-poppins">
                   {profile?.data?.fullname}
                 </h2>
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">

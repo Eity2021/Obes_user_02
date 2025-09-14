@@ -1,16 +1,11 @@
 import { BookOpen } from "lucide-react";
 
-
-
-
 export default function Assessment({ filteredData, age }) {
-
-
   const items = Array.isArray(filteredData) ? filteredData : [];
 
-  const visibleItems = items.filter(item => {
-    const cat = String(item.category || '').toLowerCase();
-    return age >= 18 ? cat === 'adult' : cat === 'child';
+  const visibleItems = items.filter((item) => {
+    const cat = String(item.category || "").toLowerCase();
+    return age >= 18 ? cat === "adult" : cat === "child";
   });
 
   return (
@@ -20,9 +15,7 @@ export default function Assessment({ filteredData, age }) {
           <BookOpen className="h-6 w-6 text-primary" />
           BMI Information
         </h2>
-        <p className="text-sm text-gray-500 mt-1">
-          Track your BMI Information
-        </p>
+        <p className="text-lg text-gray-500 mt-1">Track your BMI Information</p>
       </div>
 
       <div className="space-y-6 mt-8">
@@ -58,19 +51,29 @@ export default function Assessment({ filteredData, age }) {
           {/* Important Notes Card */}
           <div>
             {visibleItems?.map((filter) => (
-              <div key={filter.id} className="card bg-base-100 shadow-md h-full">
+              <div
+                key={filter.id}
+                className="card bg-base-100 shadow-md h-full"
+              >
                 <div className="card-body">
-                  <h2 className="card-title text-[25px]">Do you know about Obesity info?</h2>
+                  <h2 className="card-title text-[25px]">
+                    Do you know about Obesity info?
+                  </h2>
                   <span className="text-[16px] text-[#333] font-poppins font-medium  mb-1">
-                    {filter.modinfo.split('\n').filter(Boolean).map((point, idx) => {
-                      // Remove any existing numbers and trim whitespace
-                      const cleanPoint = point.replace(/^\d+\.\s*/, '').trim();
-                      return (
-                        <div key={idx}>
-                          {idx + 1}. {cleanPoint}
-                        </div>
-                      );
-                    })}
+                    {filter.modinfo
+                      .split("\n")
+                      .filter(Boolean)
+                      .map((point, idx) => {
+                        // Remove any existing numbers and trim whitespace
+                        const cleanPoint = point
+                          .replace(/^\d+\.\s*/, "")
+                          .trim();
+                        return (
+                          <div key={idx}>
+                            {idx + 1}. {cleanPoint}
+                          </div>
+                        );
+                      })}
                   </span>
                 </div>
               </div>
