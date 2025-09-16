@@ -1,6 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
 
-
 export const logoutApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createLogout: builder.mutation({
@@ -10,8 +9,7 @@ export const logoutApi = apiSlice.injectEndpoints({
         // body:data
       }),
     }),
-
   }),
 });
 
-export const {useCreateLogoutMutation } = logoutApi;
+export const { useCreateLogoutMutation } = logoutApi;

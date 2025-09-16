@@ -1,9 +1,10 @@
-import TitleCard from "../../../components/Cards/TitleCard";
 import { useCreateEmailVerifyMutation } from "../../../features/emailVerify/emailApi";
 import { useCreateResetMutation } from "../../../features/reset/resetApi";
 import { useGetProfileQuery } from "../../../features/profile/profileApi";
+import TitleCard from "../../../components/Cards/TitleCard";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { SquarePen } from "lucide-react";
 import { toast } from "react-toastify";
 import {
   CalendarDays,
@@ -15,14 +16,22 @@ import {
   KeyRound,
   UserRoundPen,
 } from "lucide-react";
-
 import { useState } from "react";
+
 import EditProfile from "./EditProfile";
+import UpdateProfileInfo from "./UpdateProfileInfo";
 
 function Profile() {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [isOpen, setIsOpen] = useState(false);
+
+  const [showModalEdit, setShowModalEdit] = useState(null);
+
+  const handleShowingInfoEdit = (admin) => {
+    setShowModalEdit(true);
+  };
+
   const navigate = useNavigate();
   const {
     register,
@@ -106,8 +115,6 @@ function Profile() {
                     alt={profile?.data?.fullname}
                     className="object-cover w-full h-full"
                   />
-                  {/* {!profile?.data?.imgpath &&
-                  getInitials(profile?.data?.fullname)} */}
                 </div>
                 <div
                   className="absolute top-[64px] right-0 bg-primary rounded-[50%] shadow-md p-1 cursor-pointer"
@@ -117,10 +124,10 @@ function Profile() {
                 </div>
               </div>
 
-              <div className="text-center sm:text-left flex-1">
-                <h2 className="text-2xl font-bold font-poppins">
-                  {profile?.data?.fullname}
-                </h2>
+              <div className="text-center sm:text-left flex-1 flex justify-between">
+                {/* <h2 className="text-2xl font-bold font-poppins">
+                    {profile?.data?.fullname}
+                  </h2> */}
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
                   <span
                     className={`px-2 py-1 text-[16px] rounded ${
@@ -134,6 +141,15 @@ function Profile() {
                   <span className="px-2 py-1 text-[16px] rounded border capitalize font-medium  font-poppins">
                     {profile?.data?.role}
                   </span>
+                </div>
+                <div
+                  className="flex items-center pointer"
+                  onClick={handleShowingInfoEdit}
+                >
+                  <div className="bg-primary text-white hover:bg-primary flex gap-2 py-2 px-2 rounded-md ">
+                    <SquarePen />
+                    <p>Profile Edit</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -363,6 +379,10 @@ function Profile() {
         </div>
       </TitleCard>
       <EditProfile isOpen={isOpen} setIsOpen={setIsOpen}></EditProfile>
+      <UpdateProfileInfo
+        showModalEdit={showModalEdit}
+        setShowModalEdit={setShowModalEdit}
+      ></UpdateProfileInfo>
     </>
   );
 }

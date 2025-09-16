@@ -48,7 +48,7 @@ function Header() {
 
   const logoutUser = async () => {
     try {
-      await logoutUserApi().unwrap(); // must be correct method
+      await logoutUserApi().unwrap();
       localStorage.clear();
       navigate("/login");
     } catch (error) {
