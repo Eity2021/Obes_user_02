@@ -26,9 +26,9 @@ function Profile() {
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [isOpen, setIsOpen] = useState(false);
 
-  const [showModalEdit, setShowModalEdit] = useState(null);
+  const [showModalEdit, setShowModalEdit] = useState(false);
 
-  const handleShowingInfoEdit = (admin) => {
+  const handleShowingInfoEdit = () => {
     setShowModalEdit(true);
   };
 
