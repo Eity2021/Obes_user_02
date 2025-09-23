@@ -1,6 +1,4 @@
 import PlanBuilder from "./PlanBuilder";
-import { CalendarDays } from "lucide-react";
-import TitleCard from "../../components/Cards/TitleCard";
 import { useGetDietQuery } from "../../features/dietChart/dietApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 
@@ -22,7 +20,6 @@ export default function DietPlan() {
     role: profile?.data?.role,
   });
 
-  console.log("dietMealData", dietMealData);
   if (profileLoading || isLoading) {
     return (
       <div className="flex justify-center items-center h-full bg-white">

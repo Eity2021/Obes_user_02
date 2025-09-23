@@ -1,33 +1,102 @@
 import { useState } from "react";
 import StepsLists from "./StepsLists";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import TitleCard from "../../components/Cards/TitleCard";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useCreateStepsMutation } from "../../features/steps/stepsApi";
-import { Coffee, Dumbbell, Smartphone, UtensilsCrossed, Heart, Apple, Moon, CheckCircle } from "lucide-react";
+import {
+  Coffee,
+  Dumbbell,
+  Smartphone,
+  UtensilsCrossed,
+  Heart,
+  Apple,
+  Moon,
+  CheckCircle,
+} from "lucide-react";
 
 const healthSteps = [
-  { id: 0, key: "sugary_drinks", title: "0 Sugary Drinks", description: "Reduce intake of sodas and sweetened beverages", icon: Coffee, color: "from-orange-400 to-red-500", bgColor: "bg-orange-50", textColor: "text-orange-700" },
-  { id: 1, key: "exercise", title: "1+ Hour Physical Exercise", description: "Daily movement keeps your body strong", icon: Dumbbell, color: "from-blue-400 to-cyan-500", bgColor: "bg-blue-50", textColor: "text-blue-700" },
-  { id: 2, key: "screentime", title: "2 or Less Screen Time", description: "Take breaks from digital devices", icon: Smartphone, color: "from-purple-400 to-pink-500", bgColor: "bg-purple-50", textColor: "text-purple-700" },
-  { id: 3, key: "meals", title: "3 Main Meals", description: "Do not skip meals", icon: UtensilsCrossed, color: "from-green-400 to-emerald-500", bgColor: "bg-green-50", textColor: "text-green-700" },
-  { id: 4, key: "treatment", title: "4 Pillars of Treatment", description: "Focus on mental and physical wellness", icon: Heart, color: "from-rose-400 to-pink-500", bgColor: "bg-rose-50", textColor: "text-rose-700" },
-  { id: 5, key: "fruitveg", title: "5 Portions Fruits & Vegetables", description: "Colorful nutrition for optimal health", icon: Apple, color: "from-lime-400 to-green-500", bgColor: "bg-lime-50", textColor: "text-lime-700" },
-  { id: 6, key: "sleep", title: "6-8 Hours of Sleep", description: "Quality rest for recovery and growth", icon: Moon, color: "from-gray-700 to-gray-900", bgColor: "bg-indigo-50", textColor: "text-indigo-700" },
-]
-
+  {
+    id: 0,
+    key: "sugary_drinks",
+    title: "0 Sugary Drinks",
+    description: "Reduce intake of sodas and sweetened beverages",
+    icon: Coffee,
+    color: "from-orange-400 to-red-500",
+    bgColor: "bg-orange-50",
+    textColor: "text-orange-700",
+  },
+  {
+    id: 1,
+    key: "exercise",
+    title: "1+ Hour Physical Exercise",
+    description: "Daily movement keeps your body strong",
+    icon: Dumbbell,
+    color: "from-blue-400 to-cyan-500",
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-700",
+  },
+  {
+    id: 2,
+    key: "screentime",
+    title: "2 or Less Screen Time",
+    description: "Take breaks from digital devices",
+    icon: Smartphone,
+    color: "from-purple-400 to-pink-500",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-700",
+  },
+  {
+    id: 3,
+    key: "meals",
+    title: "3 Main Meals",
+    description: "Do not skip meals",
+    icon: UtensilsCrossed,
+    color: "from-green-400 to-emerald-500",
+    bgColor: "bg-green-50",
+    textColor: "text-green-700",
+  },
+  {
+    id: 4,
+    key: "treatment",
+    title: "4 Pillars of Treatment",
+    description: "Focus on mental and physical wellness",
+    icon: Heart,
+    color: "from-rose-400 to-pink-500",
+    bgColor: "bg-rose-50",
+    textColor: "text-rose-700",
+  },
+  {
+    id: 5,
+    key: "fruitveg",
+    title: "5 Portions Fruits & Vegetables",
+    description: "Colorful nutrition for optimal health",
+    icon: Apple,
+    color: "from-lime-400 to-green-500",
+    bgColor: "bg-lime-50",
+    textColor: "text-lime-700",
+  },
+  {
+    id: 6,
+    key: "sleep",
+    title: "6-8 Hours of Sleep",
+    description: "Quality rest for recovery and growth",
+    icon: Moon,
+    color: "from-gray-700 to-gray-900",
+    bgColor: "bg-indigo-50",
+    textColor: "text-indigo-700",
+  },
+];
 
 function StepsOfSeven() {
-
-  const navigate = useNavigate();
-  const [hoveredStep, setHoveredStep] = useState(null)
+  const [hoveredStep, setHoveredStep] = useState(null);
   const [completedSteps, setCompletedSteps] = useState([]);
   const [createSteps, { isLoading, error }] = useCreateStepsMutation();
   const auth = JSON.parse(localStorage.getItem("auth"));
-  
-  const {data: profile} = useGetProfileQuery(auth?.role);
+
+  const { data: profile } = useGetProfileQuery(auth?.role);
   const {
     register,
     handleSubmit,
@@ -35,13 +104,13 @@ function StepsOfSeven() {
     formState: { errors },
   } = useForm();
 
-
   const toggleStep = (stepId) => {
     setCompletedSteps((prev) =>
-      prev.includes(stepId) ? prev.filter((id) => id !== stepId) : [...prev, stepId]
-    )
-  }
-
+      prev.includes(stepId)
+        ? prev.filter((id) => id !== stepId)
+        : [...prev, stepId]
+    );
+  };
 
   const onSubmit = async (data) => {
     const stepData = healthSteps.reduce((acc, step) => {
@@ -58,16 +127,17 @@ function StepsOfSeven() {
       if (response?.data?.status === 201) {
         toast.success(response?.data?.message);
         reset();
-        navigate("/");
+        setCompletedSteps([]);
       } else {
-        toast.error(response?.data?.message || "Submission failed. Please try again.");
+        toast.error(
+          response?.data?.message || "Submission failed. Please try again."
+        );
       }
-
     } catch (error) {
       console.error("Submission error:", error);
       toast.error(error?.response?.data?.message || "Failed to submit answer.");
     }
-  }
+  };
 
   return (
     <>
@@ -83,7 +153,9 @@ function StepsOfSeven() {
           <div className="relative max-w-7xl mx-auto">
             {/* Header */}
             <div className="text-center mb-4">
-              <p className="text-3xl text-slate-600 mb-6 font-poppins font-bold">7 Best Practices For a Healthy Life</p>
+              <p className="text-3xl text-slate-600 mb-6 font-poppins font-bold">
+                7 Best Practices For a Healthy Life
+              </p>
               <div className="flex justify-center items-center gap-4 text-sm text-slate-500 font-poppins">
                 <span>Progress: {completedSteps.length}/7</span>
                 <div className="w-32 h-2 bg-slate-200 rounded-full overflow-hidden">
@@ -113,22 +185,27 @@ function StepsOfSeven() {
                   </div>
                 )}
                 {healthSteps.map((step) => {
-                  const Icon = step.icon
-                  const isCompleted = completedSteps.includes(step.id)
-                  const isHovered = hoveredStep === step.id
+                  const Icon = step.icon;
+                  const isCompleted = completedSteps.includes(step.id);
+                  const isHovered = hoveredStep === step.id;
 
                   return (
                     <div
                       key={step.id}
-                      className={`cursor-pointer overflow-hidden rounded-xl shadow-md transition-all duration-300 border border-[#DEDEDE] ${isCompleted ? "ring-2 ring-[#7B1E19]" : "hover:shadow-xl"
-                        }`}
+                      className={`cursor-pointer overflow-hidden rounded-xl shadow-md transition-all duration-300 border border-[#DEDEDE] ${
+                        isCompleted
+                          ? "ring-2 ring-[#7B1E19]"
+                          : "hover:shadow-xl"
+                      }`}
                       onMouseEnter={() => setHoveredStep(step.id)}
                       onMouseLeave={() => setHoveredStep(null)}
                       onClick={() => toggleStep(step.id)}
                     >
                       {/* absolute top-3 left-3 */}
                       {/* Icon Area */}
-                      <div className={`relative h-32 flex items-center justify-center bg-gradient-to-br  ${step.color}`}>
+                      <div
+                        className={`relative h-32 flex items-center justify-center bg-gradient-to-br  ${step.color}`}
+                      >
                         <div className=" w-[50px] h-[50px] bg-white/20 rounded-full flex items-center justify-center text-white text-3xl font-bold">
                           {step.id}
                         </div>
@@ -138,39 +215,55 @@ function StepsOfSeven() {
                             <CheckCircle className="w-5 h-5 text-white" />
                           </div>
                         )}
-                        <Icon className={`absolute top-3 left-3  w-10 h-10 text-white transition-all ${isHovered ? "scale-110 rotate-6" : ""}`} />
+                        <Icon
+                          className={`absolute top-3 left-3  w-10 h-10 text-white transition-all ${
+                            isHovered ? "scale-110 rotate-6" : ""
+                          }`}
+                        />
                       </div>
 
                       {/* Text Content */}
                       <div className={`p-4 ${step.bgColor}`}>
-                        <h3 className={`font-bold text-lg mb-1 ${step.textColor}`}>{step.title}</h3>
-                        <p className="text-slate-600 text-sm">{step.description}</p>
+                        <h3
+                          className={`font-bold text-lg mb-1 ${step.textColor}`}
+                        >
+                          {step.title}
+                        </h3>
+                        <p className="text-slate-600 text-sm">
+                          {step.description}
+                        </p>
                         <div className="mt-3 flex items-center gap-2">
                           <div
-                            className={`w-2 h-2 rounded-full ${isCompleted ? "bg-green-500" : "bg-slate-300"}`}
+                            className={`w-2 h-2 rounded-full ${
+                              isCompleted ? "bg-green-500" : "bg-slate-300"
+                            }`}
                           ></div>
                           <span className="text-xs text-slate-500">
-                            {isCompleted ? "Completed" : "Click to mark complete"}
+                            {isCompleted
+                              ? "Completed"
+                              : "Click to mark complete"}
                           </span>
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 })}
-                 <div className="flex justify-center items-center ">
-                <button type="submit" className="bg-primary text-white text-[20px] h-[130px] w-[130px]  rounded-full font-semibold font-poppins ">
-                  Submit
-                </button>
+                <div className="flex justify-center items-center ">
+                  <button
+                    type="submit"
+                    className="bg-primary text-white text-[20px] h-[130px] w-[130px]  rounded-full font-semibold font-poppins "
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
-              </div>
-             
             </form>
             <StepsLists></StepsLists>
           </div>
         </div>
       </TitleCard>
     </>
-  )
+  );
 }
 
 export default StepsOfSeven;
