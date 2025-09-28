@@ -6,7 +6,7 @@ import { TrendingUpDown, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-function BmiCalculator({setActiveTab}) {
+function BmiCalculator({ setActiveTab }) {
   const navigate = useNavigate();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
@@ -133,7 +133,7 @@ function BmiCalculator({setActiveTab}) {
       <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-1 xl:grid-cols-2 gap-6 px-2 lg:px-12 h-[100%] ">
         <div className="pt-6">
           <div className="">
-            <div className="card w-full container mx-auto bg-white shadow-lg rounded-lg">
+            <div className="card w-full container mx-auto bg-base-100 shadow-lg rounded-lg">
               <div className="bg-primary p-8 rounded-t-lg">
                 <h2 className="card-title text-white font-bold">
                   BMI Calculator (Imperial)
@@ -269,9 +269,8 @@ function BmiCalculator({setActiveTab}) {
               </div>
 
               <p
-                className={`text-center  text-[30px] font-bold ${
-                  getBMICategory(bmi).color
-                }`}
+                className={`text-center  text-[30px] font-bold ${getBMICategory(bmi).color
+                  }`}
               >
                 {getBMICategory(bmi).category}
               </p>
