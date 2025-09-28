@@ -76,8 +76,8 @@ function Survey() {
 
                 <div className="px-6 py-4 space-y-4  bg-base-100">
                   {/* Question Section */}
-                  <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
-                    <h3 className="font-medium text-gray-700 mb-2 flex items-center gap-2 font-[poppins]">
+                  <div className="p-4 rounded-lg border-l-4 border-gray-400">
+                    <h3 className="font-medium text-gray-700 mb-2 flex items-center gap-2 font-poppins">
                       <svg
                         className="w-4 h-4 text-amber-500"
                         fill="none"
@@ -89,12 +89,12 @@ function Survey() {
                       </svg>
                       Question:
                     </h3>
-                    <p className="text-gray-800 font-[poppins]">{item.ques}</p>
+                    <p className="text-gray-700 font-[poppins]">{item.ques}</p>
                   </div>
 
                   {/* Response Section */}
-                  <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-                    <h3 className="font-medium text-gray-700 mb-3 flex items-center gap-2 font-[poppins]">
+                  <div className=" p-4 rounded-lg border-l-4 border-green-400">
+                    <h3 className="font-medium text-gray-700 mb-3 flex items-center gap-2 font-poppins">
                       <svg
                         className="w-4 h-4 text-green-500"
                         fill="none"

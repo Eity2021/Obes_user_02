@@ -105,7 +105,7 @@ function Profile() {
     <>
       <TitleCard title="Welcome to User Profile" topMargin="mt-2">
         <div className="mx-auto p-4">
-          <div className="bg-white shadow-md rounded-2xl p-6 space-y-6">
+          <div className=" shadow-md rounded-2xl p-6 space-y-6">
             {/* Header */}
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <div className="relative">
@@ -125,16 +125,12 @@ function Profile() {
               </div>
 
               <div className="text-center sm:text-left flex-1 flex justify-between">
-                {/* <h2 className="text-2xl font-bold font-poppins">
-                    {profile?.data?.fullname}
-                  </h2> */}
                 <div className="flex flex-wrap justify-center sm:justify-start gap-2 mt-2">
                   <span
-                    className={`px-2 py-1 text-[16px] rounded ${
-                      profile?.data?.status === "active"
-                        ? "bg-green-100 text-green-700 font-medium font-poppins"
-                        : "bg-gray-200 text-gray-600 font-medium font-poppins"
-                    }`}
+                    className={`px-2 py-1 text-[16px] rounded ${profile?.data?.status === "active"
+                      ? "bg-green-100 text-green-700 font-medium font-poppins"
+                      : "bg-gray-200 text-gray-700 font-medium font-poppins"
+                      }`}
                   >
                     {profile?.data?.status}
                   </span>
@@ -162,7 +158,7 @@ function Profile() {
                 <User className="w-5 h-5" />
                 Contact Information
               </h3>
-              <div className="space-y-3 text-sm text-gray-800">
+              <div className="space-y-3 text-sm text-gray-700">
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-gray-500" />
                   <span>{profile?.data?.logemail}</span>
@@ -201,7 +197,7 @@ function Profile() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 font-poppins">
-                  <Phone className="w-4 h-4 text-gray-500" />
+                  <Phone className="w-4 h-4 text-gray-500ext-gray-500" />
                   <span>{profile?.data?.logmobile}</span>
                 </div>
               </div>
@@ -215,7 +211,7 @@ function Profile() {
                 <CalendarDays className="w-5 h-5" />
                 Personal Information
               </h3>
-              <div className="space-y-3 text-sm text-gray-800 font-poppins">
+              <div className="space-y-3 text-sm text-gray-700 font-poppins">
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">
                     Full Name:
@@ -248,7 +244,7 @@ function Profile() {
                 <CalendarDays className="w-5 h-5" />
                 Physical Information
               </h3>
-              <div className="space-y-3 text-sm text-gray-800 font-poppins">
+              <div className="space-y-3 text-sm text-gray-700 font-poppins">
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">
                     Height:
@@ -298,7 +294,7 @@ function Profile() {
                 <Clock className="w-5 h-5" />
                 Account Information
               </h3>
-              <div className="space-y-3 text-sm text-gray-800">
+              <div className="space-y-3 text-sm text-gray-700">
                 <div className="flex gap-3">
                   <span className="w-24 text-gray-500 font-poppins">
                     Created:
@@ -331,7 +327,7 @@ function Profile() {
                 Reset Password
               </h3>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="space-y-3 text-sm text-gray-800">
+                <div className="space-y-3 text-sm text-gray-700">
                   <div className="flex gap-3">
                     <span className="w-24 text-gray-500 font-poppins">
                       Old Password:

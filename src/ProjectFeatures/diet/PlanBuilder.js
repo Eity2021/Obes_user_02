@@ -6,9 +6,8 @@ export default function PlanBuilder({ dietMealData }) {
 
   const MealCard = ({ title, content, icon: Icon, isEmpty = false }) => (
     <div
-      className={`rounded-xl border bg-white shadow p-4 h-full font-poppins ${
-        isEmpty ? "opacity-50" : ""
-      }`}
+      className={`rounded-xl border shadow p-4 h-full font-poppins ${isEmpty ? "opacity-50" : ""
+        }`}
     >
       <div className="flex items-center gap-2 mb-2 text-lg font-semibold font-poppins">
         <Icon className="w-5 h-5" />
@@ -28,7 +27,7 @@ export default function PlanBuilder({ dietMealData }) {
     <div className="w-full">
       <div className="p-4 mb-20">
         <div className="border-b pb-4 mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 font-poppins">
+          <h1 className="text-3xl font-bold text-gray-700 mb-2 font-poppins">
             Daily Meal Plan
           </h1>
           <p className="text-gray-500 text-lg font-poppins">
@@ -38,24 +37,22 @@ export default function PlanBuilder({ dietMealData }) {
 
         {/* Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="grid grid-cols-2 max-w-md w-full bg-white border rounded-xl overflow-hidden">
+          <div className="grid grid-cols-2 max-w-md w-full  border rounded-xl overflow-hidden">
             <button
               onClick={() => setActiveTab("english")}
-              className={`py-3 font-medium ${
-                activeTab === "english"
-                  ? "bg-primary text-white"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`}
+              className={`py-3 font-medium ${activeTab === "english"
+                ? "bg-primary text-white"
+                : "text-gray-600 hover:bg-gray-100"
+                }`}
             >
               English
             </button>
             <button
               onClick={() => setActiveTab("bengali")}
-              className={`py-3 font-medium ${
-                activeTab === "bengali"
-                  ? "bg-primary text-white"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`}
+              className={`py-3 font-medium ${activeTab === "bengali"
+                ? "bg-primary text-white"
+                : "text-gray-600 hover:bg-gray-100"
+                }`}
             >
               বাংলা
             </button>

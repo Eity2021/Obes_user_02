@@ -58,11 +58,11 @@ export default function BasicInfo({ surveyList }) {
         <div>
           <div
             key={question?.id}
-            className="rounded-lg shadow-lg border-l-4 border-primary bg-white mb-4"
+            className="rounded-lg shadow-lg border-l-4 border-primary  mb-4"
           >
             <div className="px-6 py-4 bg-gradient-to-r from-[#7B1E19]/10 to-[#7B1E19]/10 rounded-t-lg">
               <div className="flex items-center justify-between">
-                <h2 className="text-md font-semibold text-gray-800  font-[poppins]">
+                <h2 className="text-md font-semibold text-gray-700  font-[poppins]">
                   Question {question?.id}
                 </h2>
                 <div className="flex gap-2">
@@ -75,8 +75,8 @@ export default function BasicInfo({ surveyList }) {
 
             <div className="px-6 py-4 space-y-4">
               {/* Question Section */}
-              <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
-                <h3 className="font-medium text-gray-700 mb-2 flex items-center gap-2 font-[poppins]">
+              <div className=" p-4 rounded-lg border-l-4 border-gray-400">
+                <h3 className="font-medium text-gray-700 mb-2 flex items-center gap-2 font-poppins">
                   <svg
                     className="w-4 h-4 text-amber-500"
                     fill="none"
@@ -88,11 +88,11 @@ export default function BasicInfo({ surveyList }) {
                   </svg>
                   Question:
                 </h3>
-                <p className="text-gray-800 font-[poppins]">
+                <p className="text-gray-700 font-[poppins]">
                   {question?.question}
                 </p>
               </div>
-              <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+              <div className=" p-4 rounded-lg border-l-4 border-green-400">
                 <h3 className="font-medium text-gray-700 mb-3 flex items-center gap-2 font-[poppins]">
                   <svg
                     className="w-4 h-4 text-green-500"
@@ -105,8 +105,8 @@ export default function BasicInfo({ surveyList }) {
                   </svg>
                   Response:
                 </h3>
-                <div className="text-gray-800">
-                  <div className="flex items-center gap-2 p-2 bg-white rounded border">
+                <div className="text-gray-700">
+                  <div className="flex items-center gap-2 p-2  rounded border">
                     <svg
                       className="w-4 h-4 text-green-500 flex-shrink-0"
                       fill="none"
@@ -116,7 +116,7 @@ export default function BasicInfo({ surveyList }) {
                     >
                       <path d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-gray-800 font-[poppins]">
+                    <span className="text-gray-700 font-[poppins]">
                       {question?.answer}
                     </span>
                   </div>

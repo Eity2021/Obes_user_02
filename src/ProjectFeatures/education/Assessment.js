@@ -11,7 +11,7 @@ export default function Assessment({ filteredData, age }) {
   return (
     <>
       <div className="py-6 border-b border-gray-200">
-        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-800  md:justify-start justify-center">
+        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-700  md:justify-start justify-center">
           <BookOpen className="h-6 w-6 text-primary" />
           BMI Information
         </h2>
@@ -56,10 +56,10 @@ export default function Assessment({ filteredData, age }) {
                 className="card bg-base-100 shadow-md h-full"
               >
                 <div className="card-body">
-                  <h2 className="card-title text-[25px]">
+                  <h2 className="card-title text-[25px] ">
                     Do you know about Obesity info?
                   </h2>
-                  <span className="text-[16px] text-[#333] font-poppins font-medium  mb-1">
+                  <span className="text-[16px] text-gray-700 font-poppins font-medium  mb-1">
                     {filter.modinfo
                       .split("\n")
                       .filter(Boolean)

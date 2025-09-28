@@ -1,6 +1,7 @@
 import PlanBuilder from "./PlanBuilder";
 import { useGetDietQuery } from "../../features/dietChart/dietApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
+import TitleCard from "../../components/Cards/TitleCard";
 
 export default function DietPlan() {
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -43,12 +44,12 @@ export default function DietPlan() {
   }
 
   return (
-    <div className="bg-[#ffff] rounded-xl">
-      <div className="container mx-auto py-6 px-4">
-        <div className="">
-          <PlanBuilder dietMealData={dietMealData} />
-        </div>
-      </div>
+
+    <div className="">
+      <TitleCard>
+        <PlanBuilder dietMealData={dietMealData} />
+      </TitleCard>
     </div>
+
   );
 }
