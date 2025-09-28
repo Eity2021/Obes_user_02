@@ -48,7 +48,7 @@ function Survey() {
         <div>
           <div className=" mx-auto p-6 space-y-6">
             <div className="mb-8">
-              <h1 className="lg:text-3xl md:text-2xl text-lg font-bold text-gray-900 mb-2 font-poppins">
+              <h1 className="lg:text-3xl md:text-2xl text-lg font-bold text-gray-700 mb-2 font-poppins">
                 Obesity List Of Survey
               </h1>
               <p className="text-gray-600">Quiz Results & Responses</p>
@@ -59,11 +59,11 @@ function Survey() {
             {surveyList?.data?.answerArray?.map((item) => (
               <div
                 key={item.qid}
-                className="rounded-lg shadow-lg border-l-4 border-primary bg-white"
+                className="rounded-lg shadow-lg border-l-4 border-primary"
               >
                 <div className="px-6 py-4 bg-gradient-to-r from-[#7B1E19]/10 to-[#7B1E19]/10 rounded-t-lg">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-md font-semibold text-gray-800  font-[poppins]">
+                    <h2 className="text-md font-semibold text-gray-700 font-[poppins]">
                       Question {item.qid}
                     </h2>
                     <div className="flex gap-2">
@@ -74,7 +74,7 @@ function Survey() {
                   </div>
                 </div>
 
-                <div className="px-6 py-4 space-y-4">
+                <div className="px-6 py-4 space-y-4  bg-base-100">
                   {/* Question Section */}
                   <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
                     <h3 className="font-medium text-gray-700 mb-2 flex items-center gap-2 font-[poppins]">
@@ -114,7 +114,7 @@ function Survey() {
                             No specific response provided
                           </span>
                         ) : (
-                          <div className="flex items-center gap-2 p-2 bg-white rounded border">
+                          <div className="flex items-center gap-2 p-2  bg-base-100 rounded border">
                             <svg
                               className="w-4 h-4 text-green-500 flex-shrink-0"
                               fill="none"
@@ -124,7 +124,7 @@ function Survey() {
                             >
                               <path d="M5 13l4 4L19 7" />
                             </svg>
-                            <span className="text-gray-800 font-[poppins]">
+                            <span className=" font-[poppins] text-gray-700">
                               {item.ans}
                             </span>
                           </div>
@@ -136,7 +136,7 @@ function Survey() {
                           item.ans.map((answer, index) => (
                             <div
                               key={index}
-                              className="flex items-center gap-2 p-2 bg-white rounded border"
+                              className="flex items-center gap-2 p-2 text-gray-700  bg-base-100 rounded border"
                             >
                               <svg
                                 className="w-4 h-4 text-green-500 flex-shrink-0"
@@ -147,7 +147,7 @@ function Survey() {
                               >
                                 <path d="M5 13l4 4L19 7" />
                               </svg>
-                              <span className="text-gray-800 font-[poppins]">
+                              <span className="font-[poppins] text-gray-700 ">
                                 {answer}
                               </span>
                             </div>

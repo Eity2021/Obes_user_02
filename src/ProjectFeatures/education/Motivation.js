@@ -29,12 +29,12 @@ export default function Motivation({ age, filteredData }) {
       <div className="w-full space-y-6">
         <div>
           {/* CardHeader Simulation */}
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800">
+          <div className="py-6 border-b border-gray-200">
+            <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800  md:justify-start justify-center">
               <History className="h-6 w-6 text-primary" />
               Health & Wellness Motivation
             </h2>
-            <p className="text-lg text-gray-500 mt-1">
+            <p className="text-lg text-gray-500 mt-1 md:text-left text-center">
               Discover personalized motivation modules designed to support your
               journey toward better health and wellness.
             </p>
@@ -70,9 +70,8 @@ export default function Motivation({ age, filteredData }) {
                   {/* Content */}
                   <div className="p-6 space-y-6">
                     <div
-                      className={`flex flex-col lg:flex-row ${
-                        isEven ? "" : "lg:flex-row-reverse"
-                      } min-h-[400px]`}
+                      className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
+                        } min-h-[400px]`}
                     >
                       <div className="relative w-full h-[450px] rounded-lg overflow-hidden bg-gray-100">
                         <img

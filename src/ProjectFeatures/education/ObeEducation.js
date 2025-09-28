@@ -29,12 +29,12 @@ function ObeEducation({ filteredData, age }) {
         <div className="w-full space-y-6">
           <div className=" overflow-hidden ">
             {/* CardHeader Simulation */}
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 font-poppins">
+            <div className="py-6 border-b border-gray-200">
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 font-poppins  md:justify-start justify-center">
                 <History className="h-6 w-6 text-primary" />
                 Educational Modules
               </h2>
-              <p className="text-lg text-gray-500 mt-1 font-[poppins]">
+              <p className="text-lg text-gray-500 mt-1 font-[poppins] md:text-left text-center">
                 Comprehensive learning materials covering key aspects of obesity
                 and BMI education
               </p>
@@ -67,9 +67,8 @@ function ObeEducation({ filteredData, age }) {
                       </h2>
                     </div>
                     <div
-                      className={`flex flex-col lg:flex-row ${
-                        isEven ? "" : "lg:flex-row-reverse"
-                      } min-h-[400px]`}
+                      className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
+                        } min-h-[400px]`}
                     >
                       {/* IMAGE */}
                       <div className="lg:w-1/2 relative">

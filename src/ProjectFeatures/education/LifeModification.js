@@ -25,23 +25,23 @@ export default function LifeModification({ age, filteredData }) {
 
   return (
     <>
-      <div className="h-full  p-4 flex items-center justify-center font-inter">
+      <div className="h-full flex items-center justify-center font-inter">
         <div className="w-full space-y-6">
           <div>
             {/* CardHeader Simulation */}
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800">
-                <History className="h-6 w-6 text-primary" />
+            <div className="py-6 border-b border-gray-200">
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 md:justify-start justify-center">
+                <History className="h-6 w-6 text-primary " />
                 Life Style Modification
               </h2>
-              <p className="text-lg text-gray-500 mt-1">
+              <p className="text-lg text-gray-500 mt-1 md:text-left text-center">
                 Life Style Modification includes healthy eating, regular
                 exercise, good sleep, stress control, avoiding smoking, and
                 positive habits for better health
               </p>
             </div>
             {/* CardContent Simulation */}
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1 mx-auto my-12">
+            <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-1 mx-auto my-12">
               {visibleItems?.map((module, index) => {
                 const content = parseContent(module?.modinfo);
                 const isListContent = content.some((line) =>
@@ -71,9 +71,8 @@ export default function LifeModification({ age, filteredData }) {
                     {/* Content */}
                     <div className="p-6 space-y-6">
                       <div
-                        className={`flex justify-between flex-col lg:flex-row ${
-                          isEven ? "" : "lg:flex-row-reverse"
-                        } min-h-[400px]`}
+                        className={`flex justify-between flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
+                          } min-h-[400px]`}
                       >
                         <div className="relative w-80% h-[450px] rounded-lg overflow-hidden bg-gray-100">
                           <img

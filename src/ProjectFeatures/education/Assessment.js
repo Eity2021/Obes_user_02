@@ -10,12 +10,12 @@ export default function Assessment({ filteredData, age }) {
 
   return (
     <>
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-800">
+      <div className="py-6 border-b border-gray-200">
+        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-800  md:justify-start justify-center">
           <BookOpen className="h-6 w-6 text-primary" />
           BMI Information
         </h2>
-        <p className="text-lg text-gray-500 mt-1">Track your BMI Information</p>
+        <p className="text-lg text-gray-500 mt-1 md:text-left text-center">Track your BMI Information</p>
       </div>
 
       <div className="space-y-6 mt-8">

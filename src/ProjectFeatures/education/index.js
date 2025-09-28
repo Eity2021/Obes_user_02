@@ -26,17 +26,14 @@ function Education() {
 
   const {
     data: educationList,
-    isLoading,
-    isError,
-    error,
   } = useGetEduQuery(auth?.role);
 
   // console.log("educationList ", educationList)
   const iconMap = {
-    Assessment: <Calculator className="w-4 h-4 mr-1" />,
-    Education: <Clock className="w-4 h-4 mr-1" />,
-    Motivation: <Hand className="w-4 h-4 mr-1" />,
-    LifeModification: <PencilOff className="w-4 h-4 mr-1" />,
+    Assessment: <Calculator className="w-4 h-4  md:block hidden mr-1" />,
+    Education: <Clock className="w-4 h-4 mr-1  md:block hidden" />,
+    Motivation: <Hand className="w-4 h-4 mr-1  md:block hidden" />,
+    LifeModification: <PencilOff className="w-4 h-4 mr-1  md:block hidden" />,
   };
 
   const filteredData =
@@ -55,25 +52,28 @@ function Education() {
   return (
     <>
       <TitleCard title="Obes School" topMargin="mt-2">
-        <div className=" mt-4 w-full ">
-          <div className="grid  grid-cols-4 tabs bg-base-200 rounded-[10px]">
+
+        <div className="mt-4 w-[100%]">
+          <div className="flex overflow-x-auto lg:grid lg:grid-cols-4 tabs bg-base-200 rounded-[10px]">
             {tabs.map((tab) => (
-              <a
+              <button
                 key={tab}
-                className={`tab tab-bordered h-[50px] leading-[50px] text-[15px] 
-          ${
-            activeTab === tab
-              ? "tab-active rounded-[4px] bg-primary text-[15px] font-medium text-white"
-              : ""
-          }`}
+                className={`tab tab-bordered h-[50px] px-4 text-[15px] whitespace-nowrap
+          ${activeTab === tab
+                    ? "tab-active rounded-[4px] bg-primary font-medium text-white"
+                    : ""
+                  }`}
                 onClick={() => setActiveTab(tab)}
               >
                 {iconMap[tab] || null}
                 {tab}
-              </a>
+              </button>
             ))}
           </div>
         </div>
+
+
+
         <div className="mt-4">
           {activeTab === "Assessment" && (
             <Assessment filteredData={filteredData} age={age} />

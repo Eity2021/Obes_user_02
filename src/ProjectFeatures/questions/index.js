@@ -52,7 +52,7 @@ function Questions() {
   };
 
   const onSubmit = async (formData) => {
-    console.log("formData",formData);
+    console.log("formData", formData);
     try {
       const formattedAnsjson = Object?.entries(formData.ansjson)
         .filter(([_, value]) => value != null && value !== false)
@@ -143,21 +143,19 @@ function Questions() {
                 <div className="flex items-center">
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`px-3 py-1 rounded-l-md font-[poppins] transition text-[12px] font-semibold ${
-                      language === "en"
-                        ? "bg-primary text-white"
-                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                    }`}
+                    className={`px-3 py-1 rounded-l-md font-[poppins] transition text-[12px] font-semibold ${language === "en"
+                      ? "bg-primary text-white"
+                      : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                      }`}
                   >
                     EN
                   </button>
                   <button
                     onClick={() => setLanguage("bn")}
-                    className={`px-3 py-1 rounded-r-md font-[poppins] transition text-[12px] font-semibold ${
-                      language === "bn"
-                        ? "bg-primary text-white"
-                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                    }`}
+                    className={`px-3 py-1 rounded-r-md font-[poppins] transition text-[12px] font-semibold ${language === "bn"
+                      ? "bg-primary text-white"
+                      : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                      }`}
                   >
                     BN
                   </button>
@@ -474,15 +472,15 @@ function Questions() {
                             <h2 className="font-bold text-[#333] font-poppins font text-[16px]">
                               Question {index + 1} :
                             </h2>
-                            <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">
+                            <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded ">
                               {item.category}
                             </span>
                           </div>
                         </div>
-                        <p className="text-[18px] font-semibold font-poppins  p-3">
+                        <p className="text-[18px] font-semibold font-poppins p-3">
                           {item.qeng}{" "}
                         </p>
-                        <div className="bg-gray-50 p-3 rounded">
+                        <div className=" bg-base-100 p-3 rounded">
                           {item.qatype === "checkbox" ? (
                             <>
                               {Array.isArray(item.qaoptioneng) ? (
@@ -495,7 +493,7 @@ function Questions() {
                                       id={`${item.qid}-${option}`}
                                       className="w-5 h-7 flex justify-center items-center"
                                     />
-                                    <p className="text-[#333] font-poppins text-[18px]">
+                                    <p className="text-gray-700 font-poppins text-[18px]">
                                       {option}
                                     </p>
                                   </div>
@@ -508,7 +506,7 @@ function Questions() {
                             <>
                               {Array.isArray(item.qaoptioneng) ? (
                                 item.qaoptioneng.map((option, i) => (
-                                  <div className="flex gap-3 py-1">
+                                  <div className="flex gap-3 py-1 ">
                                     <input
                                       type="radio"
                                       {...register(`ansjson.${item.qid}`)}
