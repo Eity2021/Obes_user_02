@@ -31,28 +31,24 @@ function Videos() {
           </p>
         </div>
 
-        {/* ✅ Loading State */}
         {isLoading && (
           <div className="text-center text-gray-500 font-medium">
             Loading videos...
           </div>
         )}
 
-        {/* ✅ Error State */}
         {isError && (
           <div className="text-center text-red-500 font-medium">
             Failed to load videos. {error?.data?.message || "Please try again."}
           </div>
         )}
 
-        {/* ✅ No Data State */}
         {!isLoading && !isError && videos?.data?.length === 0 && (
           <div className="text-center text-gray-500 font-medium">
             No videos available.
           </div>
         )}
 
-        {/* ✅ Videos Grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {videos?.data?.map((video) => (
             <div

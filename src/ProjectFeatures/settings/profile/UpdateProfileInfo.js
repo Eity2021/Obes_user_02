@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
-import React, { useEffect, useState } from "react";
 import { Pencil, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import Datepicker from "../../../components/datepicker/Datepicker";
 import {
   useCreateProfileInfoMutation,
   useGetProfileQuery,
 } from "../../../features/profile/profileApi";
+import Datepicker from "../../../components/datepicker/Datepicker";
 
 export default function UpdateProfileInfo({ setShowModalEdit, showModalEdit }) {
   const [showCalendar, setShowCalendar] = useState(false);

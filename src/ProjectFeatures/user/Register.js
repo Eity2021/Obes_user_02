@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import LandingIntro from "./LandingIntro";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import LandingIntro from "./LandingIntro";
 import useNavigator from "../../hooks/useNavigator";
 import { useForm, Controller } from "react-hook-form";
+import { setUser } from "../../features/profile/profileSlice";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import DatePicker from "../../components/datepicker/Datepicker";
-import { setUser } from "../../features/profile/profileSlice";
-import { useDispatch } from "react-redux";
 
 function Register() {
   const { handleNavigation } = useNavigator();

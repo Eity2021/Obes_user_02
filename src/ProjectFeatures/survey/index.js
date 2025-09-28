@@ -1,7 +1,7 @@
+import BasicInfo from "./BasicInfo";
 import TitleCard from "../../components/Cards/TitleCard";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { useGetAnswerListQuery } from "../../features/answer/answerApi";
-import BasicInfo from "./BasicInfo";
 
 function Survey() {
   const auth = JSON.parse(localStorage.getItem("auth"));

@@ -8,12 +8,7 @@ const initialState = {
 const logoutSlice = createSlice({
   name: "logout",
   initialState,
-  reducers: {
-    // setCredentials: (state, action) => {
-    //   state.token = action?.payload?.token;
-    //   state.role = action?.payload?.role;
-    // },
-  },
+  reducers: {},
 });
 
 export const {} = logoutSlice.actions;
