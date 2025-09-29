@@ -30,7 +30,7 @@ export default function LifeModification({ age, filteredData }) {
           <div>
             {/* CardHeader Simulation */}
             <div className="py-6 border-b border-gray-200">
-              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 md:justify-start justify-center">
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-700 md:justify-start justify-center">
                 <History className="h-6 w-6 text-primary " />
                 Life Style Modification
               </h2>
@@ -52,7 +52,7 @@ export default function LifeModification({ age, filteredData }) {
                 return (
                   <div
                     key={module?.id}
-                    className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    className="border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
                   >
                     {/* Header */}
                     <div className="p-6 border-b border-gray-100">
@@ -63,7 +63,7 @@ export default function LifeModification({ age, filteredData }) {
                           {formatDate(module?.created_at)}
                         </div>
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                      <h2 className="text-2xl font-bold text-gray-700 flex items-center gap-2">
                         <Target className="w-6 h-6 text-primary" />
                         {module?.topic} Focus Module
                       </h2>
@@ -87,7 +87,7 @@ export default function LifeModification({ age, filteredData }) {
                             <div className="space-y-4">
                               {isListContent ? (
                                 <div className="space-y-4">
-                                  <p className="text-lg font-sans font-semibold text-gray-900">
+                                  <p className="text-lg font-sans font-semibold text-gray-700">
                                     {content[0]}
                                   </p>
                                   <ul className="space-y-3">

@@ -23,10 +23,10 @@ function Videos() {
     <TitleCard title="Videos" topMargin="mt-2">
       <div className="container py-10 px-4 sm:px-8">
         <div className="text-center mb-14">
-          <h1 className=" text-3xl font-bold text-gray-800">
+          <h1 className=" text-3xl font-bold text-gray-700">
             🎥 Video Library
           </h1>
-          <p className="text-lg text-gray-600 font-poppins ">
+          <p className="text-lg text-gray-500 font-poppins ">
             Educational content on project management and software development
           </p>
         </div>
