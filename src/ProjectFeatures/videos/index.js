@@ -63,12 +63,12 @@ function Videos() {
                     {video.status.toUpperCase()}
                   </span>
                   {/* Play Icon Circle */}
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform"  onClick={() => window.open(video.link, "_blank")}>
                     <Play className="w-4 h-4 text-white ml-0.5" />
                   </div>
                 </div>
                 {/* Title */}
-                <h3 className="font-bold text-gray-900 text-md leading-tight line-clamp-2 mb-2 font-poppins">
+                <h3 className="font-bold text-gray-900 text-md leading-tight line-clamp-2 mb-2 font-poppins">git
                   {video.title}
                 </h3>
                 {/* Description */}
