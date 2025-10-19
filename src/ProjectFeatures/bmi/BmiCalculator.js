@@ -63,7 +63,7 @@ function BmiCalculator({ setActiveTab }) {
         calResult = 1400;
       } else if (result >= 1301 && result <= 1600) {
         calResult = 1600;
-      } else if (result >= 1401 && result <= 1800) {
+      } else if (result >= 1601 && result <= 1800) {
         calResult = 1800;
       } else if (result < 1801 && result <= 3000) {
         calResult = 2000;
@@ -317,7 +317,7 @@ function BmiCalculator({ setActiveTab }) {
               <div className="flex justify-between text-xs text-gray-600 mt-2 px-1">
                 <span>16</span>
                 <span>18.5</span>
-                <span>23</span>
+                <span>25</span>
                 <span>30</span>
                 <span>40</span>
               </div>

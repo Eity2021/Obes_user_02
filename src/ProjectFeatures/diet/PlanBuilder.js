@@ -76,7 +76,7 @@ export default function PlanBuilder({ dietMealData }) {
                 icon={Coffee}
               />
               <MealCard
-                title="সকালের জলখাবার"
+                title="সকালের নাস্তা"
                 content={dietMealData?.data?.morn_snacksbn}
                 icon={Utensils}
                 isEmpty={!dietMealData?.data?.morn_snacksbn}
@@ -87,7 +87,7 @@ export default function PlanBuilder({ dietMealData }) {
                 icon={Utensils}
               />
               <MealCard
-                title="বিকেলের জলখাবার"
+                title="বিকেলের নাস্তা"
                 content={dietMealData?.data?.anoon_snacksbn}
                 icon={Coffee}
                 isEmpty={!dietMealData?.data?.anoon_snacksbn}
