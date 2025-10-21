@@ -23,23 +23,19 @@ function BmiCalculator({ setActiveTab }) {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (weight) {
-      // lbs → kg
-      const kg = (weight * 2.20462).toFixed(2);
-      setWeightKg(kg);
-      setValue("weight", kg);
-    } else {
-      setWeightKg("");
-      setValue("weight", "");
-    }
-  }, [weight, setValue]);
+useEffect(() => {
+  const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
+  setWeightKg(kg);
+  setValue("weight", kg);
+}, [weight, setValue]);
 
 
 
   useEffect(() => {
     if (weight > 0 && height > 0) {
-      const bmiValue = (weight * 703) / (height * height);
+
+     const weightInLbs = weight * 2.20462;
+    const bmiValue = (weightInLbs * 703) / (height * height);
       const formattedBMI = bmiValue.toFixed(2);
       const bmiCategory = getBMICategory(formattedBMI);
       setBmi(formattedBMI);
@@ -50,9 +46,9 @@ function BmiCalculator({ setActiveTab }) {
       let result = 0;
       let calResult = 0;
       if (gender === "male") {
-        result = Math.floor(weight * 15 - 500);
+        result = Math.floor(weightKg * 15 - 500);
       } else {
-        result = Math.floor(weight * 13 - 500);
+        result = Math.floor(weightKg * 13 - 500);
       }
 
       if (result >= 600 && result <= 1000) {
@@ -65,7 +61,7 @@ function BmiCalculator({ setActiveTab }) {
         calResult = 1600;
       } else if (result >= 1601 && result <= 1800) {
         calResult = 1800;
-      } else if (result < 1801 && result <= 3000) {
+      } else if (result >= 1801 && result <= 3000) {
         calResult = 2000;
       } else {
         calResult = result;
@@ -82,7 +78,7 @@ function BmiCalculator({ setActiveTab }) {
 
 
   const onSubmit = async (formData) => {
-    console.log("form-data", formData)
+    // console.log("form-data", formData)
     try {
       const submissionData = {
         user_id: formData.user_id,
@@ -178,16 +174,16 @@ function BmiCalculator({ setActiveTab }) {
                     </label>
                     <input
                       type="number"
-                      placeholder="e.g. 154 lbs"
+                      placeholder="e.g. 54 kg"
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
                     <div className="hidden">
                       {
-                        (weight && weightKg) && (
+                        weightKg && (
                           <input
-                            type="number"
+                            type="float"
                             name="weight"
                             placeholder="e.g. 154 lbs"
                             {...register("weight", { required: true })}
