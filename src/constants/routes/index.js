@@ -2,6 +2,7 @@
 
 import { lazy } from "react";
 
+
 const Education = lazy(() => import("../../ProjectFeatures/education"));
 const Dashboard = lazy(() => import("../../pages/obes/protected/Dashboard"));
 const Page404 = lazy(() => import("../../pages/obes/protected/404"));
@@ -16,7 +17,8 @@ const GettingStarted = lazy(() => import("../../pages/obes/GettingStarted"));
 const DocFeatures = lazy(() => import("../../pages/obes/DocFeatures"));
 const DocComponents = lazy(() => import("../../pages/obes/DocComponents"));
 const Survey = lazy(() => import("../../pages/obes/protected/Survey"));
-
+const DocVideos = lazy(() => import("../../ProjectFeatures/docVideo"));
+const DocPdf = lazy(() => import("../../ProjectFeatures/pdf"));
 
 
 const routes = [
@@ -53,6 +55,16 @@ const routes = [
   {
     path: "obes/videos",
     component: ObesVideos,
+  },
+
+  {
+    path: "learn/videos",
+    component: DocVideos,
+  },
+
+  {
+    path: "learn/pdfDocumentation",
+    component:DocPdf,
   },
   {
     path: "/profile",

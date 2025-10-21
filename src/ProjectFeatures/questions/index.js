@@ -128,22 +128,25 @@ function Questions() {
     <TitleCard title="Questions For Survey" topMargin="mt-2">
       <div className=" mx-auto p-0 md:p-6 space-y-6">
         <div className="card bg-base-100 shadow">
-          <div className="px-10 pt-6">
-            <div className="block sm:flex justify-between items-center mb-2 border-b pb-3">
+          <div className="">
+            <div className="flex justify-center items-center border h-32 mb-12 bg-primary rounded-t-[20px]">
+              <h1 className="font-poppins text-3xl font-bold text-white">Questionnaires</h1>
+            </div>
+            <div className="px-10 pb-12">
+              <p className="font-normal font-poppins text-[16px] leading-7"> You are being invited to participate in a research study conducted by Bangladesh Endocrine Society. The purpose of this study is to assess the knowledge and attitude towards obesity among the general population of Bangladesh.Your participation is completely voluntary and involves completing a short online questionnaire that will take approximately 10-15 minutes.Your responses will remain completely anonymous and will be used only for academic and research purposes. </p>
+            </div>
+            <div className="block sm:flex justify-between px-10 items-center mb-2 border-b pb-3 ">
               <div>
                 <p className="text-lg font-bold text-[#333] flex items-center font-[poppins] ">
                   Questionnaire {questions?.length}
                 </p>
               </div>
               <div className="text-right flex gap-2 mt-2 sm:mt-0  sm:m-0">
-                {/* <div className="text-xl font-bold text-primary">
-                  {currentStep}/{questions?.length}
-                </div> */}
-
+            
                 <div className="flex items-center">
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`px-3 py-1 rounded-l-md font-[poppins] transition text-[12px] font-semibold ${language === "en"
+                    className={`px-6 py-1  font-[poppins] transition text-[12px] font-semibold ${language === "en"
                       ? "bg-primary text-white"
                       : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                       }`}
@@ -152,7 +155,7 @@ function Questions() {
                   </button>
                   <button
                     onClick={() => setLanguage("bn")}
-                    className={`px-3 py-1 rounded-r-md font-[poppins] transition text-[12px] font-semibold ${language === "bn"
+                    className={`px-6 py-1 font-[poppins] transition text-[12px] font-semibold ${language === "bn"
                       ? "bg-primary text-white"
                       : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                       }`}

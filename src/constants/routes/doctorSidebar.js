@@ -65,7 +65,7 @@ const doctorRoutes   = [
     name: "Learning Material",
     submenu: [
       {
-        path: "/learn/Pdf Documentation",
+        path: "/learn/pdfDocumentation",
         icon: <FileText  className={iconClasses} />,
         name: "PDF Documentation",
       },

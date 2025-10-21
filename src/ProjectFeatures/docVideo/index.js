@@ -1,8 +1,8 @@
 import TitleCard from "../../components/Cards/TitleCard";
-import { useGetVideosQuery } from "../../features/videos/videosApi";
+import { useGetDoctorVideosQuery } from "../../features/videos/videosApi";
 import { Play, Calendar, User, ExternalLink } from "lucide-react";
 
-function Videos() {
+function DocVideos() {
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
@@ -12,25 +12,25 @@ function Videos() {
   };
 
   const auth = JSON.parse(localStorage.getItem("auth"));
+  console.log("auth", auth)
   const {
     data: videos,
     isLoading,
     isError,
     error,
-  } = useGetVideosQuery(auth?.role);
+  } = useGetDoctorVideosQuery(auth?.role);
 
   return (
     <TitleCard title="Videos" topMargin="mt-2">
       <div className="container py-10 px-4 sm:px-8">
         <div className="text-center mb-14">
           <h1 className=" text-3xl font-bold text-gray-700">
-            🎥 Video Library
+            🎥 Doctors Video Library
           </h1>
           <p className="text-lg text-gray-500 font-poppins ">
             Educational content on project management and software development
           </p>
         </div>
-
         {isLoading && (
           <div className="text-center text-gray-500 font-medium">
             Loading videos...
@@ -103,4 +103,4 @@ function Videos() {
   );
 }
 
-export default Videos;
+export default DocVideos;

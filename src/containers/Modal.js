@@ -10,7 +10,7 @@ export default function Modal() {
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
-
+console.log("calories", calories)
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [createBmi, { isLoading, error }] = useCreateBmiMutation();
