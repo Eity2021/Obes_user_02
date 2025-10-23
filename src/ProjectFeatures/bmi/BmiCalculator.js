@@ -51,7 +51,7 @@ useEffect(() => {
         result = Math.floor(weightKg * 13 - 500);
       }
 
-      if (result >= 600 && result <= 1000) {
+      if (result <= 1000) {
         calResult = 1000;
       } else if (result >= 1001 && result <= 1200) {
         calResult = 1200;
@@ -61,11 +61,9 @@ useEffect(() => {
         calResult = 1600;
       } else if (result >= 1601 && result <= 1800) {
         calResult = 1800;
-      } else if (result >= 1801 && result <= 3000) {
+      }else {
         calResult = 2000;
-      } else {
-        calResult = result;
-      }
+      } 
       setCalories(calResult);
       setValue("calory", calResult);
     } else {
