@@ -346,7 +346,8 @@ function Questions() {
                       <div className="bg-gray-50 p-3 rounded">
                         <input
                           type="text"
-                          value={profile?.data?.myweight}
+                          // value={profile?.data?.myweight}
+                          value="158"
                           {...register("weight", { required: true })}
                           className="input w-full border"
                         />

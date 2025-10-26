@@ -164,7 +164,7 @@ useEffect(() => {
                       onChange={(e) => setWeight(e.target.value)}
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
-                    <div className="">
+                    <div className="hidden">
                       {
                         weightKg && (
                           <input
@@ -226,7 +226,7 @@ useEffect(() => {
                     </div>
                   )}
 
-                  <div className="form-control mt-4">
+                  <div className="form-control mt-4 hidden">
                     <input
                       type="number"
                       name="calory"
