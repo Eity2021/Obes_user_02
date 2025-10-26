@@ -9,6 +9,7 @@ function BmiCalculator({ setActiveTab }) {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [weightKg, setWeightKg] = useState("");
+  console.log("weightKg", weightKg)
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -44,28 +45,14 @@ useEffect(() => {
 
       const gender = profile?.data?.ogender;
       let result = 0;
-      let calResult = 0;
       if (gender === "male") {
         result = Math.floor(weightKg * 15 - 500);
       } else {
         result = Math.floor(weightKg * 13 - 500);
       }
 
-      if (result <= 1000) {
-        calResult = 1000;
-      } else if (result >= 1001 && result <= 1200) {
-        calResult = 1200;
-      } else if (result >= 1201 && result <= 1400) {
-        calResult = 1400;
-      } else if (result >= 1301 && result <= 1600) {
-        calResult = 1600;
-      } else if (result >= 1601 && result <= 1800) {
-        calResult = 1800;
-      }else {
-        calResult = 2000;
-      } 
-      setCalories(calResult);
-      setValue("calory", calResult);
+      setCalories(result);
+      setValue("calory", result);
     } else {
       setBmi("");
       setValue("bmi", "");
@@ -76,7 +63,7 @@ useEffect(() => {
 
 
   const onSubmit = async (formData) => {
-    // console.log("form-data", formData)
+     console.log("form-data", formData)
     try {
       const submissionData = {
         user_id: formData.user_id,
@@ -177,7 +164,7 @@ useEffect(() => {
                       onChange={(e) => setWeight(e.target.value)}
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
-                    <div className="hidden">
+                    <div className="">
                       {
                         weightKg && (
                           <input
@@ -239,10 +226,9 @@ useEffect(() => {
                     </div>
                   )}
 
-                  <div className="form-control mt-4 hidden">
+                  <div className="form-control mt-4">
                     <input
                       type="number"
-                      placeholder="e.g. 175 inches"
                       name="calory"
                       {...register("calory", { required: true })}
                       value={calories || ""}
