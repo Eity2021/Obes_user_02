@@ -59,7 +59,6 @@ export default function EditProfile({ setIsOpen, isOpen }) {
   };
 
   const onSubmit = async (data) => {
-    console.log("data", data);
     const formData = new FormData();
     formData.append("profilepicup", data.profilepicup);
     formData.append("user_id", data.user_id);

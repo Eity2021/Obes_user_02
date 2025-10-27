@@ -52,7 +52,6 @@ function Questions() {
   };
 
   const onSubmit = async (formData) => {
-    console.log("formData", formData);
     try {
       const formattedAnsjson = Object?.entries(formData.ansjson)
         .filter(([_, value]) => value != null && value !== false)

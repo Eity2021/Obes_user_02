@@ -36,8 +36,6 @@ if (result) {
     role: profile?.data?.role,
     mycalory: caloryCalled,
   });
-  console.log(" dietMealData", dietMealData) 
-
 
 
   if (profileLoading || isLoading) {

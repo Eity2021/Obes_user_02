@@ -12,7 +12,6 @@ import DatePicker from "../../components/datepicker/Datepicker";
 function Register() {
   const { handleNavigation } = useNavigator();
   const [selected, setSelected] = useState("user");
-  console.log("selected", selected)
   const [showPassword, setShowPassword] = useState(false);
   const [smsNumber, setSmsNumber] = useState(null);
   const [error, setError] = useState("");
@@ -48,7 +47,6 @@ function Register() {
   }, [data, handleNavigation, resError]);
 
   const onSubmit = (formData) => {
-    console.log("data", formData);
     setError("");
     resRegister({
       fulname: formData.fulname,

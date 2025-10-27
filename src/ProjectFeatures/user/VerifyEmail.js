@@ -11,7 +11,6 @@ const { data: verifyEmail,isLoading,isError,isSuccess,error } = useGetEmailVerif
     skip: !token, 
   });
 
-  console.log("verifyEmail", verifyEmail)
   return (
  <div className="flex items-center justify-center h-screen">
       <div className="bg-white shadow-lg p-6 rounded-lg w-[400px] text-center">

@@ -17,7 +17,7 @@ function ForgotPassword() {
     useCreateForgetMutation();
 
   const onSubmit = async (data) => {
-    console.log(data);
+
     try {
       const submissionData = {
         email: data.email,

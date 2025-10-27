@@ -12,7 +12,6 @@ function DocVideos() {
   };
 
   const auth = JSON.parse(localStorage.getItem("auth"));
-  console.log("auth", auth)
   const {
     data: videos,
     isLoading,

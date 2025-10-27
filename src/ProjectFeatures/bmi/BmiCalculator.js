@@ -9,7 +9,6 @@ function BmiCalculator({ setActiveTab }) {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [weightKg, setWeightKg] = useState("");
-  console.log("weightKg", weightKg)
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -63,7 +62,6 @@ useEffect(() => {
 
 
   const onSubmit = async (formData) => {
-     console.log("form-data", formData)
     try {
       const submissionData = {
         user_id: formData.user_id,

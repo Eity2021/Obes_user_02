@@ -75,7 +75,7 @@ function Profile() {
   const [createReset] = useCreateResetMutation();
 
   const onSubmit = async (formData) => {
-    console.log(formData);
+
 
     try {
       const submissionData = {

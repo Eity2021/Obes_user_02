@@ -18,7 +18,7 @@ export default function Otp() {
     useCreateForgetOtpMutation();
 
   const onSubmit = async (data) => {
-    console.log(data);
+
     try {
       const submissionData = {
         email: data.email,
@@ -29,7 +29,7 @@ export default function Otp() {
 
       if (response?.data?.status === 200) {
         toast.success(response?.data?.message);
-        console.log(response?.data?.user_id);
+
         reset();
         navigate("/change-password", {
           state: { userId: response?.data?.user_id },
