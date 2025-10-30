@@ -1,12 +1,12 @@
 import { apiSlice } from "../api/apiSlice";
 
 
-export const dietApi = apiSlice.injectEndpoints({
+export const pdfApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getDiet: builder.query({
+    getPdf: builder.query({
       query: ({ role, mycalory }) => `/public/api/${role}/dietchartmy/${mycalory}`,
     }),
   }),
 });
 
-export const { useGetDietQuery, useCreateBmiMutation } = dietApi;
+export const { useGetPdfQuery } = pdfApi;

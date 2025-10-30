@@ -14,6 +14,7 @@ import educationSliceReducer from "../features/education/educationSlice";
 import uploadSliceReducer from "../features/upload/uploadSlice";
 import stepsSliceReducer from "../features/steps/stepsSlice";
 import dietSliceReducer from "../features/dietChart/dietSlice";
+import pdfSliceReducer from "../features/pdf/pdfSlice";
 import logoutSlice from "../features/logout/logoutSlice";
 import { apiSlice } from "../features/api/apiSlice";
 
@@ -33,6 +34,7 @@ export const store = configureStore({
     steps: stepsSliceReducer,
     diet: dietSliceReducer,
     header: headerSlice,
+    pdf: pdfSliceReducer,
     rightDrawer: rightDrawerSlice,
     modal: modalSlice,
     logout: logoutSlice,
