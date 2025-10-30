@@ -1,22 +1,19 @@
-import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { TrendingUpDown, Calculator } from "lucide-react";
 import { useCreateBmiMutation } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
-import { TrendingUpDown, Calculator } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 function BmiCalculator({ setActiveTab }) {
-  const navigate = useNavigate();
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [weightKg, setWeightKg] = useState("");
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
-  // console.log("role", profile);
-  // console.log("role", profile?.data?.ogender)
-  const [createBmi, { isLoading, error }] = useCreateBmiMutation();
+  const [createBmi] = useCreateBmiMutation();
 
   const {
     register,
@@ -26,9 +23,19 @@ function BmiCalculator({ setActiveTab }) {
     formState: { errors },
   } = useForm();
 
+useEffect(() => {
+  const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
+  setWeightKg(kg);
+  setValue("weight", kg);
+}, [weight, setValue]);
+
+
+
   useEffect(() => {
     if (weight > 0 && height > 0) {
-      const bmiValue = (weight * 703) / (height * height);
+
+     const weightInLbs = weight * 2.20462;
+    const bmiValue = (weightInLbs * 703) / (height * height);
       const formattedBMI = bmiValue.toFixed(2);
       const bmiCategory = getBMICategory(formattedBMI);
       setBmi(formattedBMI);
@@ -37,28 +44,14 @@ function BmiCalculator({ setActiveTab }) {
 
       const gender = profile?.data?.ogender;
       let result = 0;
-      let calResult = 0;
       if (gender === "male") {
-        result = Math.floor(weight * 15 - 500);
+        result = Math.floor(weightKg * 15 - 500);
       } else {
-        result = Math.floor(weight * 13 - 500);
+        result = Math.floor(weightKg * 13 - 500);
       }
 
-      if (result >= 600 && result <= 1000) {
-        calResult = 1000;
-      } else if (result >= 1001 && result <= 1200) {
-        calResult = 1200;
-      } else if (result >= 1201 && result <= 1300) {
-        calResult = 1300;
-      } else if (result >= 1301 && result <= 1400) {
-        calResult = 1400;
-      } else if (result >= 1401 && result <= 1500) {
-        calResult = 1500;
-      } else {
-        calResult = result;
-      }
-      setCalories(calResult);
-      setValue("calory", calResult);
+      setCalories(result);
+      setValue("calory", result);
     } else {
       setBmi("");
       setValue("bmi", "");
@@ -66,6 +59,7 @@ function BmiCalculator({ setActiveTab }) {
       setValue("calory", "");
     }
   }, [weight, height, setValue]);
+
 
   const onSubmit = async (formData) => {
     try {
@@ -80,11 +74,9 @@ function BmiCalculator({ setActiveTab }) {
 
       const role = profile?.data?.role;
       const response = await createBmi({ data: submissionData, role });
-
       if (response?.data?.status === 200) {
         toast.success(response?.data?.message);
         reset();
-        // navigate("/profile");
         setActiveTab("history")
       } else {
         toast.error(
@@ -161,17 +153,31 @@ function BmiCalculator({ setActiveTab }) {
 
                   <div className="form-control mt-2">
                     <label className="label">
-                      <span className="label-text">Weight (lbs)</span>
+                      <span className="label-text">Weight (kg)</span>
                     </label>
                     <input
                       type="number"
-                      name="weight"
-                      placeholder="e.g. 154 lbs"
-                      {...register("weight", { required: true })}
+                      placeholder="e.g. 54 kg"
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
+                    <div className="hidden">
+                      {
+                        weightKg && (
+                          <input
+                            type="float"
+                            name="weight"
+                            placeholder="e.g. 154 lbs"
+                            {...register("weight", { required: true })}
+                            value={weightKg}
+                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                          />
+                        )
+                      }
+
+                    </div>
+
                   </div>
 
                   <div className="form-control mt-4">
@@ -221,7 +227,6 @@ function BmiCalculator({ setActiveTab }) {
                   <div className="form-control mt-4 hidden">
                     <input
                       type="number"
-                      placeholder="e.g. 175 inches"
                       name="calory"
                       {...register("calory", { required: true })}
                       value={calories || ""}
@@ -290,7 +295,7 @@ function BmiCalculator({ setActiveTab }) {
               <div className="flex justify-between text-xs text-gray-600 mt-2 px-1">
                 <span>16</span>
                 <span>18.5</span>
-                <span>23</span>
+                <span>25</span>
                 <span>30</span>
                 <span>40</span>
               </div>

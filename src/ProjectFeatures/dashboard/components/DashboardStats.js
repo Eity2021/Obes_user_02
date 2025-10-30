@@ -26,7 +26,7 @@ function DashboardStats({ profileData }) {
             Category
           </h1>
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
-           {profileData?.category}
+            {profileData?.category}
           </p>
         </div>
       </div>
@@ -34,7 +34,7 @@ function DashboardStats({ profileData }) {
       <div className="stats shadow">
         <div className="stat bg-gradient-to-r from-[#d18c61] to-[#FFC38F]">
           <h1 className="text-[20px] font-bold font-[poppins]  text-[#fff]">
-            Calory
+            Calorie
           </h1>
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
             {profileData?.calory}

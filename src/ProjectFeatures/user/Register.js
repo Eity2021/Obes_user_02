@@ -47,7 +47,6 @@ function Register() {
   }, [data, handleNavigation, resError]);
 
   const onSubmit = (formData) => {
-    console.log("data", formData);
     setError("");
     resRegister({
       fulname: formData.fulname,
@@ -57,6 +56,7 @@ function Register() {
       smsmobile: formData.smsmobile,
       logmobile: formData.logmobile,
       logemail: formData.logemail,
+      bmdc: formData.bmdc,
       password: formData.password,
       role: formData.role,
     });
@@ -231,10 +231,30 @@ function Register() {
                         />
                         <span className="">Doctor</span>
                       </label>
+
+
+                 
                     </div>
                   </div>
                 </div>
+<div>
+       {selected === "doctor" && (
+                         <div>
+                  <label className="font-poppins text-[14px]">
+                    BMDC Number
+                  </label>
+                  <input
 
+                    name="bmdc"
+                    type="text"
+                    placeholder="BMDC Number"
+                    {...register("bmdc", { required: true })}
+                    className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%]"
+                  />
+                  {/* {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>} */}
+                </div>
+                      )}
+</div>
                 <div>
                   <label
                     className="font-serif text-[14px]"

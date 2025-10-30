@@ -25,8 +25,9 @@ function Profile() {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [isOpen, setIsOpen] = useState(false);
-
   const [showModalEdit, setShowModalEdit] = useState(false);
+
+
 
   const handleShowingInfoEdit = () => {
     setShowModalEdit(true);
@@ -74,7 +75,7 @@ function Profile() {
   const [createReset] = useCreateResetMutation();
 
   const onSubmit = async (formData) => {
-    console.log(formData);
+
 
     try {
       const submissionData = {

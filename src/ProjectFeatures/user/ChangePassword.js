@@ -18,7 +18,7 @@ export default function ChangePassword() {
     useCreateChangePasswordMutation();
 
   const onSubmit = async (data) => {
-    console.log(data);
+
     try {
       const submissionData = {
         user_id: data.user_id,

@@ -80,7 +80,7 @@ export default function BmiList() {
 
                     <div>
                       <p className="text-sm text-gray-600">
-                        Height: {entry.height} Feet
+                        Height: {entry.height} Inch
                       </p>
                       <p className="text-sm text-gray-600">
                         Weight: {entry.weight} lbs

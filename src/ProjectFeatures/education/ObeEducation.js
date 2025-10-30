@@ -51,7 +51,7 @@ function ObeEducation({ filteredData, age }) {
                 return (
                   <div
                     key={module.id}
-                    className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    className=" border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
                   >
                     <div className="p-6 border-b border-gray-100">
                       <div className="flex items-start justify-between mb-4">
@@ -61,7 +61,7 @@ function ObeEducation({ filteredData, age }) {
                           {formatDate(module.created_at)}
                         </div>
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                      <h2 className="text-2xl font-bold text-gray-700 flex items-center gap-2">
                         <Target className="w-6 h-6 text-primary" />
                         {module.topic} Focus Module
                       </h2>
@@ -88,7 +88,7 @@ function ObeEducation({ filteredData, age }) {
                           <div className="space-y-4">
                             {isListContent ? (
                               <div className="space-y-4">
-                                <p className="text-xl  font-semibold text-gray-900 font-[poppins]">
+                                <p className="text-xl  font-semibold text-gray-700 font-[poppins]">
                                   {content[0]}
                                 </p>
                                 <ul className="space-y-3">
