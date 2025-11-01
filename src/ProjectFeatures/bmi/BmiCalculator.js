@@ -23,19 +23,19 @@ function BmiCalculator({ setActiveTab }) {
     formState: { errors },
   } = useForm();
 
-useEffect(() => {
-  const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
-  setWeightKg(kg);
-  setValue("weight", kg);
-}, [weight, setValue]);
+  useEffect(() => {
+    const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
+    setWeightKg(kg);
+    setValue("weight", kg);
+  }, [weight, setValue]);
 
 
 
   useEffect(() => {
     if (weight > 0 && height > 0) {
 
-     const weightInLbs = weight * 2.20462;
-    const bmiValue = (weightInLbs * 703) / (height * height);
+      const weightInLbs = weight * 2.20462;
+      const bmiValue = (weightInLbs * 703) / (height * height);
       const formattedBMI = bmiValue.toFixed(2);
       const bmiCategory = getBMICategory(formattedBMI);
       setBmi(formattedBMI);
@@ -295,9 +295,9 @@ useEffect(() => {
               <div className="flex justify-between text-xs text-gray-600 mt-2 px-1">
                 <span>16</span>
                 <span>18.5</span>
+                <span>23</span>
                 <span>25</span>
-                <span>30</span>
-                <span>40</span>
+                <span>∞</span>
               </div>
 
               <div className="alert alert-info mt-4 text-sm">

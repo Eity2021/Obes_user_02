@@ -34,15 +34,16 @@ export default function Assessment({ filteredData, age }) {
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg bg-green-50">
                   <span className="font-medium">Normal weight</span>
-                  <span className="text-green-600">18.5 - 24.9</span>
+                  <span className="text-green-600">18.5 - 22.9</span>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg bg-yellow-50">
                   <span className="font-medium">Overweight</span>
-                  <span className="text-yellow-600">25 - 29.9</span>
+                  <span className="text-yellow-600">23 - 24.9</span>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg bg-red-50">
                   <span className="font-medium">Obesity</span>
-                  <span className="text-red-600">&ge; 30</span>
+                  <span className="text-red-600">25 - ∞</span>
+                  <span className="">&ge; ∞</span>
                 </div>
               </div>
             </div>
