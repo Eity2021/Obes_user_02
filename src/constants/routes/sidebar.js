@@ -22,7 +22,7 @@ const userRoutes = [
   {
     path: "/bmi",
     icon: <Calculator className={iconClasses} />,
-    name: "Bmi",
+    name: "BMI",
   },
 
   {

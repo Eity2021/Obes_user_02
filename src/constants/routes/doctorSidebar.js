@@ -13,11 +13,11 @@ const doctorRoutes   = [
   {
     path: "/bmi",
     icon: <Calculator   className={iconClasses} />,
-    name: "Bmi",
+    name: "BMI",
   },
 
     {
-    path: "question",
+    path: "Doctor question",
     icon: <Captions      className={`${iconClasses} inline`} />,
     name: "Question",
     submenu: [
