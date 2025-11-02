@@ -1,5 +1,5 @@
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
-import { Footprints ,Salad , FileDiff,ReceiptText ,Captions  ,PictureInPicture2  ,FileText,SquareActivity  ,BookOpenText ,Calculator,LayoutDashboard  , BookCheck    } from 'lucide-react';
+import { ChartNoAxesGantt ,Salad , FileDiff,ReceiptText ,Captions  ,PictureInPicture2  ,FileText,SquareActivity  ,BookOpenText ,Calculator,LayoutDashboard  , BookCheck    } from 'lucide-react';
 
 const iconClasses = `h-6 w-6`;
 
@@ -15,31 +15,31 @@ const doctorRoutes   = [
     icon: <Calculator   className={iconClasses} />,
     name: "BMI",
   },
-
+  {
+        path: "/obes/stepsOfSeven",
+        icon: <ChartNoAxesGantt className={iconClasses} />,
+        name: "7 Best Practice",
+      },
     {
     path: "Doctor question",
     icon: <Captions      className={`${iconClasses} inline`} />,
-    name: "Question",
+    name: "Questionnaires",
     submenu: [
       {
-        path: "/question/survey",
+        path: "/questionnaires/survey",
         icon: <FileDiff  className={iconClasses} />,
         name: "Survey",
       },
 
       {
-        path: "/question/surveyList",
+        path: "/questionnaires/surveyList",
         icon: <ReceiptText  className={iconClasses} />,
         name: "List of Survey",
       },
        
     ],
   },
-  {
-    path: "/stepsOfSeven",
-    icon: <Footprints  className={iconClasses} />,
-    name: "7 Best Practice",
-  },
+
   {
     path: "obes",
     icon: <BookCheck   className={`${iconClasses} inline`} />,

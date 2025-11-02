@@ -26,18 +26,18 @@ const userRoutes = [
   },
 
   {
-    path: "question",
+    path: "questionnaires",
     icon: <Captions className={`${iconClasses} inline`} />,
     name: "Questionnaire",
     submenu: [
       {
-        path: "/question/survey",
+        path: "/questionnaires/survey",
         icon: <FileDiff className={iconClasses} />,
         name: "Survey",
       },
 
       {
-        path: "/question/surveyList",
+        path: "/questionnaires/surveyList",
         icon: <ReceiptText className={iconClasses} />,
         name: "List of Survey",
       },

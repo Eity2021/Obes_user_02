@@ -32,11 +32,11 @@ const routes = [
     component: Bmi,
   },
   {
-    path: "question/survey",
+    path: "questionnaires/survey",
     component: Questions,
   },
   {
-    path: "question/surveyList",
+    path: "questionnaires/surveyList",
     component: Survey,
   },
   {

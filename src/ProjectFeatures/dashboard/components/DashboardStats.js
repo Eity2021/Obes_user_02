@@ -13,7 +13,7 @@ function DashboardStats({ profileData }) {
       <div className="stats shadow">
         <div className="mx-auto w-full p-6 rounded-2xl shadow-lg text-white bg-gradient-to-r from-[#FFA659] to-[#f9d2b1]">
           <h1 className="text-[20px] font-bold font-[poppins] text-[#fff]">
-            Bmi
+            BMI
           </h1>
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
             {profileData?.bmi}
