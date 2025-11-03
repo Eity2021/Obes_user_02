@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-
 import { useEffect, useState } from "react";
 import LandingIntro from "./LandingIntro";
 import useNavigator from "../../hooks/useNavigator";
@@ -13,14 +12,12 @@ function Login() {
   const { handleNavigation } = useNavigator();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-  const {
-    register,
-    handleSubmit,
-    reset,
-    // formState: { errors },
-  } = useForm();
+  const [isProcessing, setIsProcessing] = useState(false); // <-- Added state
+
+  const { register, handleSubmit, reset } = useForm();
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
+
   useEffect(() => {
     if (data?.token) {
       dispatch(userLoggedIn());
@@ -31,17 +28,22 @@ function Login() {
 
   const onSubmit = (formData) => {
     setError("");
+    setIsProcessing(true); 
     resLogin({
       login: formData.login,
       password: formData.password,
     });
+
+    setTimeout(() => {
+      setIsProcessing(false);
+    }, 5000);
   };
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center">
-      <div className="card mx-auto w-full max-w-5xl  shadow-xl">
-        <div className="grid  md:grid-cols-2 grid-cols-1  bg-base-100 rounded-xl">
-          <div className="">
+      <div className="card mx-auto w-full max-w-5xl shadow-xl">
+        <div className="grid md:grid-cols-2 grid-cols-1 bg-base-100 rounded-xl">
+          <div>
             <LandingIntro />
           </div>
           <div className="py-24 px-10">
@@ -49,21 +51,18 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 w-100">
                 <div className="mb-3">
-                  <p className="font-serif  text-[16px] mb-1">
+                  <p className="font-serif text-[16px] mb-1">
                     Mobile Number/Email*
                   </p>
                   <input
-                    type=""
-                    name="login"
                     {...register("login")}
                     placeholder="Mobile Number"
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%]"
                   />
                 </div>
                 <div>
-                  <p className="font-serif  text-[16px] mb-1">Password*</p>
+                  <p className="font-serif text-[16px] mb-1">Password*</p>
                   <input
-                    name="password"
                     {...register("password")}
                     placeholder="Password"
                     type="password"
@@ -74,25 +73,24 @@ function Login() {
 
               <div className="text-right text-primary">
                 <Link to="/forgot-password">
-                  <span className="text-sm  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">
-                    Forgot Password?
-                  </span>
+                  <span className="text-sm hover:underline">Forgot Password?</span>
                 </Link>
               </div>
 
               <button
                 type="submit"
-                className={
-                  "btn mt-2 w-full bg-primary text-[#fff] hover:bg-primary"
-                }
+                disabled={isProcessing}
+                className={`btn mt-2 w-full ${
+                  isProcessing ? "bg-gray-400" : "bg-primary hover:bg-primary"
+                } text-white`}
               >
-                Login
+                {isProcessing ? "Processing..." : "Login"}
               </button>
 
               <div className="text-center mt-4">
                 Don't have an account yet?{" "}
                 <Link to="/register">
-                  <span className=" font-bold inline-block  text-primary underline hover:cursor-pointer transition duration-200">
+                  <span className="font-bold text-primary underline hover:cursor-pointer">
                     Register
                   </span>
                 </Link>
