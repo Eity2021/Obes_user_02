@@ -15,7 +15,7 @@ function Register() {
   const [smsNumber, setSmsNumber] = useState(null);
   // const [error, setError] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false); 
+  const [isProcessing, setIsProcessing] = useState(false);
   const dispatch = useDispatch();
 
   const {
@@ -26,28 +26,34 @@ function Register() {
     formState: { errors },
 
   } = useForm();
-console.log("errors", errors?.fulname) 
+  console.log("errors", errors)
   const handleSmsNumber = (e) => {
     const newValue = e.target.value;
     setSmsNumber(newValue);
     setValue("smsmobile", newValue);
   };
 
-  const [resRegister, { data, isLoading, error: resError }] =
+  const [resRegister, { data, isLoading, error }] =
     useRegisterMutation();
 
   useEffect(() => {
-    // if (resError?.data) {
-    //   setError(resError.data);
-   
-    // }
+    if (error?.data) {
+      const apiMessage =
+        error?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(apiMessage);
+
+      // console.log( "error", error)
+    }
+
     if (data?.token) {
       dispatch(setUser(data?.data?.role));
       toast.success("Successfully! Sign Up");
       handleNavigation("/login");
       localStorage.clear();
     }
-  }, [data, handleNavigation, resError]);
+  }, [data, handleNavigation, error]);
+
 
   const onSubmit = (formData) => {
     console.log(formData)
@@ -90,12 +96,13 @@ console.log("errors", errors?.fulname)
                     name="fulname"
                     type="text"
                     placeholder="Full Name"
-                    {...register("fulname", { required: true })}
+                    {...register("fulname", { required: "Full name is required" })}
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
+
                   />
-                    {errors.fulname && (
-    <p className="text-red-500 text-sm mt-1">{errors?.fulname?.message}</p>
-  )}
+                  {errors.fulname && (
+                    <p className="text-red-500 text-sm mt-1">{errors?.fulname?.message}</p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-4 gap-4">
@@ -107,9 +114,9 @@ console.log("errors", errors?.fulname)
                       {...register("ccode", { required: true })}
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
-                                        {errors.ccode && (
-    <p className="text-red-500 text-sm mt-1">{errors.ccode.message}</p>
-  )}
+                    {errors.ccode && (
+                      <p className="text-red-500 text-sm mt-1">{errors.ccode.message}</p>
+                    )}
                   </div>
                   <div className="col-span-3">
                     <label className="font-poppins text-[14px]">
@@ -120,14 +127,14 @@ console.log("errors", errors?.fulname)
                       type="number"
                       autoComplete="logmobile"
                       placeholder="Mobile Number"
-                      {...register("logmobile", { required: true })}
+                      {...register("logmobile", { required: "Phone Number is required" })}
                       onChange={handleSmsNumber}
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
 
-                                        {errors.logmobile && (
-    <p className="text-red-500 text-sm mt-1">{errors.logmobile.message}</p>
-  )}
+                    {errors.logmobile && (
+                      <p className="text-red-500 text-sm mt-1">{errors.logmobile.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -156,7 +163,7 @@ console.log("errors", errors?.fulname)
                   </label>
                   <select
                     defaultValue="choose gender"
-                    {...register("ogender", { required: true })}
+                    {...register("ogender", { required: "Gender is required" })}
                     className="select border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-none w-[100%] mt-2"
                   >
                     <option disabled>Pick a gender</option>
@@ -164,8 +171,12 @@ console.log("errors", errors?.fulname)
                     <option value="female">Female</option>
                     <option value="others">Others</option>
                   </select>
-                </div>
 
+                </div>
+                {/* {errors.ogender && (
+    <p className="text-red-500 text-sm mt-1">{errors?.ogender?.message}</p>
+  )}
+       */}
                 <div>
                   <label className="font-poppins text-[14px]">
                     Email address
@@ -175,12 +186,12 @@ console.log("errors", errors?.fulname)
                     name="email"
                     type="email"
                     placeholder="Email Address"
-                    {...register("logemail", { required: true })}
+                    {...register("logemail", { required: "Email is required" })}
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                   />
-                                      {errors.logemail && (
-    <p className="text-red-500 text-sm mt-1">{errors.logemail.message}</p>
-  )}
+                  {errors.logemail && (
+                    <p className="text-red-500 text-sm mt-1">{errors.logemail.message}</p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4">
@@ -191,7 +202,7 @@ console.log("errors", errors?.fulname)
                     <Controller
                       name="dob"
                       control={control}
-                      rules={{ required: true }}
+                      rules={{ required: "DOB is required" }}
                       render={({ field }) => (
                         <DatePicker
                           showCalendar={showCalendar}
@@ -204,6 +215,11 @@ console.log("errors", errors?.fulname)
                         />
                       )}
                     />
+
+                    {errors.dob && (
+                      <p className="text-red-500 text-sm mt-1">{errors?.dob?.message}</p>
+                    )}
+
                   </div>
 
                   <div>
@@ -216,7 +232,7 @@ console.log("errors", errors?.fulname)
                     <div className="flex gap-4 items-center h-12">
                       <label className="flex items-center space-x-2">
                         <input
-                          {...register("role", { required: true })}
+                          {...register("role", { required: "Role is required" })}
                           type="radio"
                           name="role"
                           value="user"
@@ -229,7 +245,7 @@ console.log("errors", errors?.fulname)
 
                       <label className="flex items-center space-x-2">
                         <input
-                          {...register("role", { required: true })}
+                          {...register("role", { required: "Role is required" })}
                           type="radio"
                           name="role"
                           value="doctor"
@@ -240,6 +256,10 @@ console.log("errors", errors?.fulname)
                         <span>Doctor</span>
                       </label>
                     </div>
+
+                    {errors.role && (
+                      <p className="text-red-500 text-sm mt-1">{errors?.role?.message}</p>
+                    )}
                   </div>
                 </div>
 
@@ -255,9 +275,9 @@ console.log("errors", errors?.fulname)
                       {...register("bmdc", { required: true })}
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
-                                        {errors.bmdc && (
-    <p className="text-red-500 text-sm mt-1">{errors.bmdc.message}</p>
-  )}
+                    {errors.bmdc && (
+                      <p className="text-red-500 text-sm mt-1">{errors.bmdc.message}</p>
+                    )}
                   </div>
                 )}
 
@@ -275,14 +295,17 @@ console.log("errors", errors?.fulname)
                       type="password"
                       placeholder="Password"
                       autoComplete="password"
-                      {...register("password", { required: true })}
+                      {...register("password", { required: "Password is required" })}
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
+                    {errors.password && (
+                      <p className="text-red-500 text-sm mt-1">{errors?.password?.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
-       
-         
+
+
               <button
                 type="submit"
                 disabled={isProcessing}
