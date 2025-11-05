@@ -84,7 +84,7 @@ function Questions() {
       if (response?.data?.status === 201) {
         toast.success(response?.data?.message);
         reset();
-        navigate("/question/surveyList");
+        navigate("/questionnaires/surveyList");
       } else {
         toast.error(
           response?.data?.message || "Submission failed. Please try again."
@@ -132,7 +132,7 @@ function Questions() {
               <h1 className="font-poppins text-3xl font-bold text-white">Questionnaires</h1>
             </div>
             <div className="px-10 pb-12">
-              <p className="font-normal font-poppins text-[16px] leading-7"> You are being invited to participate in a research study conducted by Bangladesh Endocrine Society. The purpose of this study is to assess the knowledge and attitude towards obesity among the general population of Bangladesh.Your participation is completely voluntary and involves completing a short online questionnaire that will take approximately 10-15 minutes.Your responses will remain completely anonymous and will be used only for academic and research purposes. </p>
+              <p className="font-normal font-poppins text-[16px] leading-7"> You are being invited to participate in a research study conducted by Bangladesh Endocrine Society. The purpose of this study is to assess the knowledge and attitude towards obesity among the general population of Bangladesh.Your participation is completely voluntary and involves completing a short online questionnaire that will take approximately 5-10 minutes.Your responses will remain completely anonymous and will be used only for academic and research purposes. </p>
             </div>
             <div className="block sm:flex justify-between px-10 items-center mb-2 border-b pb-3 ">
               <div>
@@ -180,7 +180,7 @@ function Questions() {
                         name="user_id"
                         {...register("user_id", { required: true })}
                         value={profile?.data?.id}
-                        className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                        className="input  input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     </div>
                   )}
@@ -539,7 +539,7 @@ function Questions() {
                                 <input
                                   type="text"
                                   placeholder="Type here"
-                                  className="input w-full"
+                                  className="input w-full  input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                                   {...register(`ansjson.${item?.qid}`)}
                                 />
                               </div>
@@ -549,7 +549,7 @@ function Questions() {
                               <div className="flex gap-3 py-1">
                                 <select
                                   defaultValue=""
-                                  className="select w-full font-poppins text-[18px]"
+                                  className="select w-full font-poppins text-[18px] input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                                   onChange={(e) =>
                                     updateAnswer(item.qid, e.target.value)
                                   }
@@ -620,7 +620,7 @@ function Questions() {
                           {item.qbang}
                         </p>
 
-                        <div className="bg-gray-100 p-3 rounded">
+                        <div className="p-3 rounded">
                           {item.qatype === "checkbox" ? (
                             <>
                               {Array.isArray(item.qaoptionbng) ? (
@@ -676,7 +676,7 @@ function Questions() {
                                 <input
                                   type="text"
                                   placeholder="Type here"
-                                  className="input w-full"
+                                  className="input w-full  input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                                   {...register(`ansjson.${item.qid}`)}
                                 />
                               </div>
@@ -686,7 +686,7 @@ function Questions() {
                               <div className="flex gap-3 py-1">
                                 <select
                                   defaultValue=""
-                                  className="select w-full font-poppins text-[18px]"
+                                  className="select w-full font-poppins text-[18px] input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary "
                                   onChange={(e) =>
                                     updateAnswer(item.qid, e.target.value)
                                   }

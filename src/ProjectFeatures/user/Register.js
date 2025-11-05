@@ -37,13 +37,13 @@ function Register() {
     useRegisterMutation();
 
   useEffect(() => {
-    if (error?.data) {
+    if (data) {
       const apiMessage =
-        error?.data?.message ||
+        data?.message ||
         "Something went wrong. Please try again.";
       toast.error(apiMessage);
 
-      // console.log( "error", error)
+     console.log( "error", apiMessage)
     }
 
     if (data?.token) {
