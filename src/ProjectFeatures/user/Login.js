@@ -12,9 +12,9 @@ function Login() {
   const { handleNavigation } = useNavigator();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false); // <-- Added state
+  const [isProcessing, setIsProcessing] = useState(false); 
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, } = useForm();
 
   const [resLogin, { data, isLoading, error: loginError }] = useLoginMutation();
 
@@ -55,19 +55,26 @@ function Login() {
                     Mobile Number/Email*
                   </p>
                   <input
-                    {...register("login")}
+                    {...register("login", { required: "Email/Number is required" })}
                     placeholder="Mobile Number"
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%]"
                   />
+
+                  {errors.login && (
+    <p className="text-red-500 text-sm mt-1">{errors?.login?.message}</p>
+  )}
                 </div>
                 <div>
                   <p className="font-serif text-[16px] mb-1">Password*</p>
                   <input
-                    {...register("password")}
+                    {...register("password",  { required: "password is required" })}
                     placeholder="Password"
                     type="password"
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%]"
                   />
+                                {errors.password && (
+    <p className="text-red-500 text-sm mt-1">{errors?.password?.message}</p>
+  )}
                 </div>
               </div>
 
