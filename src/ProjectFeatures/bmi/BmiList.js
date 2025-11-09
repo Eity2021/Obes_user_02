@@ -53,9 +53,9 @@ export default function BmiList() {
                   .slice(0, 20).map((entry, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+                      className="sm:flex block items-center justify-between p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 sm:mb-0 mb-2">
                         <div
                           className="h-10 w-10 rounded-full flex items-center justify-center"
                           style={{ backgroundColor: "rgba(123, 30, 25, 0.2)" }}
@@ -78,7 +78,7 @@ export default function BmiList() {
                         </div>
                       </div>
 
-                      <div>
+                      <div className="sm:mb-0 mb-2">
                         <p className="text-sm text-gray-600">
                           Height: {entry.height} Inch
                         </p>
