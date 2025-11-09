@@ -14,6 +14,8 @@ function BmiCalculator({ setActiveTab }) {
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [createBmi] = useCreateBmiMutation();
+  const [heightFeet, setHeightFeet] = useState("");
+  const [heightInches, setHeightInches] = useState("");
 
   const {
     register,
@@ -22,6 +24,22 @@ function BmiCalculator({ setActiveTab }) {
     setValue,
     formState: { errors },
   } = useForm();
+
+
+
+  useEffect(() => {
+    if (heightFeet === "" && heightInches === "") {
+      setHeight("");
+      setValue("height", "");
+      return;
+    }
+    const totalInches =
+      (parseInt(heightFeet || 0, 10) * 12) + parseInt(heightInches || 0, 10);
+    setHeight(totalInches);
+    setValue("height", totalInches);
+  }, [heightFeet, heightInches, setValue]);
+
+
 
   useEffect(() => {
     const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
@@ -180,10 +198,10 @@ function BmiCalculator({ setActiveTab }) {
 
                   </div>
 
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text">Height (inches)</span>
-                    </label>
+                  <div className="form-control mt-4 hidden">
+
+                    <span className="text-[15px] color-[#333] font-poppins">Height (inches)</span>
+
                     <input
                       type="number"
                       placeholder="e.g. 175 inches"
@@ -194,6 +212,39 @@ function BmiCalculator({ setActiveTab }) {
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
                   </div>
+
+                  <div className="form-control mt-4">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <span className="text-[15px] color-[#333] font-poppins">Height(feet)</span>
+                        <input
+                          type="number"
+                          min="0"
+                          placeholder="feet"
+                          value={heightFeet}
+                          onChange={e => setHeightFeet(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
+                        />
+
+                      </div>
+                      <div>
+                        <span className="text-[15px] color-[#333] font-poppins">Height(inches)</span>
+                        <input
+                          type="number"
+                          min="0"
+                          max="11"
+                          placeholder="inches"
+                          value={heightInches}
+                          onChange={e => setHeightInches(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
+                        />
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
                   {bmi && (
                     <div className="form-control mt-4 hidden">
                       <label className="label">

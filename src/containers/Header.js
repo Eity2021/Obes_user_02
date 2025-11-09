@@ -19,19 +19,19 @@ function Header() {
     localStorage.getItem("theme")
   );
 
-  useEffect(() => {
-    themeChange(false);
-    if (currentTheme === null) {
-      if (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
-        setCurrentTheme("dark");
-      } else {
-        setCurrentTheme("light");
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   themeChange(false);
+  //   if (currentTheme === null) {
+  //     if (
+  //       window.matchMedia &&
+  //       window.matchMedia("(prefers-color-scheme: dark)").matches
+  //     ) {
+  //       setCurrentTheme("dark");
+  //     } else {
+  //       setCurrentTheme("light");
+  //     }
+  //   }
+  // }, []);
 
   // const openNotification = () => {
   //     dispatch(openRightDrawer({ header: "Notifications", bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION }))
@@ -70,7 +70,7 @@ function Header() {
           {/* <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1> */}
         </div>
         <div className="flex-none ">
-          <label className="swap">
+          {/* <label className="swap">
             <input type="checkbox" />
             <MoonIcon
               data-set-theme="dark"
@@ -88,7 +88,7 @@ function Header() {
                 (currentTheme === "dark" ? "swap-on" : "swap-off")
               }
             />
-          </label>
+          </label> */}
 
           {/*  <button className="btn btn-ghost ml-4  btn-circle" onClick={() => openNotification()}>
                         <div className="indicator">

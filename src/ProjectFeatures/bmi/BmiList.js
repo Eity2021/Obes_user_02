@@ -8,9 +8,6 @@ export default function BmiList() {
   const { data: profile } = useGetProfileQuery(auth?.role);
   const {
     data: bmi,
-    isLoading,
-    isError,
-    error,
   } = useGetBmiQuery(
     { id: profile?.data?.id, role: profile?.data?.role },
     { skip: !profile?.data?.id }
@@ -50,52 +47,55 @@ export default function BmiList() {
           <div className="p-6">
             <div className="space-y-4">
               {bmi?.data?.length > 0 ? (
-                bmi.data.map((entry, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="h-10 w-10 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "rgba(123, 30, 25, 0.2)" }}
-                      >
-                        <User className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {entry.recorded_at}
-                        </p>
-
-                        <p className="text-sm text-gray-600">
-                          Calory:{" "}
-                          <span className="font-semibold">{entry.calory}</span>
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          BMI:{" "}
-                          <span className="font-semibold">{entry.bmi}</span>
-                        </p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-gray-600">
-                        Height: {entry.height} Inch
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        Weight: {entry.weight} lbs
-                      </p>
-                    </div>
-
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getBMIColor(
-                        entry.category
-                      )}`}
+                bmi.data
+                  .slice()
+                  .sort((a, b) => new Date(b.recorded_at) - new Date(a.recorded_at))
+                  .slice(0, 20).map((entry, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
                     >
-                      {entry.category}
-                    </span>
-                  </div>
-                ))
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="h-10 w-10 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: "rgba(123, 30, 25, 0.2)" }}
+                        >
+                          <User className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">
+                            {entry.recorded_at}
+                          </p>
+
+                          <p className="text-sm text-gray-600">
+                            Calory:{" "}
+                            <span className="font-semibold">{entry.calory}</span>
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            BMI:{" "}
+                            <span className="font-semibold">{entry.bmi}</span>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="text-sm text-gray-600">
+                          Height: {entry.height} Inch
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Weight: {entry.weight} lbs
+                        </p>
+                      </div>
+
+                      <span
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getBMIColor(
+                          entry.category
+                        )}`}
+                      >
+                        {entry.category}
+                      </span>
+                    </div>
+                  ))
               ) : (
                 <div className="text-center text-gray-500">
                   No BMI records found.
