@@ -13,7 +13,6 @@ function Register() {
   const { handleNavigation } = useNavigator();
   const [selected, setSelected] = useState("user");
   const [smsNumber, setSmsNumber] = useState(null);
-  // const [error, setError] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const dispatch = useDispatch();
@@ -26,7 +25,6 @@ function Register() {
     formState: { errors },
 
   } = useForm();
-  console.log("errors", errors)
   const handleSmsNumber = (e) => {
     const newValue = e.target.value;
     setSmsNumber(newValue);
@@ -43,12 +41,11 @@ function Register() {
         "Something went wrong. Please try again.";
       toast.error(apiMessage);
 
-     console.log( "error", apiMessage)
+
     }
 
     if (data?.token) {
       dispatch(setUser(data?.data?.role));
-      toast.success("Successfully! Sign Up");
       handleNavigation("/login");
       localStorage.clear();
     }
@@ -56,8 +53,6 @@ function Register() {
 
 
   const onSubmit = (formData) => {
-    console.log(formData)
-    // setError("");
     setIsProcessing(true);
     resRegister({
       fulname: formData.fulname,
@@ -105,37 +100,39 @@ function Register() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-4 gap-4">
-                  <div>
-                    <label className="font-poppins text-[14px]">Code</label>
-                    <input
-                      name="ccode"
-                      value="88"
-                      {...register("ccode", { required: true })}
-                      className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
-                    />
-                    {errors.ccode && (
-                      <p className="text-red-500 text-sm mt-1">{errors.ccode.message}</p>
-                    )}
-                  </div>
-                  <div className="col-span-3">
-                    <label className="font-poppins text-[14px]">
-                      Mobile Number
-                    </label>
-                    <input
-                      name="logmobile"
-                      type="number"
-                      autoComplete="logmobile"
-                      placeholder="Mobile Number"
-                      {...register("logmobile", { required: "Phone Number is required" })}
-                      onChange={handleSmsNumber}
-                      className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
-                    />
 
-                    {errors.logmobile && (
-                      <p className="text-red-500 text-sm mt-1">{errors.logmobile.message}</p>
-                    )}
-                  </div>
+                <div className="hidden">
+                  <label className="font-poppins text-[14px]">Code</label>
+                  <input
+                    name="ccode"
+                    value="88"
+                    {...register("ccode", { required: true })}
+                    className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
+                  />
+                  {errors.ccode && (
+                    <p className="text-red-500 text-sm mt-1">{errors.ccode.message}</p>
+                  )}
+                </div>
+
+
+
+                <div className="">
+                  <label className="font-poppins text-[14px]">
+                    Mobile Number
+                  </label>
+                  <input
+                    name="logmobile"
+                    type="number"
+                    autoComplete="logmobile"
+                    placeholder="Mobile Number"
+                    {...register("logmobile", { required: "Phone Number is required" })}
+                    onChange={handleSmsNumber}
+                    className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
+                  />
+
+                  {errors.logmobile && (
+                    <p className="text-red-500 text-sm mt-1">{errors.logmobile.message}</p>
+                  )}
                 </div>
 
                 {smsNumber && (
