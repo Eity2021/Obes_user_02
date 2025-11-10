@@ -329,12 +329,12 @@ function Profile() {
               </h3>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-3 text-sm text-gray-700">
-                  <div className="flex gap-3">
-                    <span className="w-24 text-gray-500 font-poppins">
+                  <div className="md:flex block gap-3">
+                    <span className="md:w-24 w-full text-gray-500 font-poppins">
                       Old Password:
                     </span>
 
-                    <div className="form-control">
+                    <div className="form-control  md:mt-0 mt-1">
                       <input
                         type="password"
                         placeholder="Old password"
@@ -344,12 +344,12 @@ function Profile() {
                       />
                     </div>
                   </div>
-                  <div className="flex gap-3">
-                    <span className="w-24 text-gray-500 font-poppins">
+                  <div className="md:flex block gap-3">
+                    <span className="md:w-24 w-full text-gray-500 font-poppins">
                       New password:
                     </span>
 
-                    <div className="form-control">
+                    <div className="form-control md:mt-0 mt-1">
                       <input
                         type="password"
                         placeholder="New password"
@@ -362,7 +362,7 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <div className="ml-48 mt-4">
+                <div className="md:ml-48 ml-0 mt-4">
                   <button
                     type="submit"
                     className="btn px-10 bg-primary hover:bg-secondary flex-1 text-white"

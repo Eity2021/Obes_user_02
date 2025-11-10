@@ -11,6 +11,9 @@ function Survey() {
     isError: profileError,
     error: profileErr,
   } = useGetProfileQuery(auth?.role);
+
+  console.log("profile", profile)
+
   const {
     data: surveyList,
     isLoading,
@@ -57,7 +60,7 @@ function Survey() {
             <div>
               <BasicInfo surveyList={surveyList}></BasicInfo>
             </div>
-            {surveyList?.data?.answerArray?.map((item,index) => (
+            {surveyList?.data?.answerArray?.map((item, index) => (
               <div
                 key={item?.qid}
                 className="rounded-lg shadow-lg border-l-4 border-primary"
@@ -65,7 +68,7 @@ function Survey() {
                 <div className="px-6 py-4 bg-gradient-to-r from-[#7B1E19]/10 to-[#7B1E19]/10 rounded-t-lg">
                   <div className="flex items-center justify-between">
                     <h2 className="text-md font-semibold text-gray-700 font-[poppins]">
-                      Question {10+index}
+                      Question {10 + index}
                     </h2>
                     <div className="flex gap-2">
                       <span className="bg-[#7B1E19]/20 text-primary text-xs font-medium px-2 py-1 rounded">

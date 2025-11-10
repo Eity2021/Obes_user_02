@@ -7,7 +7,10 @@ import { X } from "lucide-react";
 export default function Modal() {
   const [open, setOpen] = useState(false);
   const [height, setHeight] = useState("");
+  const [heightFeet, setHeightFeet] = useState("");
+  const [heightInches, setHeightInches] = useState("");
   const [weight, setWeight] = useState("");
+  const [weightKg, setWeightKg] = useState("");
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
   const auth = JSON.parse(localStorage.getItem("auth"));
@@ -21,9 +24,35 @@ export default function Modal() {
     formState: { errors },
   } = useForm();
 
+
+
+  useEffect(() => {
+    if (heightFeet === "" && heightInches === "") {
+      setHeight("");
+      setValue("height", "");
+      return;
+    }
+    const totalInches =
+      (parseInt(heightFeet || 0, 10) * 12) + parseInt(heightInches || 0, 10);
+    setHeight(totalInches);
+    setValue("height", totalInches);
+  }, [heightFeet, heightInches, setValue]);
+
+
+
+  useEffect(() => {
+    const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
+    setWeightKg(kg);
+    setValue("weight", kg);
+  }, [weight, setValue]);
+
+
+
   useEffect(() => {
     if (weight > 0 && height > 0) {
-      const bmiValue = (weight * 703) / (height * height);
+
+      const weightInLbs = weight * 2.20462;
+      const bmiValue = (weightInLbs * 703) / (height * height);
       const formattedBMI = bmiValue.toFixed(2);
       const bmiCategory = getBMICategory(formattedBMI);
       setBmi(formattedBMI);
@@ -32,28 +61,14 @@ export default function Modal() {
 
       const gender = profile?.data?.ogender;
       let result = 0;
-      let calResult = 0;
       if (gender === "male") {
-        result = Math.floor(weight * 15 - 500);
+        result = Math.floor(weightKg * 15 - 500);
       } else {
-        result = Math.floor(weight * 13 - 500);
+        result = Math.floor(weightKg * 13 - 500);
       }
 
-      if (result >= 600 && result <= 1000) {
-        calResult = 1000;
-      } else if (result >= 1001 && result <= 1200) {
-        calResult = 1200;
-      } else if (result >= 1201 && result <= 1300) {
-        calResult = 1300;
-      } else if (result >= 1301 && result <= 1400) {
-        calResult = 1400;
-      } else if (result >= 1401 && result <= 1500) {
-        calResult = 1500;
-      } else {
-        calResult = result;
-      }
-      setCalories(calResult);
-      setValue("calory", calResult);
+      setCalories(result);
+      setValue("calory", result);
     } else {
       setBmi("");
       setValue("bmi", "");
@@ -77,6 +92,7 @@ export default function Modal() {
 
   if (!open) return null;
 
+
   const onSubmit = async (formData) => {
     try {
       const submissionData = {
@@ -90,7 +106,6 @@ export default function Modal() {
 
       const role = profile?.data?.role;
       const response = await createBmi({ data: submissionData, role });
-
       if (response?.data?.status === 200) {
         toast.success(response?.data?.message);
         reset();
@@ -166,23 +181,37 @@ export default function Modal() {
 
                   <div className="form-control mt-2">
                     <label className="label">
-                      <span className="label-text">Weight (lbs)</span>
+                      <span className="label-text">Weight (kg)</span>
                     </label>
                     <input
                       type="number"
-                      name="weight"
-                      placeholder="e.g. 154 lbs"
-                      {...register("weight", { required: true })}
+                      placeholder="e.g. 54 kg"
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
+                    <div className="hidden">
+                      {
+                        weightKg && (
+                          <input
+                            type="float"
+                            name="weight"
+                            placeholder="e.g. 154 lbs"
+                            {...register("weight", { required: true })}
+                            value={weightKg}
+                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                          />
+                        )
+                      }
+
+                    </div>
+
                   </div>
 
-                  <div className="form-control mt-4">
-                    <label className="label">
-                      <span className="label-text">Height (inches)</span>
-                    </label>
+                  <div className="form-control mt-4 hidden">
+
+                    <span className="text-[15px] color-[#333] font-poppins">Height (inches)</span>
+
                     <input
                       type="number"
                       placeholder="e.g. 175 inches"
@@ -193,6 +222,39 @@ export default function Modal() {
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
                   </div>
+
+                  <div className="form-control mt-4">
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <span className="text-[15px] color-[#333] font-poppins">Height(feet)</span>
+                        <input
+                          type="number"
+                          min="0"
+                          placeholder="feet"
+                          value={heightFeet}
+                          onChange={e => setHeightFeet(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
+                        />
+
+                      </div>
+                      <div>
+                        <span className="text-[15px] color-[#333] font-poppins">Height(inches)</span>
+                        <input
+                          type="number"
+                          min="0"
+                          max="11"
+                          placeholder="inches"
+                          value={heightInches}
+                          onChange={e => setHeightInches(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
+                        />
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
                   {bmi && (
                     <div className="form-control mt-4 hidden">
                       <label className="label">
@@ -226,7 +288,6 @@ export default function Modal() {
                   <div className="form-control mt-4 hidden">
                     <input
                       type="number"
-                      placeholder="e.g. 175 inches"
                       name="calory"
                       {...register("calory", { required: true })}
                       value={calories || ""}
@@ -236,6 +297,9 @@ export default function Modal() {
                   </div>
 
                   <div className="flex gap-2 mt-4">
+                    <button className="btn bg-outline flex-1 border border-solid">
+                      Reset
+                    </button>
                     <button
                       type="submit"
                       className="btn bg-primary hover:bg-secondary flex-1 text-white"
@@ -245,6 +309,7 @@ export default function Modal() {
                   </div>
                 </div>
               </form>
+
             </div>
           </div>
         </div>
