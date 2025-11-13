@@ -219,34 +219,34 @@ function BmiCalculator({ setActiveTab }) {
               {/* Tabs Header */}
               <div className="flex  border-b border-gray-300 mb-4">
                 <button
-                  className={`py-2 px-4 text-sm font-medium w-full text-semibold font-poppins ${
+                  className={`py-2 px-4 text-md font-medium w-full text-semibold font-poppins ${
                     activeTabs === "tab1"
                       ? "border-b-2 border-primary text-primary"
                       : "text-gray-500 hover:text-gray-700  "
                   }`}
                   onClick={() => setActiveTabs("tab1")}
                 >
-                  General (kg + ft/in)
+                  General (kg - ft/in)
                 </button>
                 <button
-                  className={`py-2 px-4 text-sm font-medium w-full  text-semibold font-poppins ${
+                  className={`py-2 px-4 text-md font-medium w-full  text-semibold font-poppins ${
                     activeTabs === "tab2"
                       ? "border-b-2 border-primary text-primary"
                       : "text-gray-500 hover:text-gray-700"
                   }`}
                   onClick={() => setActiveTabs("tab2")}
                 >
-                  Imperial (lbs + in)
+                  Imperial (lbs - in)
                 </button>
                 <button
-                  className={`py-2 px-4 text-sm font-medium w-full text-semibold font-poppins ${
+                  className={`py-2 px-4 text-md font-medium w-full text-semibold font-poppins ${
                     activeTabs === "tab3"
                       ? "border-b-2 border-primary text-primary"
                       : "text-gray-500 hover:text-gray-700"
                   }`}
                   onClick={() => setActiveTabs("tab3")}
                 >
-                  Matrix (kg + cm)
+                  Metric (kg - cm)
                 </button>
               </div>
 
