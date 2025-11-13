@@ -1,4 +1,3 @@
-import TitleCard from "../../components/Cards/TitleCard";
 import { useGetBmiQuery } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 import { History, User } from "lucide-react";
