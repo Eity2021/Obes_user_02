@@ -6,17 +6,30 @@ import { useCreateBmiMutation } from "../../features/bmi/bmiApi";
 import { useGetProfileQuery } from "../../features/profile/profileApi";
 
 function BmiCalculator({ setActiveTab }) {
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [weightKg, setWeightKg] = useState("");
+  const [activeTabs, setActiveTabs] = useState("tab1");
+
+  // Tab1: weightKg + height feet/inches
+  const [weightKgTab1, setWeightKgTab1] = useState("");
+  const [heightFeet, setHeightFeet] = useState("");
+  const [heightInchesTab1, setHeightInchesTab1] = useState("");
+
+  // Tab2: weightLbs + height inches
+  const [weightLbsTab2, setWeightLbsTab2] = useState("");
+  const [heightInchesTab2, setHeightInchesTab2] = useState("");
+
+  // Tab3: weightKg + height cm
+  const [weightKgTab3, setWeightKgTab3] = useState("");
+  const [heightCmTab3, setHeightCmTab3] = useState("");
+
+  // common results
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
+  const [category, setCategory] = useState("");
+
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [createBmi] = useCreateBmiMutation();
-  const [heightFeet, setHeightFeet] = useState("");
-  const [heightInches, setHeightInches] = useState("");
-  const [activeTabs, setActiveTabs] = useState("tab1");
+
   const {
     register,
     handleSubmit,
@@ -25,63 +38,123 @@ function BmiCalculator({ setActiveTab }) {
     formState: { errors },
   } = useForm();
 
+  // Utility: BMI category by numeric bmi
+  const getBMICategory = (bmiNumber) => {
+    if (bmiNumber < 18.5)
+      return {
+        category: "Underweight",
+        color: "text-[#ADD8E6]",
+        percentage: "15%",
+      };
+    if (bmiNumber < 23)
+      return {
+        category: "Normal weight",
+        color: "text-[#2BDD3A]",
+        percentage: "40%",
+      };
+    if (bmiNumber < 30)
+      return {
+        category: "Overweight",
+        color: "text-[#D3CB88]",
+        percentage: "65%",
+      };
+    return { category: "Obesity", color: "text-[#FF0000]", percentage: "90%" };
+  };
 
-
+  // Recalculate BMI & calories whenever relevant inputs or active tab changes
   useEffect(() => {
-    if (heightFeet === "" && heightInches === "") {
-      setHeight("");
-      setValue("height", "");
-      return;
-    }
-    const totalInches =
-      (parseInt(heightFeet || 0, 10) * 12) + parseInt(heightInches || 0, 10);
-    setHeight(totalInches);
-    setValue("height", totalInches);
-  }, [heightFeet, heightInches, setValue]);
+    // helper to parse numeric or return 0
+    const n = (v) => {
+      const parsed = parseFloat(v);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
 
+    let computedBmi = null;
+    let usedWeightKg = 0;
+    let usedHeightInches = 0;
 
-  useEffect(() => {
-    const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
-    setWeightKg(kg);
-    setValue("weight", kg);
-  }, [weight, setValue]);
-
-  useEffect(() => {
-    if (weight > 0 && height > 0) {
-      const weightInLbs = weight * 2.20462;
-      const bmiValue = (weightInLbs * 703) / (height * height);
-      const formattedBMI = bmiValue.toFixed(2);
-      const bmiCategory = getBMICategory(formattedBMI);
-      setBmi(formattedBMI);
-      setValue("bmi", formattedBMI);
-      setValue("category", bmiCategory.category);
-
-      const gender = profile?.data?.ogender;
-      let result = 0;
-      if (gender === "male") {
-        result = Math.floor(weightKg * 15 - 500);
-      } else {
-        result = Math.floor(weightKg * 13 - 500);
+    if (activeTabs === "tab1") {
+      // weight in kg, height feet+inches -> convert to meters
+      const wKg = n(weightKgTab1);
+      const totalInches = n(heightFeet) * 12 + n(heightInchesTab1);
+      if (wKg > 0 && totalInches > 0) {
+        const heightM = totalInches * 0.0254;
+        computedBmi = wKg / (heightM * heightM);
+        usedWeightKg = wKg;
+        usedHeightInches = totalInches;
       }
+    } else if (activeTabs === "tab2") {
+      // weight in lbs, height in inches -> use BMI formula with lbs/inches
+      const wLbs = n(weightLbsTab2);
+      const inches = n(heightInchesTab2);
+      if (wLbs > 0 && inches > 0) {
+        computedBmi = (wLbs * 703) / (inches * inches);
+        usedWeightKg = wLbs / 2.20462;
+        usedHeightInches = inches;
+      }
+    } else if (activeTabs === "tab3") {
+      // weight in kg, height in cm -> metric formula
+      const wKg = n(weightKgTab3);
+      const cm = n(heightCmTab3);
+      if (wKg > 0 && cm > 0) {
+        const heightM = cm / 100;
+        computedBmi = wKg / (heightM * heightM);
+        usedWeightKg = wKg;
+        usedHeightInches = cm / 2.54; // convert to inches for consistent submission
+      }
+    }
 
-      setCalories(result);
-      setValue("calory", result);
+    if (computedBmi !== null) {
+      const formatted = Number(computedBmi.toFixed(2));
+      setBmi(formatted);
+      const cat = getBMICategory(formatted);
+      setCategory(cat.category);
+      // calorie estimate based on gender and weight in kg
+      const gender = profile?.data?.ogender;
+      let kcal = 0;
+      if (gender === "male") kcal = Math.floor(usedWeightKg * 15 - 500);
+      else kcal = Math.floor(usedWeightKg * 13 - 500);
+      if (!Number.isFinite(kcal) || kcal < 0) kcal = 0;
+      setCalories(kcal);
+
+      // set hidden form values so react-hook-form has them on submit
+      setValue("bmi", formatted);
+      setValue("category", cat.category);
+      setValue("calory", kcal);
+      // set canonical weight (kg) and height (inches) in form fields used by backend
+      setValue("weight", Number(usedWeightKg.toFixed(2)));
+      setValue("height", Number(usedHeightInches.toFixed(2)));
     } else {
-      setBmi("");
+      // clear results & form
+      setBmi(null);
+      setCategory("");
+      setCalories(null);
       setValue("bmi", "");
       setValue("category", "");
       setValue("calory", "");
+      setValue("weight", "");
+      setValue("height", "");
     }
-  }, [weight, height, setValue]);
-
+  }, [
+    activeTabs,
+    weightKgTab1,
+    heightFeet,
+    heightInchesTab1,
+    weightLbsTab2,
+    heightInchesTab2,
+    weightKgTab3,
+    heightCmTab3,
+    profile,
+    setValue,
+  ]);
 
   const onSubmit = async (formData) => {
-    console.log("formData", formData)
     try {
+      // prefer values we set with setValue (canonical: weight in kg, height in inches)
       const submissionData = {
-        user_id: formData.user_id,
-        weight: formData.weight,
-        height: formData.height,
+        user_id: profile?.data?.id || formData.user_id,
+        weight: formData.weight, // kg
+        height: formData.height, // inches
         bmi: formData.bmi,
         category: formData.category,
         calory: formData.calory,
@@ -91,8 +164,8 @@ function BmiCalculator({ setActiveTab }) {
       const response = await createBmi({ data: submissionData, role });
       if (response?.data?.status === 200) {
         toast.success(response?.data?.message);
-        reset();
-        setActiveTab("history")
+        resetAll();
+        setActiveTab("history");
       } else {
         toast.error(
           response?.data?.message || "Submission failed. Please try again."
@@ -104,26 +177,18 @@ function BmiCalculator({ setActiveTab }) {
     }
   };
 
-  const getBMICategory = (bmi) => {
-    if (bmi < 18.5)
-      return {
-        category: "Underweight",
-        color: "text-[#ADD8E6]",
-        percentage: "15%",
-      };
-    if (bmi < 23)
-      return {
-        category: "Normal weight",
-        color: "text-[#2BDD3A]",
-        percentage: "40%",
-      };
-    if (bmi < 30)
-      return {
-        category: "Overweight",
-        color: "text-[#D3CB88]",
-        percentage: "65%",
-      };
-    return { category: "Obesity", color: "text-[#FF0000]", percentage: "90%" };
+  const resetAll = () => {
+    reset();
+    setWeightKgTab1("");
+    setHeightFeet("");
+    setHeightInchesTab1("");
+    setWeightLbsTab2("");
+    setHeightInchesTab2("");
+    setWeightKgTab3("");
+    setHeightCmTab3("");
+    setBmi(null);
+    setCalories(null);
+    setCategory("");
   };
 
   return (
@@ -137,394 +202,307 @@ function BmiCalculator({ setActiveTab }) {
           Track your BMI changes over time
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-1 xl:grid-cols-2 gap-6 px-2 lg:px-12 h-[100%] ">
-        <div className="pt-6">
-          <div className="">
-            <div className="card w-full container mx-auto bg-base-100 shadow-lg rounded-lg">
-              <div className="bg-primary p-8 rounded-t-lg">
-                <h2 className="card-title text-white font-bold">
-                  BMI Calculator
-                </h2>
-                <p className="text-sm text-whiteGraph">
-                  Calculate your Body Mass Index
-                </p>
-              </div>
 
-              <div className="px-[2rem] pt-[2rem]">
-                {/* Tabs Header */}
-                <div className="flex  border-b border-gray-300 mb-4">
-                  <button
-                    className={`py-2 px-4 text-sm font-medium w-full text-semibold font-poppins ${activeTabs === "tab1"
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 px-2 lg:px-12 h-[100%] ">
+        <div className="pt-6">
+          <div className="card w-full container mx-auto bg-base-100 shadow-lg rounded-lg">
+            <div className="bg-primary p-8 rounded-t-lg">
+              <h2 className="card-title text-white font-bold">
+                BMI Calculator
+              </h2>
+              <p className="text-sm text-whiteGraph">
+                Calculate your Body Mass Index
+              </p>
+            </div>
+
+            <div className="px-[2rem] pt-[2rem]">
+              {/* Tabs Header */}
+              <div className="flex  border-b border-gray-300 mb-4">
+                <button
+                  className={`py-2 px-4 text-sm font-medium w-full text-semibold font-poppins ${
+                    activeTabs === "tab1"
                       ? "border-b-2 border-primary text-primary"
                       : "text-gray-500 hover:text-gray-700  "
-                      }`}
-                    onClick={() => setActiveTabs("tab1")}
-                  >
-                    General
-                  </button>
-                  <button
-                    className={`py-2 px-4 text-sm font-medium w-full  text-semibold font-poppins ${activeTabs === "tab2"
+                  }`}
+                  onClick={() => setActiveTabs("tab1")}
+                >
+                  General (kg + ft/in)
+                </button>
+                <button
+                  className={`py-2 px-4 text-sm font-medium w-full  text-semibold font-poppins ${
+                    activeTabs === "tab2"
                       ? "border-b-2 border-primary text-primary"
                       : "text-gray-500 hover:text-gray-700"
-                      }`}
-                    onClick={() => setActiveTabs("tab2")}
-                  >
-                    Tab 2
-                  </button>
-                  <button
-                    className={`py-2 px-4 text-sm font-medium w-full text-semibold font-poppins ${activeTabs === "tab3"
+                  }`}
+                  onClick={() => setActiveTabs("tab2")}
+                >
+                  Imperial (lbs + in)
+                </button>
+                <button
+                  className={`py-2 px-4 text-sm font-medium w-full text-semibold font-poppins ${
+                    activeTabs === "tab3"
                       ? "border-b-2 border-primary text-primary"
                       : "text-gray-500 hover:text-gray-700"
-                      }`}
-                    onClick={() => setActiveTabs("tab3")}
-                  >
-                    Tab 3
-                  </button>
-                </div>
-
-                {/* Tabs Content */}
-                <div className="mt-4">
-                  {activeTabs === "tab1" && (
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <div className="card-body">
-                        {profile?.data?.id && (
-                          <div className="form-control mt-2 hidden">
-                            <label className="label">
-                              <span className="label-text">user id</span>
-                            </label>
-                            <input
-                              type="number"
-                              name="user_id"
-                              {...register("user_id", { required: true })}
-                              value={profile?.data?.id}
-                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                            />
-                          </div>
-                        )}
-
-                        <div className="form-control mt-2">
-                          <label className="label">
-                            <span className="label-text">Weight (kg)</span>
-                          </label>
-                          <input
-                            type="number"
-                            placeholder="e.g. 54 kg"
-                            value={weight}
-                            onChange={(e) => setWeight(e.target.value)}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                          <div className="hidden">
-                            {
-                              weightKg && (
-                                <input
-                                  type="float"
-                                  name="weight"
-                                  placeholder="e.g. 154 lbs"
-                                  {...register("weight", { required: true })}
-                                  value={weightKg}
-                                  className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                                />
-                              )
-                            }
-
-                          </div>
-                        </div>
-                        <div className="form-control mt-4 hidden">
-                          <span className="text-[15px] color-[#333] font-poppins">Height (inches)</span>
-                          <input
-                            type="number"
-                            placeholder="e.g. 175 inches"
-                            name="height"
-                            {...register("height", { required: true })}
-                            value={height}
-                            onChange={(e) => setHeight(e.target.value)}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        </div>
-
-                        <div className="form-control mt-4">
-                          <div className="grid grid-cols-2 gap-2">
-                            <div>
-                              <span className="text-[15px] color-[#333] font-poppins">Height (feet)</span>
-                              <input
-                                type="number"
-                                min="0"
-                                placeholder="feet"
-                                value={heightFeet}
-                                onChange={e => setHeightFeet(e.target.value)}
-                                className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
-                              />
-
-                            </div>
-                            <div>
-                              <span className="text-[15px] color-[#333] font-poppins">Height (inches)</span>
-                              <input
-                                type="number"
-                                min="0"
-                                max="11"
-                                placeholder="inches"
-                                value={heightInches}
-                                onChange={e => setHeightInches(e.target.value)}
-                                className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        {bmi && (
-                          <div className="form-control mt-4 hidden">
-                            <label className="label">
-                              <span className="label-text">Bmi</span>
-                            </label>
-                            <input
-                              type="number"
-                              step="0.1"
-                              name="bmi"
-                              {...register("bmi", { required: true })}
-                              value={bmi?.toString() || ""}
-                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                            />
-                          </div>
-                        )}
-
-                        {getBMICategory(bmi)?.category && (
-                          <div className="form-control mt-4 hidden">
-                            <label className="label">
-                              <span className="label-text">Category</span>
-                            </label>
-                            <input
-                              name="category"
-                              {...register("category", { required: true })}
-                              value={getBMICategory(bmi)?.category}
-                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                            />
-                          </div>
-                        )}
-
-                        <div className="form-control mt-4 hidden">
-                          <input
-                            type="number"
-                            name="calory"
-                            {...register("calory", { required: true })}
-                            value={calories || ""}
-                            // onChange={(e) => setHeight(e.target.value)}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        </div>
-
-                        <div className="flex gap-2 mt-4">
-                          <button className="btn bg-outline flex-1 border border-solid">
-                            Reset
-                          </button>
-                          <button
-                            type="submit"
-                            className="btn bg-primary hover:bg-secondary flex-1 text-white"
-                          >
-                            Submit
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                  )}
-                  {activeTabs === "tab2" && (
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <div className="card-body">
-                        {profile?.data?.id && (
-                          <div className="form-control mt-2 hidden">
-                            <label className="label">
-                              <span className="label-text">user id</span>
-                            </label>
-                            <input
-                              type="number"
-                              name="user_id"
-                              {...register("user_id", { required: true })}
-                              value={profile?.data?.id}
-                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                            />
-                          </div>
-                        )}
-
-                        <div className="form-control mt-2">
-                          <label className="label">
-                            <span className="label-text">Weight (lbs)</span>
-                          </label>
-                          <input
-                            type="number"
-                            placeholder="e.g. 110 lbs"
-                            {...register("weight", { required: true })}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-
-                        </div>
-                        <div className="form-control mt-4 ">
-                          <span className="text-[15px] color-[#333] font-poppins ">Height (inches)</span>
-                          <input
-                            type="number"
-                            placeholder="e.g. 175 inches"
-                            name="height"
-                            {...register("height", { required: true })}
-                            // onChange={(e) => setHeight(e.target.value)}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary mt-2"
-                          />
-                        </div>
-                      </div>
-                      {bmi && (
-                        <div className="form-control mt-4 ">
-                          <label className="label">
-                            <span className="label-text">Bmi</span>
-                          </label>
-                          <input
-                            type="number"
-                            step="0.1"
-                            name="bmi"
-                            {...register("bmi", { required: true })}
-                            value={bmi?.toString() || ""}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        </div>
-                      )}
-
-                      {getBMICategory(bmi)?.category && (
-                        <div className="form-control mt-4 hidden">
-                          <label className="label">
-                            <span className="label-text">Category</span>
-                          </label>
-                          <input
-                            name="category"
-                            {...register("category", { required: true })}
-                            value={getBMICategory(bmi)?.category}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        </div>
-                      )}
-
-                      <div className="form-control mt-4 hidden">
-                        <input
-                          type="number"
-                          name="calory"
-                          {...register("calory", { required: true })}
-                          value={calories || ""}
-                          // onChange={(e) => setHeight(e.target.value)}
-                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                        />
-                      </div>
-
-                      <div className="flex gap-2 mt-4">
-                        <button className="btn bg-outline flex-1 border border-solid">
-                          Reset
-                        </button>
-                        <button
-                          type="submit"
-                          className="btn bg-primary hover:bg-secondary flex-1 text-white"
-                        >
-                          Submit
-                        </button>
-                      </div>
-
-                    </form>
-                  )}
-                  {activeTabs === "tab3" && (
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <div className="card-body">
-                        {profile?.data?.id && (
-                          <div className="form-control mt-2 hidden">
-                            <label className="label">
-                              <span className="label-text">user id</span>
-                            </label>
-                            <input
-                              type="number"
-                              name="user_id"
-                              {...register("user_id", { required: true })}
-                              value={profile?.data?.id}
-                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                            />
-                          </div>
-                        )}
-
-                        <div className="form-control mt-2">
-                          <label className="label">
-                            <span className="label-text">Weight (kg)</span>
-                          </label>
-                          <input
-                            type="number"
-                            placeholder="e.g. 110 lbs"
-                            {...register("weight", { required: true })}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-
-                        </div>
-                        <div className="form-control mt-4 ">
-                          <span className="text-[15px] color-[#333] font-poppins ">Height (cm)</span>
-                          <input
-                            type="number"
-                            placeholder="e.g. 175 cm"
-                            name="height"
-                            {...register("height", { required: true })}
-                            // onChange={(e) => setHeight(e.target.value)}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary mt-2"
-                          />
-                        </div>
-                      </div>
-                      {bmi && (
-                        <div className="form-control mt-4 ">
-                          <label className="label">
-                            <span className="label-text">Bmi</span>
-                          </label>
-                          <input
-                            type="number"
-                            step="0.1"
-                            name="bmi"
-                            {...register("bmi", { required: true })}
-                            value={bmi?.toString() || ""}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        </div>
-                      )}
-
-                      {getBMICategory(bmi)?.category && (
-                        <div className="form-control mt-4 hidden">
-                          <label className="label">
-                            <span className="label-text">Category</span>
-                          </label>
-                          <input
-                            name="category"
-                            {...register("category", { required: true })}
-                            value={getBMICategory(bmi)?.category}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        </div>
-                      )}
-
-                      <div className="form-control mt-4 hidden">
-                        <input
-                          type="number"
-                          name="calory"
-                          {...register("calory", { required: true })}
-                          value={calories || ""}
-                          // onChange={(e) => setHeight(e.target.value)}
-                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                        />
-                      </div>
-
-                      <div className="flex gap-2 mt-4">
-                        <button className="btn bg-outline flex-1 border border-solid">
-                          Reset
-                        </button>
-                        <button
-                          type="submit"
-                          className="btn bg-primary hover:bg-secondary flex-1 text-white"
-                        >
-                          Submit
-                        </button>
-                      </div>
-
-                    </form>
-                  )}
-                </div>
+                  }`}
+                  onClick={() => setActiveTabs("tab3")}
+                >
+                  Matrix (kg + cm)
+                </button>
               </div>
 
+              {/* Tabs Content */}
+              <div className="mt-4">
+                {activeTabs === "tab1" && (
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="card-body">
+                      {profile?.data?.id && (
+                        <input
+                          type="hidden"
+                          {...register("user_id", { required: true })}
+                          value={profile?.data?.id}
+                        />
+                      )}
 
+                      <div className="form-control mt-2">
+                        <label className="label">
+                          <span className="label-text">Weight (kg)</span>
+                        </label>
+                        <input
+                          type="number"
+                          placeholder="e.g. 54"
+                          value={weightKgTab1}
+                          onChange={(e) => setWeightKgTab1(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
 
+                      <div className="form-control mt-4">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <span className="text-[15px] color-[#333] font-poppins">
+                              Height (feet)
+                            </span>
+                            <input
+                              type="number"
+                              min="0"
+                              placeholder="feet"
+                              value={heightFeet}
+                              onChange={(e) => setHeightFeet(e.target.value)}
+                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
+                            />
+                          </div>
+                          <div>
+                            <span className="text-[15px] color-[#333] font-poppins">
+                              Height (inches)
+                            </span>
+                            <input
+                              type="number"
+                              min="0"
+                              max="11"
+                              placeholder="inches"
+                              value={heightInchesTab1}
+                              onChange={(e) =>
+                                setHeightInchesTab1(e.target.value)
+                              }
+                              className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
+                            />
+                          </div>
+                        </div>
+                      </div>
 
+                      {/* Hidden canonical fields that will be sent to backend (filled by effect) */}
+                      <input
+                        type="hidden"
+                        {...register("weight", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("height", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("bmi", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("category", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("calory", { required: true })}
+                      />
+
+                      <div className="flex gap-2 mt-4">
+                        <button
+                          type="button"
+                          onClick={resetAll}
+                          className="btn bg-outline flex-1 border border-solid"
+                        >
+                          Reset
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn bg-primary hover:bg-secondary flex-1 text-white"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+                {activeTabs === "tab2" && (
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="card-body">
+                      {profile?.data?.id && (
+                        <input
+                          type="hidden"
+                          {...register("user_id", { required: true })}
+                          value={profile?.data?.id}
+                        />
+                      )}
+
+                      <div className="form-control mt-2">
+                        <label className="label">
+                          <span className="label-text">Weight (lbs)</span>
+                        </label>
+                        <input
+                          type="number"
+                          placeholder="e.g. 110"
+                          value={weightLbsTab2}
+                          onChange={(e) => setWeightLbsTab2(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+
+                      <div className="form-control mt-4 ">
+                        <span className="text-[15px] color-[#333] font-poppins">
+                          Height (inches)
+                        </span>
+                        <input
+                          type="number"
+                          placeholder="e.g. 70"
+                          value={heightInchesTab2}
+                          onChange={(e) => setHeightInchesTab2(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary mt-2"
+                        />
+                      </div>
+
+                      <input
+                        type="hidden"
+                        {...register("weight", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("height", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("bmi", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("category", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("calory", { required: true })}
+                      />
+
+                      <div className="flex gap-2 mt-4">
+                        <button
+                          type="button"
+                          onClick={resetAll}
+                          className="btn bg-outline flex-1 border border-solid"
+                        >
+                          Reset
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn bg-primary hover:bg-secondary flex-1 text-white"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+                {activeTabs === "tab3" && (
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="card-body">
+                      {profile?.data?.id && (
+                        <input
+                          type="hidden"
+                          {...register("user_id", { required: true })}
+                          value={profile?.data?.id}
+                        />
+                      )}
+
+                      <div className="form-control mt-2">
+                        <label className="label">
+                          <span className="label-text">Weight (kg)</span>
+                        </label>
+                        <input
+                          type="number"
+                          placeholder="e.g. 54"
+                          value={weightKgTab3}
+                          onChange={(e) => setWeightKgTab3(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                        />
+                      </div>
+
+                      <div className="form-control mt-4 ">
+                        <span className="text-[15px] color-[#333] font-poppins ">
+                          Height (cm)
+                        </span>
+                        <input
+                          type="number"
+                          placeholder="e.g. 175"
+                          value={heightCmTab3}
+                          onChange={(e) => setHeightCmTab3(e.target.value)}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary mt-2"
+                        />
+                      </div>
+
+                      <input
+                        type="hidden"
+                        {...register("weight", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("height", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("bmi", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("category", { required: true })}
+                      />
+                      <input
+                        type="hidden"
+                        {...register("calory", { required: true })}
+                      />
+
+                      <div className="flex gap-2 mt-4">
+                        <button
+                          type="button"
+                          onClick={resetAll}
+                          className="btn bg-outline flex-1 border border-solid"
+                        >
+                          Reset
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn bg-primary hover:bg-secondary flex-1 text-white"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -534,7 +512,6 @@ function BmiCalculator({ setActiveTab }) {
             <div className="">
               <div className="flex items-center gap-4">
                 <TrendingUpDown />
-
                 <h3 className="text-left font-bold text-[18px] md:text-[28px] ">
                   Your BMI Result
                 </h3>
@@ -551,8 +528,9 @@ function BmiCalculator({ setActiveTab }) {
               </div>
 
               <p
-                className={`text-center  text-[30px] font-bold ${getBMICategory(bmi).color
-                  }`}
+                className={`text-center  text-[30px] font-bold ${
+                  getBMICategory(bmi).color
+                }`}
               >
                 {getBMICategory(bmi).category}
               </p>
@@ -560,7 +538,7 @@ function BmiCalculator({ setActiveTab }) {
               <div
                 className="relative h-16 mt-10 rounded-full"
                 style={{
-                  backgroundImage: ` repeating-linear-gradient(to right,#ADD8E6 0%,#ADD8E6 25%, #2bdd3a 25%, #2bdd3a 50%,#d3cb88 50%,#d3cb88 75%,#FF0000 75%,#FF0000 100%)`,
+                  backgroundImage: `repeating-linear-gradient(to right,#ADD8E6 0%,#ADD8E6 25%, #2bdd3a 25%, #2bdd3a 50%,#d3cb88 50%,#d3cb88 75%,#FF0000 75%,#FF0000 100%)`,
                 }}
               >
                 <div
@@ -599,7 +577,7 @@ function BmiCalculator({ setActiveTab }) {
             </div>
           )}
         </div>
-      </div >
+      </div>
     </>
   );
 }
