@@ -1,10 +1,26 @@
+import { useGetProfileQuery } from "../../../features/profile/profileApi";
+
 function DashboardStats({ profileData }) {
+  console.log("profile data", profileData)
   const getGradient = () => {
     if (profileData?.bmi < 18.5) return "from-blue-500 to-blue-300"; // Underweight
     if (profileData?.bmi < 23) return "from-green-500 to-green-300"; // Normal
     if (profileData?.bmi < 30) return "from-yellow-500 to-orange-300"; // Overweight
     return "from-red-600 to-red-400"; // Obese
   };
+  const auth = JSON.parse(localStorage.getItem("auth"));
+  const { data: profile } = useGetProfileQuery(auth?.role);
+
+  function idealWeight() {
+    const inchesOverFiveFeet = Math.max(0, profile?.data?.myhight - 60);
+    if (profile?.ogender === "male") {
+      return (50 + 2.3 * inchesOverFiveFeet).toFixed(2);
+    } else if (profile?.data?.ogender === "female") {
+      return (45.5 + 2.3 * inchesOverFiveFeet).toFixed(2);
+    } else {
+      return "N/A";
+    }
+  }
 
   return (
     <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
@@ -46,7 +62,7 @@ function DashboardStats({ profileData }) {
             Weight / Ideal Weight
           </h1>
           <p className="text-xl font-semibold font-[poppins] text-[#fff]">
-            {profileData?.weight} Ibs
+            {(profileData?.weight * 0.45359237).toFixed(2)} kg / {idealWeight()} kg
           </p>
         </div>
       </div>
