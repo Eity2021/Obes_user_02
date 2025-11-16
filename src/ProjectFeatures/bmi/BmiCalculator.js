@@ -38,7 +38,6 @@ function BmiCalculator({ setActiveTab }) {
     formState: { errors },
   } = useForm();
 
-  // Utility: BMI category by numeric bmi
   const getBMICategory = (bmiNumber) => {
     if (bmiNumber < 18.5)
       return {
@@ -101,7 +100,7 @@ function BmiCalculator({ setActiveTab }) {
         usedHeightInches = cm / 2.54
       }
     }
-    console.log("usedWeightKg", usedWeightKg)
+
     if (computedBmi !== null) {
       const formatted = Number(computedBmi.toFixed(2));
       setBmi(formatted);
@@ -142,7 +141,7 @@ function BmiCalculator({ setActiveTab }) {
   ]);
 
   const onSubmit = async (formData) => {
-    console.log("formData", formData)
+
     try {
 
       const submissionData = {
