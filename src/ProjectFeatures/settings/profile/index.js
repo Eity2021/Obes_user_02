@@ -259,7 +259,7 @@ function Profile() {
                     Weight:
                   </span>
                   <span className="font-poppins">
-                    {profile?.data?.myweight} lbs
+                    {profile?.data?.myweight} kg
                   </span>
                 </div>
 

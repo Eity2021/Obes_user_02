@@ -38,7 +38,6 @@ function BmiCalculator({ setActiveTab }) {
     formState: { errors },
   } = useForm();
 
-  // Utility: BMI category by numeric bmi
   const getBMICategory = (bmiNumber) => {
     if (bmiNumber < 18.5)
       return {
@@ -61,9 +60,8 @@ function BmiCalculator({ setActiveTab }) {
     return { category: "Obesity", color: "text-[#FF0000]", percentage: "90%" };
   };
 
-  // Recalculate BMI & calories whenever relevant inputs or active tab changes
+
   useEffect(() => {
-    // helper to parse numeric or return 0
     const n = (v) => {
       const parsed = parseFloat(v);
       return Number.isFinite(parsed) ? parsed : 0;
@@ -74,7 +72,7 @@ function BmiCalculator({ setActiveTab }) {
     let usedHeightInches = 0;
 
     if (activeTabs === "tab1") {
-      // weight in kg, height feet+inches -> convert to meters
+
       const wKg = n(weightKgTab1);
       const totalInches = n(heightFeet) * 12 + n(heightInchesTab1);
       if (wKg > 0 && totalInches > 0) {
@@ -84,7 +82,7 @@ function BmiCalculator({ setActiveTab }) {
         usedHeightInches = totalInches;
       }
     } else if (activeTabs === "tab2") {
-      // weight in lbs, height in inches -> use BMI formula with lbs/inches
+
       const wLbs = n(weightLbsTab2);
       const inches = n(heightInchesTab2);
       if (wLbs > 0 && inches > 0) {
@@ -93,14 +91,13 @@ function BmiCalculator({ setActiveTab }) {
         usedHeightInches = inches;
       }
     } else if (activeTabs === "tab3") {
-      // weight in kg, height in cm -> metric formula
       const wKg = n(weightKgTab3);
       const cm = n(heightCmTab3);
       if (wKg > 0 && cm > 0) {
         const heightM = cm / 100;
         computedBmi = wKg / (heightM * heightM);
         usedWeightKg = wKg;
-        usedHeightInches = cm / 2.54; // convert to inches for consistent submission
+        usedHeightInches = cm / 2.54
       }
     }
 
@@ -109,23 +106,18 @@ function BmiCalculator({ setActiveTab }) {
       setBmi(formatted);
       const cat = getBMICategory(formatted);
       setCategory(cat.category);
-      // calorie estimate based on gender and weight in kg
       const gender = profile?.data?.ogender;
       let kcal = 0;
-      if (gender === "male") kcal = Math.floor(usedWeightKg * 15 - 500);
-      else kcal = Math.floor(usedWeightKg * 13 - 500);
-      if (!Number.isFinite(kcal) || kcal < 0) kcal = 0;
+      if (gender === "male") kcal = Math.floor((usedWeightKg * 2.20462) * 15 - 500);
+      else kcal = Math.floor((usedWeightKg * 2.20462) * 13 - 500);
+      // if (!Number.isFinite(kcal) || kcal < 0) kcal = 0;
       setCalories(kcal);
-
-      // set hidden form values so react-hook-form has them on submit
       setValue("bmi", formatted);
       setValue("category", cat.category);
       setValue("calory", kcal);
-      // set canonical weight (kg) and height (inches) in form fields used by backend
       setValue("weight", Number(usedWeightKg.toFixed(2)));
       setValue("height", Number(usedHeightInches.toFixed(2)));
     } else {
-      // clear results & form
       setBmi(null);
       setCategory("");
       setCalories(null);
@@ -149,12 +141,13 @@ function BmiCalculator({ setActiveTab }) {
   ]);
 
   const onSubmit = async (formData) => {
+
     try {
-      // prefer values we set with setValue (canonical: weight in kg, height in inches)
+
       const submissionData = {
         user_id: profile?.data?.id || formData.user_id,
-        weight: formData.weight, // kg
-        height: formData.height, // inches
+        weight: formData.weight,
+        height: formData.height,
         bmi: formData.bmi,
         category: formData.category,
         calory: formData.calory,
@@ -216,41 +209,36 @@ function BmiCalculator({ setActiveTab }) {
             </div>
 
             <div className="px-[2rem] pt-[2rem]">
-              {/* Tabs Header */}
+
               <div className="flex  border-b border-gray-300 mb-4">
                 <button
-                  className={`py-2 px-4 text-md font-medium w-full text-semibold font-poppins ${
-                    activeTabs === "tab1"
-                      ? "border-b-2 border-primary text-primary"
-                      : "text-gray-500 hover:text-gray-700  "
-                  }`}
+                  className={`py-2 px-4 text-md font-medium w-full text-semibold font-poppins ${activeTabs === "tab1"
+                    ? "border-b-2 border-primary text-primary"
+                    : "text-gray-500 hover:text-gray-700  "
+                    }`}
                   onClick={() => setActiveTabs("tab1")}
                 >
                   General (kg - ft/in)
                 </button>
                 <button
-                  className={`py-2 px-4 text-md font-medium w-full  text-semibold font-poppins ${
-                    activeTabs === "tab2"
-                      ? "border-b-2 border-primary text-primary"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
+                  className={`py-2 px-4 text-md font-medium w-full  text-semibold font-poppins ${activeTabs === "tab2"
+                    ? "border-b-2 border-primary text-primary"
+                    : "text-gray-500 hover:text-gray-700"
+                    }`}
                   onClick={() => setActiveTabs("tab2")}
                 >
                   Imperial (lbs - in)
                 </button>
                 <button
-                  className={`py-2 px-4 text-md font-medium w-full text-semibold font-poppins ${
-                    activeTabs === "tab3"
-                      ? "border-b-2 border-primary text-primary"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
+                  className={`py-2 px-4 text-md font-medium w-full text-semibold font-poppins ${activeTabs === "tab3"
+                    ? "border-b-2 border-primary text-primary"
+                    : "text-gray-500 hover:text-gray-700"
+                    }`}
                   onClick={() => setActiveTabs("tab3")}
                 >
                   Metric (kg - cm)
                 </button>
               </div>
-
-              {/* Tabs Content */}
               <div className="mt-4">
                 {activeTabs === "tab1" && (
                   <form onSubmit={handleSubmit(onSubmit)}>
@@ -310,7 +298,7 @@ function BmiCalculator({ setActiveTab }) {
                         </div>
                       </div>
 
-                      {/* Hidden canonical fields that will be sent to backend (filled by effect) */}
+
                       <input
                         type="hidden"
                         {...register("weight", { required: true })}
@@ -507,6 +495,17 @@ function BmiCalculator({ setActiveTab }) {
           </div>
         </div>
 
+
+
+
+
+
+
+
+
+
+
+
         <div className="h-full mt-6 bg-base-100 rounded-xl p-4 shadow border">
           {bmi !== null && (
             <div className="">
@@ -528,9 +527,8 @@ function BmiCalculator({ setActiveTab }) {
               </div>
 
               <p
-                className={`text-center  text-[30px] font-bold ${
-                  getBMICategory(bmi).color
-                }`}
+                className={`text-center  text-[30px] font-bold ${getBMICategory(bmi).color
+                  }`}
               >
                 {getBMICategory(bmi).category}
               </p>
