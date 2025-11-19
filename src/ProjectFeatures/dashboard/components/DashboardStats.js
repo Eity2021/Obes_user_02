@@ -6,7 +6,7 @@ function DashboardStats({ profileData }) {
     if (profileData?.bmi < 18.5) return "from-blue-500 to-blue-300";
     if (profileData?.bmi < 23) return "from-green-500 to-green-300";
     if (profileData?.bmi < 30) return "from-yellow-500 to-orange-300";
-    return "from-red-600 to-red-400"; // Obese
+    return "from-red-600 to-red-400";
   };
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);

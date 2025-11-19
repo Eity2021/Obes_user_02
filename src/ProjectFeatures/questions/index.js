@@ -52,48 +52,49 @@ function Questions() {
   };
 
   const onSubmit = async (formData) => {
-    try {
-      const formattedAnsjson = Object?.entries(formData.ansjson)
-        .filter(([_, value]) => value != null && value !== false)
-        .map(([qid, value]) => {
-          if (Array.isArray(value)) {
-            return [qid, ...[value].filter((v) => v != null)];
-          } else {
-            return [qid, value];
-          }
-        });
+    console.log("formData", formData)
+    // try {
+    //   const formattedAnsjson = Object?.entries(formData.ansjson)
+    //     .filter(([_, value]) => value != null && value !== false)
+    //     .map(([qid, value]) => {
+    //       if (Array.isArray(value)) {
+    //         return [qid, ...[value].filter((v) => v != null)];
+    //       } else {
+    //         return [qid, value];
+    //       }
+    //     });
 
-      const submissionData = {
-        user_id: formData.user_id,
-        mobile: formData.mobile,
-        email: formData.email,
-        age: formData.age,
-        gender: formData.gender,
-        weight: formData.weight,
-        height: formData.height,
-        bmi: formData.bmi,
-        obesity_category: formData.obesity_category,
-        calory: formData.calory,
-        ansby: formData.ansby,
-        ansjson: formattedAnsjson,
-        langtype: formData.langtype,
-      };
-      const role = profile?.data?.role;
-      const response = await createAnswer({ data: submissionData, role });
+    //   const submissionData = {
+    //     user_id: formData.user_id,
+    //     mobile: formData.mobile,
+    //     email: formData.email,
+    //     age: formData.age,
+    //     gender: formData.gender,
+    //     weight: formData.weight,
+    //     height: formData.height,
+    //     bmi: formData.bmi,
+    //     obesity_category: formData.obesity_category,
+    //     calory: formData.calory,
+    //     ansby: formData.ansby,
+    //     ansjson: formattedAnsjson,
+    //     langtype: formData.langtype,
+    //   };
+    //   const role = profile?.data?.role;
+    //   const response = await createAnswer({ data: submissionData, role });
 
-      if (response?.data?.status === 201) {
-        toast.success(response?.data?.message);
-        reset();
-        navigate("/questionnaires/surveyList");
-      } else {
-        toast.error(
-          response?.data?.message || "Submission failed. Please try again."
-        );
-      }
-    } catch (error) {
-      console.error("Submission error:", error);
-      toast.error(error?.response?.data?.message || "Failed to submit answer.");
-    }
+    //   if (response?.data?.status === 201) {
+    //     toast.success(response?.data?.message);
+    //     reset();
+    //     navigate("/questionnaires/surveyList");
+    //   } else {
+    //     toast.error(
+    //       response?.data?.message || "Submission failed. Please try again."
+    //     );
+    //   }
+    // } catch (error) {
+    //   console.error("Submission error:", error);
+    //   toast.error(error?.response?.data?.message || "Failed to submit answer.");
+    // }
   };
 
   if (isLoading) {
@@ -141,7 +142,7 @@ function Questions() {
                 </p>
               </div>
               <div className="text-right flex gap-2 mt-2 sm:mt-0  sm:m-0">
-            
+
                 <div className="flex items-center">
                   <button
                     onClick={() => setLanguage("en")}
@@ -548,6 +549,7 @@ function Questions() {
                             <>
                               <div className="flex gap-3 py-1">
                                 <select
+                                  {...register(`ansjson.${item.qid}`)}
                                   defaultValue=""
                                   className="select w-full font-poppins text-[18px] input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                                   onChange={(e) =>
@@ -559,7 +561,6 @@ function Questions() {
                                   </option>
                                   {(() => {
                                     let options = [];
-
                                     if (Array.isArray(item.qaoptioneng)) {
                                       options = item.qaoptioneng;
                                     } else if (
@@ -685,6 +686,7 @@ function Questions() {
                             <>
                               <div className="flex gap-3 py-1">
                                 <select
+                                  {...register(`ansjson.${item.qid}`)}
                                   defaultValue=""
                                   className="select w-full font-poppins text-[18px] input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary "
                                   onChange={(e) =>
