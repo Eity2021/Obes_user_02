@@ -11,16 +11,17 @@ export default function Assessment({ filteredData, age }) {
   return (
     <>
       <div className="py-6 border-b border-gray-200">
-        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-700  md:justify-start justify-center">
+        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-700  md:justify-start justify-center font-roboto text-[20px]">
           <BookOpen className="h-6 w-6 text-primary" />
           BMI Information
         </h2>
-        <p className="text-lg text-gray-500 mt-1 md:text-left text-center">Track your BMI Information</p>
+        <p className="text-lg text-gray-500 mt-1 md:text-left text-center">
+          Track your BMI Information
+        </p>
       </div>
 
       <div className="space-y-6 mt-8">
         <div className="grid gap-6 md:grid-cols-2">
-          {/* BMI Categories Card */}
           <div className="card bg-base-100 shadow-md">
             <div className="card-body">
               <h2 className="card-title">BMI Categories</h2>
@@ -60,12 +61,11 @@ export default function Assessment({ filteredData, age }) {
                   <h2 className="card-title text-[25px] ">
                     Do you know about Obesity info?
                   </h2>
-                  <span className="text-[16px] text-gray-700 font-poppins font-medium  mb-1">
+                  <span className="text-[18px] text-gray-700 font-poppins font-medium  mb-1 ">
                     {filter.modinfo
                       .split("\n")
                       .filter(Boolean)
                       .map((point, idx) => {
-                        // Remove any existing numbers and trim whitespace
                         const cleanPoint = point
                           .replace(/^\d+\.\s*/, "")
                           .trim();
