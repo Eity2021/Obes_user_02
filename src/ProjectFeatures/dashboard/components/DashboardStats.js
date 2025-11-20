@@ -1,7 +1,7 @@
 import { useGetProfileQuery } from "../../../features/profile/profileApi";
 
 function DashboardStats({ profileData }) {
-
+  console.log("profileData", profileData);
   const getGradient = () => {
     if (profileData?.bmi < 18.5) return "from-blue-500 to-blue-300";
     if (profileData?.bmi < 23) return "from-green-500 to-green-300";
@@ -10,9 +10,9 @@ function DashboardStats({ profileData }) {
   };
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
+  console.log("profile", profile);
 
-  const IdealWight = (profileData?.hight * 2.54) - 100
-
+  const IdealWight = profileData?.hight * 2.54 - 100;
 
   return (
     <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
