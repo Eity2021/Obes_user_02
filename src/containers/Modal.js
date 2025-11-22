@@ -24,8 +24,6 @@ export default function Modal() {
     formState: { errors },
   } = useForm();
 
-
-
   useEffect(() => {
     if (heightFeet === "" && heightInches === "") {
       setHeight("");
@@ -33,12 +31,10 @@ export default function Modal() {
       return;
     }
     const totalInches =
-      (parseInt(heightFeet || 0, 10) * 12) + parseInt(heightInches || 0, 10);
+      parseInt(heightFeet || 0, 10) * 12 + parseInt(heightInches || 0, 10);
     setHeight(totalInches);
     setValue("height", totalInches);
   }, [heightFeet, heightInches, setValue]);
-
-
 
   useEffect(() => {
     const kg = (weight && (weight * 2.20462).toFixed(2)) || "";
@@ -46,11 +42,8 @@ export default function Modal() {
     setValue("weight", kg);
   }, [weight, setValue]);
 
-
-
   useEffect(() => {
     if (weight > 0 && height > 0) {
-
       const weightInLbs = weight * 2.20462;
       const bmiValue = (weightInLbs * 703) / (height * height);
       const formattedBMI = bmiValue.toFixed(2);
@@ -91,7 +84,6 @@ export default function Modal() {
   }, [profile]);
 
   if (!open) return null;
-
 
   const onSubmit = async (formData) => {
     try {
@@ -159,7 +151,7 @@ export default function Modal() {
             <div className=" w-full mx-auto rounded-sm p-1  px-2">
               <div className="bg-[#f1f1f1] rounded-sm p-2">
                 <p className="text-lg text-[#333] font-semibold text-center font-poppins">
-                  Must Be Calculate your BMI
+                  Let's Calculate My BMI
                 </p>
               </div>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -191,26 +183,23 @@ export default function Modal() {
                       className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                     />
                     <div className="hidden">
-                      {
-                        weightKg && (
-                          <input
-                            type="float"
-                            name="weight"
-                            placeholder="e.g. 154 lbs"
-                            {...register("weight", { required: true })}
-                            value={weightKg}
-                            className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
-                          />
-                        )
-                      }
-
+                      {weightKg && (
+                        <input
+                          type="float"
+                          name="weight"
+                          placeholder="e.g. 154 lbs"
+                          {...register("weight", { required: true })}
+                          value={weightKg}
+                          className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+                        />
+                      )}
                     </div>
-
                   </div>
 
                   <div className="form-control mt-4 hidden">
-
-                    <span className="text-[15px] color-[#333] font-poppins">Height (inches)</span>
+                    <span className="text-[15px] color-[#333] font-poppins">
+                      Height (inches)
+                    </span>
 
                     <input
                       type="number"
@@ -226,34 +215,34 @@ export default function Modal() {
                   <div className="form-control mt-4">
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <span className="text-[15px] color-[#333] font-poppins">Height(feet)</span>
+                        <span className="text-[15px] color-[#333] font-poppins">
+                          Height(feet)
+                        </span>
                         <input
                           type="number"
                           min="0"
                           placeholder="feet"
                           value={heightFeet}
-                          onChange={e => setHeightFeet(e.target.value)}
+                          onChange={(e) => setHeightFeet(e.target.value)}
                           className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
                         />
-
                       </div>
                       <div>
-                        <span className="text-[15px] color-[#333] font-poppins">Height(inches)</span>
+                        <span className="text-[15px] color-[#333] font-poppins">
+                          Height(inches)
+                        </span>
                         <input
                           type="number"
                           min="0"
                           max="11"
                           placeholder="inches"
                           value={heightInches}
-                          onChange={e => setHeightInches(e.target.value)}
+                          onChange={(e) => setHeightInches(e.target.value)}
                           className="input input-bordered focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary w-full mt-1"
                         />
-
                       </div>
                     </div>
                   </div>
-
-
 
                   {bmi && (
                     <div className="form-control mt-4 hidden">
@@ -309,7 +298,6 @@ export default function Modal() {
                   </div>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
