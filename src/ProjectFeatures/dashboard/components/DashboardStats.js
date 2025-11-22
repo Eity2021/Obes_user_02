@@ -9,7 +9,6 @@ function DashboardStats({ profileData }) {
   const height = Number(profileData?.hight) || 0;
   const IdealWeight = height ? height * 2.54 - 100 : 0;
 
-  console.log("IdealWeight", IdealWeight);
   return (
     <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
       <div className="stats shadow">

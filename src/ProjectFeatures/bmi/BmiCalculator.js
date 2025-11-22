@@ -12,20 +12,16 @@ function BmiCalculator({ setActiveTab }) {
   const [weightKgTab1, setWeightKgTab1] = useState("");
   const [heightFeet, setHeightFeet] = useState("");
   const [heightInchesTab1, setHeightInchesTab1] = useState("");
-
   // Tab2: weightLbs + height inches
   const [weightLbsTab2, setWeightLbsTab2] = useState("");
   const [heightInchesTab2, setHeightInchesTab2] = useState("");
-
   // Tab3: weightKg + height cm
   const [weightKgTab3, setWeightKgTab3] = useState("");
   const [heightCmTab3, setHeightCmTab3] = useState("");
-
   // common results
   const [bmi, setBmi] = useState(null);
   const [calories, setCalories] = useState(null);
   const [category, setCategory] = useState("");
-
   const auth = JSON.parse(localStorage.getItem("auth"));
   const { data: profile } = useGetProfileQuery(auth?.role);
   const [createBmi] = useCreateBmiMutation();
