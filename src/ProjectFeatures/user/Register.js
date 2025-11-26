@@ -23,7 +23,6 @@ function Register() {
     control,
     setValue,
     formState: { errors },
-
   } = useForm();
   const handleSmsNumber = (e) => {
     const newValue = e.target.value;
@@ -31,17 +30,14 @@ function Register() {
     setValue("smsmobile", newValue);
   };
 
-  const [resRegister, { data, isLoading, error }] =
-    useRegisterMutation();
+  const [resRegister, { data, isLoading, error }] = useRegisterMutation();
 
   useEffect(() => {
     if (data) {
       const apiMessage =
-        data?.message ||
-        "Something went wrong. Please try again.";
-      toast.error(apiMessage);
-
-
+        data?.message || "Something went wrong. Please try again.";
+      toast.success(apiMessage);
+      // console.log("apiMessage", apiMessage);
     }
 
     if (data?.token) {
@@ -50,7 +46,6 @@ function Register() {
       localStorage.clear();
     }
   }, [data, handleNavigation, error]);
-
 
   const onSubmit = (formData) => {
     setIsProcessing(true);
@@ -91,15 +86,17 @@ function Register() {
                     name="fulname"
                     type="text"
                     placeholder="Full Name"
-                    {...register("fulname", { required: "Full name is required" })}
+                    {...register("fulname", {
+                      required: "Full name is required",
+                    })}
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
-
                   />
                   {errors.fulname && (
-                    <p className="text-red-500 text-sm mt-1">{errors?.fulname?.message}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors?.fulname?.message}
+                    </p>
                   )}
                 </div>
-
 
                 <div className="hidden">
                   <label className="font-poppins text-[14px]">Code</label>
@@ -110,12 +107,11 @@ function Register() {
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                   />
                   {errors.ccode && (
-                    <p className="text-red-500 text-sm mt-1">{errors.ccode.message}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.ccode.message}
+                    </p>
                   )}
                 </div>
-
-
-
                 <div className="">
                   <label className="font-poppins text-[14px]">
                     Mobile Number
@@ -125,13 +121,17 @@ function Register() {
                     type="number"
                     autoComplete="logmobile"
                     placeholder="Mobile Number"
-                    {...register("logmobile", { required: "Phone Number is required" })}
+                    {...register("logmobile", {
+                      required: "Phone Number is required",
+                    })}
                     onChange={handleSmsNumber}
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                   />
 
                   {errors.logmobile && (
-                    <p className="text-red-500 text-sm mt-1">{errors.logmobile.message}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.logmobile.message}
+                    </p>
                   )}
                 </div>
 
@@ -150,7 +150,6 @@ function Register() {
                       {...register("smsmobile", { required: true })}
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
-
                   </div>
                 )}
 
@@ -168,7 +167,6 @@ function Register() {
                     <option value="female">Female</option>
                     <option value="others">Others</option>
                   </select>
-
                 </div>
                 {/* {errors.ogender && (
     <p className="text-red-500 text-sm mt-1">{errors?.ogender?.message}</p>
@@ -187,7 +185,9 @@ function Register() {
                     className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                   />
                   {errors.logemail && (
-                    <p className="text-red-500 text-sm mt-1">{errors.logemail.message}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.logemail.message}
+                    </p>
                   )}
                 </div>
 
@@ -214,9 +214,10 @@ function Register() {
                     />
 
                     {errors.dob && (
-                      <p className="text-red-500 text-sm mt-1">{errors?.dob?.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors?.dob?.message}
+                      </p>
                     )}
-
                   </div>
 
                   <div>
@@ -229,7 +230,9 @@ function Register() {
                     <div className="flex gap-4 items-center h-12">
                       <label className="flex items-center space-x-2">
                         <input
-                          {...register("role", { required: "Role is required" })}
+                          {...register("role", {
+                            required: "Role is required",
+                          })}
                           type="radio"
                           name="role"
                           value="user"
@@ -242,7 +245,9 @@ function Register() {
 
                       <label className="flex items-center space-x-2">
                         <input
-                          {...register("role", { required: "Role is required" })}
+                          {...register("role", {
+                            required: "Role is required",
+                          })}
                           type="radio"
                           name="role"
                           value="doctor"
@@ -255,7 +260,9 @@ function Register() {
                     </div>
 
                     {errors.role && (
-                      <p className="text-red-500 text-sm mt-1">{errors?.role?.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors?.role?.message}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -273,7 +280,9 @@ function Register() {
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
                     {errors.bmdc && (
-                      <p className="text-red-500 text-sm mt-1">{errors.bmdc.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.bmdc.message}
+                      </p>
                     )}
                   </div>
                 )}
@@ -292,22 +301,27 @@ function Register() {
                       type="password"
                       placeholder="Password"
                       autoComplete="password"
-                      {...register("password", { required: "Password is required" })}
+                      {...register("password", {
+                        required: "Password is required",
+                      })}
                       className="input border-[#d8d8d8] focus:outline-none focus:ring-0 w-[100%] mt-2"
                     />
                     {errors.password && (
-                      <p className="text-red-500 text-sm mt-1">{errors?.password?.message}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors?.password?.message}
+                      </p>
                     )}
                   </div>
                 </div>
               </div>
 
-
               <button
                 type="submit"
                 disabled={isProcessing}
                 className={`w-full font-serif text-[18px] text-[#fff] py-[10px] cursor-pointer mt-6 rounded-[8px] 
-                  ${isProcessing ? "bg-gray-400" : "bg-primary hover:bg-primary"}`}
+                  ${
+                    isProcessing ? "bg-gray-400" : "bg-primary hover:bg-primary"
+                  }`}
               >
                 {isProcessing ? "Processing..." : "Create Account"}
               </button>

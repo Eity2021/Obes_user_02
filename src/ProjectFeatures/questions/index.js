@@ -52,49 +52,49 @@ function Questions() {
   };
 
   const onSubmit = async (formData) => {
-    console.log("formData", formData)
-    // try {
-    //   const formattedAnsjson = Object?.entries(formData.ansjson)
-    //     .filter(([_, value]) => value != null && value !== false)
-    //     .map(([qid, value]) => {
-    //       if (Array.isArray(value)) {
-    //         return [qid, ...[value].filter((v) => v != null)];
-    //       } else {
-    //         return [qid, value];
-    //       }
-    //     });
+    console.log("formData", formData);
+    try {
+      const formattedAnsjson = Object?.entries(formData.ansjson)
+        .filter(([_, value]) => value != null && value !== false)
+        .map(([qid, value]) => {
+          if (Array.isArray(value)) {
+            return [qid, ...[value].filter((v) => v != null)];
+          } else {
+            return [qid, value];
+          }
+        });
 
-    //   const submissionData = {
-    //     user_id: formData.user_id,
-    //     mobile: formData.mobile,
-    //     email: formData.email,
-    //     age: formData.age,
-    //     gender: formData.gender,
-    //     weight: formData.weight,
-    //     height: formData.height,
-    //     bmi: formData.bmi,
-    //     obesity_category: formData.obesity_category,
-    //     calory: formData.calory,
-    //     ansby: formData.ansby,
-    //     ansjson: formattedAnsjson,
-    //     langtype: formData.langtype,
-    //   };
-    //   const role = profile?.data?.role;
-    //   const response = await createAnswer({ data: submissionData, role });
+      const submissionData = {
+        user_id: formData.user_id,
+        mobile: formData.mobile,
+        email: formData.email,
+        age: formData.age,
+        gender: formData.gender,
+        weight: formData.weight,
+        height: formData.height,
+        bmi: formData.bmi,
+        obesity_category: formData.obesity_category,
+        calory: formData.calory,
+        ansby: formData.ansby,
+        ansjson: formattedAnsjson,
+        langtype: formData.langtype,
+      };
+      const role = profile?.data?.role;
+      const response = await createAnswer({ data: submissionData, role });
 
-    //   if (response?.data?.status === 201) {
-    //     toast.success(response?.data?.message);
-    //     reset();
-    //     navigate("/questionnaires/surveyList");
-    //   } else {
-    //     toast.error(
-    //       response?.data?.message || "Submission failed. Please try again."
-    //     );
-    //   }
-    // } catch (error) {
-    //   console.error("Submission error:", error);
-    //   toast.error(error?.response?.data?.message || "Failed to submit answer.");
-    // }
+      if (response?.data?.status === 201) {
+        toast.success(response?.data?.message);
+        reset();
+        navigate("/questionnaires/surveyList");
+      } else {
+        toast.error(
+          response?.data?.message || "Submission failed. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      toast.error(error?.response?.data?.message || "Failed to submit answer.");
+    }
   };
 
   if (isLoading) {
@@ -130,10 +130,22 @@ function Questions() {
         <div className="card bg-base-100 shadow">
           <div className="">
             <div className="flex justify-center items-center border h-32 mb-12 bg-primary rounded-t-[20px]">
-              <h1 className="font-poppins text-3xl font-bold text-white">Questionnaires</h1>
+              <h1 className="font-poppins text-3xl font-bold text-white">
+                Questionnaires
+              </h1>
             </div>
             <div className="px-10 pb-12">
-              <p className="font-normal font-poppins text-[16px] leading-7"> You are being invited to participate in a research study conducted by Bangladesh Endocrine Society. The purpose of this study is to assess the knowledge and attitude towards obesity among the general population of Bangladesh.Your participation is completely voluntary and involves completing a short online questionnaire that will take approximately 5-10 minutes.Your responses will remain completely anonymous and will be used only for academic and research purposes. </p>
+              <p className="font-normal font-poppins text-[16px] leading-7">
+                {" "}
+                You are being invited to participate in a research study
+                conducted by Bangladesh Endocrine Society. The purpose of this
+                study is to assess the knowledge and attitude towards obesity
+                among the general population of Bangladesh.Your participation is
+                completely voluntary and involves completing a short online
+                questionnaire that will take approximately 5-10 minutes.Your
+                responses will remain completely anonymous and will be used only
+                for academic and research purposes.{" "}
+              </p>
             </div>
             <div className="block sm:flex justify-between px-10 items-center mb-2 border-b pb-3 ">
               <div>
@@ -142,23 +154,24 @@ function Questions() {
                 </p>
               </div>
               <div className="text-right flex gap-2 mt-2 sm:mt-0  sm:m-0">
-
                 <div className="flex items-center">
                   <button
                     onClick={() => setLanguage("en")}
-                    className={`px-6 py-1  font-[poppins] transition text-[12px] font-semibold ${language === "en"
-                      ? "bg-primary text-white"
-                      : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                      }`}
+                    className={`px-6 py-1  font-[poppins] transition text-[12px] font-semibold ${
+                      language === "en"
+                        ? "bg-primary text-white"
+                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                    }`}
                   >
                     EN
                   </button>
                   <button
                     onClick={() => setLanguage("bn")}
-                    className={`px-6 py-1 font-[poppins] transition text-[12px] font-semibold ${language === "bn"
-                      ? "bg-primary text-white"
-                      : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                      }`}
+                    className={`px-6 py-1 font-[poppins] transition text-[12px] font-semibold ${
+                      language === "bn"
+                        ? "bg-primary text-white"
+                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                    }`}
                   >
                     BN
                   </button>
