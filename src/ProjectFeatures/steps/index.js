@@ -41,7 +41,7 @@ const healthSteps = [
   {
     id: 2,
     key: "screentime",
-    title: "2 or Less Screen Time",
+    title: "2 or Less hours Screen Time",
     description: "Take breaks from digital devices",
     icon: Smartphone,
     color: "from-purple-400 to-pink-500",
@@ -154,7 +154,7 @@ function StepsOfSeven() {
             {/* Header */}
             <div className="text-center mb-4">
               <p className="text-3xl text-slate-600 mb-6 font-poppins font-bold">
-                7 Best Practices For a Healthy Life
+                Check Yourt 7 Best Practices For a Healthy Life
               </p>
               <div className="flex justify-center items-center gap-4 text-sm text-slate-500 font-poppins">
                 <span>Progress: {completedSteps.length}/7</span>
@@ -192,11 +192,10 @@ function StepsOfSeven() {
                   return (
                     <div
                       key={step.id}
-                      className={`cursor-pointer overflow-hidden rounded-xl shadow-md transition-all duration-300 border border-[#DEDEDE] ${
-                        isCompleted
-                          ? "ring-2 ring-[#7B1E19]"
-                          : "hover:shadow-xl"
-                      }`}
+                      className={`cursor-pointer overflow-hidden rounded-xl shadow-md transition-all duration-300 border border-[#DEDEDE] ${isCompleted
+                        ? "ring-2 ring-[#7B1E19]"
+                        : "hover:shadow-xl"
+                        }`}
                       onMouseEnter={() => setHoveredStep(step.id)}
                       onMouseLeave={() => setHoveredStep(null)}
                       onClick={() => toggleStep(step.id)}
@@ -216,9 +215,8 @@ function StepsOfSeven() {
                           </div>
                         )}
                         <Icon
-                          className={`absolute top-3 left-3  w-10 h-10 text-white transition-all ${
-                            isHovered ? "scale-110 rotate-6" : ""
-                          }`}
+                          className={`absolute top-3 left-3  w-10 h-10 text-white transition-all ${isHovered ? "scale-110 rotate-6" : ""
+                            }`}
                         />
                       </div>
 
@@ -234,9 +232,8 @@ function StepsOfSeven() {
                         </p>
                         <div className="mt-3 flex items-center gap-2">
                           <div
-                            className={`w-2 h-2 rounded-full ${
-                              isCompleted ? "bg-green-500" : "bg-slate-300"
-                            }`}
+                            className={`w-2 h-2 rounded-full ${isCompleted ? "bg-green-500" : "bg-slate-300"
+                              }`}
                           ></div>
                           <span className="text-xs text-slate-500">
                             {isCompleted
