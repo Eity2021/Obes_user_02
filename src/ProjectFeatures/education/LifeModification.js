@@ -19,9 +19,13 @@ export default function LifeModification({ age, filteredData, lang }) {
   const parseContent = (content) => {
     if (!content) return [];
     return content
-      .split("\n")
+      .split(/\r?\n/)
       .map((line) => line.trim())
-      .filter(Boolean);
+      .filter((line) => line.length > 0);
+  };
+  const isList = (content) => {
+    if (content.length > 1) return true;
+    return content.some((line) => /^[0-9০-৯]+\./.test(line));
   };
 
   return (
@@ -48,14 +52,17 @@ export default function LifeModification({ age, filteredData, lang }) {
           {/* Card Content */}
           <div className="grid gap-8 md:grid-cols-1 lg:grid-cols-1 mx-auto my-12">
             {visibleItems?.map((module, index) => {
-              const content = parseContent(
-                lang === "bn" ? module?.modinfo_bangla : module?.modinfo
-              );
+              const selectedContent =
+                lang === "bn" && module.modinfo_bangla
+                  ? module.modinfo_bangla
+                  : module.modinfo;
 
-              const isListContent = content.some((line) =>
-                line.match(/^\d+\./)
-              );
+              const content = parseContent(selectedContent);
+
+              const isListContent = isList(content);
+
               const isEven = index % 2 === 0;
+
 
               return (
                 <div
@@ -84,9 +91,8 @@ export default function LifeModification({ age, filteredData, lang }) {
                   {/* Body */}
                   <div className="p-6 space-y-6">
                     <div
-                      className={`flex justify-between flex-col lg:flex-row ${
-                        isEven ? "" : "lg:flex-row-reverse"
-                      } min-h-[400px]`}
+                      className={`flex justify-between flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
+                        } min-h-[400px]`}
                     >
                       <div className="relative w-full h-[450px] rounded-lg overflow-hidden bg-gray-100">
                         <img
@@ -115,7 +121,7 @@ export default function LifeModification({ age, filteredData, lang }) {
                                         •
                                       </span>
                                       <span className="leading-relaxed  font-roboto text-[16px]">
-                                        {item?.replace(/^\d+\.\s*/, "")}
+                                        {item.replace(/^[0-9০-৯]+\.\s*/, "")}
                                       </span>
                                     </li>
                                   ))}

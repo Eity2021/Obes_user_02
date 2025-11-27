@@ -25,11 +25,14 @@ export default function Motivation({ age, filteredData, lang }) {
   const parseContent = (content) => {
     if (!content) return [];
     return content
-      .split("\n")
+      .split(/\r?\n/)
       .map((line) => line.trim())
-      .filter(Boolean);
+      .filter((line) => line.length > 0);
   };
-
+  const isList = (content) => {
+    if (content.length > 1) return true;
+    return content.some((line) => /^[0-9০-৯]+\./.test(line));
+  };
   return (
     <div className="h-full p-4 flex items-center justify-center font-inter">
       <div className="w-full space-y-6">
@@ -54,15 +57,17 @@ export default function Motivation({ age, filteredData, lang }) {
           {/* Content */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1 mx-auto my-12">
             {visibleItems?.map((module, index) => {
-              // Switch English ↔ Bangla based on lang
-              const content = parseContent(
-                lang === "bn" ? module.modinfo_bangla : module.modinfo
-              );
+              const selectedContent =
+                lang === "bn" && module.modinfo_bangla
+                  ? module.modinfo_bangla
+                  : module.modinfo;
 
-              const isListContent = content.some((line) =>
-                line.match(/^\d+\./)
-              );
+              const content = parseContent(selectedContent);
+
+              const isListContent = isList(content);
+
               const isEven = index % 2 === 0;
+
 
               return (
                 <div
@@ -92,9 +97,8 @@ export default function Motivation({ age, filteredData, lang }) {
                   {/* Body */}
                   <div className="p-6 space-y-6">
                     <div
-                      className={`flex flex-col lg:flex-row ${
-                        isEven ? "" : "lg:flex-row-reverse"
-                      } min-h-[400px]`}
+                      className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
+                        } min-h-[400px]`}
                     >
                       {/* Image */}
                       <div className="relative w-full h-[450px] rounded-lg overflow-hidden bg-gray-100">
@@ -125,7 +129,7 @@ export default function Motivation({ age, filteredData, lang }) {
                                         •
                                       </span>
                                       <span className="leading-relaxed">
-                                        {item.replace(/^\d+\.\s*/, "")}
+                                        {item.replace(/^[0-9০-৯]+\.\s*/, "")}
                                       </span>
                                     </li>
                                   ))}
