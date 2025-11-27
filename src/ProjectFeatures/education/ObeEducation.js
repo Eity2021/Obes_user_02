@@ -8,15 +8,18 @@ function ObeEducation({ filteredData, age, lang }) {
     return age >= 18 ? cat === "adult" : cat === "child";
   });
 
-  // Parse content (English or Bangla)
+  console.log("visibleItems", visibleItems);
   const parseContent = (content) => {
     if (!content) return [];
     return content
-      .split("\n")
+      .split(/\r?\n/)
       .map((line) => line.trim())
-      .filter(Boolean);
+      .filter((line) => line.length > 0);
   };
-
+  const isList = (content) => {
+    if (content.length > 1) return true;
+    return content.some((line) => /^[0-9০-৯]+\./.test(line));
+  };
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString(
       lang === "bn" ? "bn-BD" : "en-US",
@@ -46,15 +49,17 @@ function ObeEducation({ filteredData, age, lang }) {
             </p>
           </div>
 
-          {/* Content */}
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1 mx-auto my-12">
             {visibleItems?.map((module, index) => {
-              const content = parseContent(
-                lang === "bn" ? module.modinfo_bangla : module.modinfo
-              );
-              const isListContent = content.some((line) =>
-                line.match(/^\d+\./)
-              );
+              const selectedContent =
+                lang === "bn" && module.modinfo_bangla
+                  ? module.modinfo_bangla
+                  : module.modinfo;
+
+              const content = parseContent(selectedContent);
+
+              const isListContent = isList(content);
+
               const isEven = index % 2 === 0;
 
               return (
@@ -72,21 +77,17 @@ function ObeEducation({ filteredData, age, lang }) {
                       </div>
                     </div>
 
-                    {/* Module Title */}
                     <h2 className="text-2xl font-bold text-gray-700 flex items-center gap-2">
                       <Target className="w-6 h-6 text-primary" />
-                      {(lang === "bn" ? module.topic_bangla : module.topic) +
-                        " "}
+                      {lang === "bn" ? module.topic_bangla : module.topic}{" "}
                       {lang === "bn" ? "মডিউল" : "Focus Module"}
                     </h2>
                   </div>
 
                   <div
-                    className={`flex flex-col lg:flex-row ${
-                      isEven ? "" : "lg:flex-row-reverse"
-                    } min-h-[400px]`}
+                    className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
+                      } min-h-[400px]`}
                   >
-                    {/* Image */}
                     <div className="lg:w-1/2 relative">
                       <div className="w-full h-[500px] p-8">
                         <img
@@ -97,7 +98,6 @@ function ObeEducation({ filteredData, age, lang }) {
                       </div>
                     </div>
 
-                    {/* Text Content */}
                     <div className="lg:w-1/2 flex flex-col justify-center">
                       <div className="p-8 lg:p-12 space-y-6">
                         <div className="space-y-4">
@@ -106,6 +106,7 @@ function ObeEducation({ filteredData, age, lang }) {
                               <p className="text-xl font-semibold text-gray-700 font-[poppins]">
                                 {content[0]}
                               </p>
+
                               <ul className="space-y-3">
                                 {content.slice(1).map((item, idx) => (
                                   <li
@@ -116,7 +117,7 @@ function ObeEducation({ filteredData, age, lang }) {
                                       •
                                     </span>
                                     <span className="leading-relaxed">
-                                      {item.replace(/^\d+\.\s*/, "")}
+                                      {item.replace(/^[0-9০-৯]+\.\s*/, "")}
                                     </span>
                                   </li>
                                 ))}
