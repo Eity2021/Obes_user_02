@@ -79,10 +79,10 @@ export default function BmiList() {
 
                       <div className="sm:mb-0 mb-2">
                         <p className="text-sm text-gray-600">
-                          Height: {entry.height} Inch
+                          Height: {entry.height} Inch ({(entry.height * 2.54).toFixed(2)} cm)
                         </p>
                         <p className="text-sm text-gray-600">
-                          Weight: {entry.weight} lbs
+                          Weight: {entry.weight} kg ({(entry.weight * 2.20462).toFixed(2)}) lbs
                         </p>
                       </div>
 
