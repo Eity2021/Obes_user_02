@@ -68,7 +68,6 @@ export default function Motivation({ age, filteredData, lang }) {
 
               const isEven = index % 2 === 0;
 
-
               return (
                 <div
                   key={module?.id}
@@ -97,16 +96,26 @@ export default function Motivation({ age, filteredData, lang }) {
                   {/* Body */}
                   <div className="p-6 space-y-6">
                     <div
-                      className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
-                        } min-h-[400px]`}
+                      className={`flex flex-col lg:flex-row ${
+                        isEven ? "" : "lg:flex-row-reverse"
+                      } min-h-[400px]`}
                     >
                       {/* Image */}
-                      <div className="relative w-full h-[450px] rounded-lg overflow-hidden bg-gray-100">
+                      {/* <div className="relative w-full h-[450px] rounded-lg overflow-hidden bg-gray-100">
                         <img
                           src={module?.mimage}
                           alt={`${module?.topic} motivation module`}
                           className="object-cover w-full h-full"
                         />
+                      </div> */}
+                      <div className="lg:w-1/2 relative">
+                        <div className="p-8">
+                          <img
+                            src={module.mimage}
+                            alt={module.id}
+                            className="w-full h-full  rounded-xl lg:rounded-xl"
+                          />
+                        </div>
                       </div>
 
                       {/* Text */}

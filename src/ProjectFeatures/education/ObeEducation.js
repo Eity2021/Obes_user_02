@@ -85,15 +85,16 @@ function ObeEducation({ filteredData, age, lang }) {
                   </div>
 
                   <div
-                    className={`flex flex-col lg:flex-row ${isEven ? "" : "lg:flex-row-reverse"
-                      } min-h-[400px]`}
+                    className={`flex flex-col lg:flex-row ${
+                      isEven ? "" : "lg:flex-row-reverse"
+                    } min-h-[400px]`}
                   >
                     <div className="lg:w-1/2 relative">
-                      <div className="w-full h-[500px] p-8">
+                      <div className="p-8">
                         <img
                           src={module.mimage}
                           alt={module.id}
-                          className="w-full h-full object-cover rounded-t-xl lg:rounded-l-xl"
+                          className="w-full h-full  rounded-xl lg:rounded-xl"
                         />
                       </div>
                     </div>
