@@ -94,7 +94,7 @@ export default function LifeModification({ age, filteredData, lang }) {
                         isEven ? "" : "lg:flex-row-reverse"
                       } min-h-[400px]`}
                     >
-                      <div className="lg:w-1/2 relative">
+                      <div className="lg:w-1/2 relative flex items-center">
                         <div className="p-8">
                           <img
                             src={module.mimage}

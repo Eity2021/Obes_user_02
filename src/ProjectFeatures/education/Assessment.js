@@ -4,7 +4,6 @@ export default function Assessment({ filteredData, age, lang }) {
   const items = Array.isArray(filteredData) ? filteredData : [];
 
   const visibleItems = items.filter((item) => {
-
     const cat = String(item.category || "").toLowerCase();
     return age >= 18 ? cat === "adult" : cat === "child";
   });
@@ -12,8 +11,6 @@ export default function Assessment({ filteredData, age, lang }) {
   return (
     <>
       <div className="py-6 border-b border-gray-200">
-
-
         <div className="py-6 border-b border-gray-200">
           <h2 className="flex items-center gap-2 text-2xl font-bold text-gray-800 font-poppins md:justify-start justify-center">
             <BookOpen className="h-6 w-6 text-primary" />
@@ -26,16 +23,13 @@ export default function Assessment({ filteredData, age, lang }) {
               : "Comprehensive learning materials covering key aspects of obesity and BMI education"}
           </p>
         </div>
-
-
-
       </div>
 
       <div className="space-y-6 mt-8">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="card bg-base-100 shadow-md">
-            {
-              lang == "bn" ? <>
+            {lang == "bn" ? (
+              <>
                 <div className="card-body">
                   <h2 className="card-title">BMI বিভাগ</h2>
                   <p className="text-sm text-gray-500 mb-4">
@@ -57,10 +51,14 @@ export default function Assessment({ filteredData, age, lang }) {
                     <div className="flex justify-between items-center p-3 rounded-lg bg-red-50">
                       <span className="font-medium">স্থূলতা</span>
                       <span className="text-red-600">২৫ &lt; ∞ </span>
-
                     </div>
                   </div>
-                </div> </> : <> <div className="card-body">
+                </div>{" "}
+              </>
+            ) : (
+              <>
+                {" "}
+                <div className="card-body">
                   <h2 className="card-title">BMI Categories</h2>
                   <p className="text-sm text-gray-500 mb-4">
                     Understanding BMI ranges and what they mean
@@ -84,75 +82,79 @@ export default function Assessment({ filteredData, age, lang }) {
                       <span className="">&ge; ∞</span>
                     </div>
                   </div>
-                </div></>
-            }
-
-
-
-
+                </div>
+              </>
+            )}
           </div>
 
           {/* Important Notes Card */}
-          {
-            lang == "bn" ? <>  <div>
-              {visibleItems?.map((filter) => (
-                <div
-                  key={filter.id}
-                  className="card bg-base-100 shadow-md h-full"
-                >
-                  <div className="card-body">
-                    <h2 className="card-title text-[25px] ">
-                      Do you know about Obesity info?
-                    </h2>
-                    <span className="text-[18px] text-gray-700 font-poppins font-medium  mb-1 ">
-                      {filter.modinfo_bangla
-                        .split("\n")
-                        .filter(Boolean)
-                        .map((point, idx) => {
-                          const cleanPoint = point
-                            .replace(/^\d+\.\s*/, "")
-                            .trim();
-                          return (
-                            <div key={idx}>
-                              {idx + 1}. {cleanPoint}
-                            </div>
-                          );
-                        })}
-                    </span>
+          {lang == "bn" ? (
+            <>
+              {" "}
+              <div>
+                {visibleItems?.map((filter) => (
+                  <div
+                    key={filter.id}
+                    className="card bg-base-100 shadow-md h-full"
+                  >
+                    <div className="card-body">
+                      <h2 className="card-title text-[25px] ">
+                        {filter?.topic_bangla}
+                      </h2>
+                      <span className="text-[18px] text-gray-700 font-poppins font-medium  mb-1 ">
+                        {filter.modinfo_bangla
+                          .split("\n")
+                          .filter(Boolean)
+                          .map((point, idx) => {
+                            const cleanPoint = point
+                              .replace(/^\d+\.\s*/, "")
+                              .trim();
+                            return (
+                              <div key={idx}>
+                                {idx + 1}. {cleanPoint}
+                              </div>
+                            );
+                          })}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div></> : <>  <div>
-              {visibleItems?.map((filter) => (
-                <div
-                  key={filter.id}
-                  className="card bg-base-100 shadow-md h-full"
-                >
-                  <div className="card-body">
-                    <h2 className="card-title text-[25px] ">
-                      Do you know about Obesity info?
-                    </h2>
-                    <span className="text-[18px] text-gray-700 font-poppins font-medium  mb-1 ">
-                      {filter.modinfo
-                        .split("\n")
-                        .filter(Boolean)
-                        .map((point, idx) => {
-                          const cleanPoint = point
-                            .replace(/^\d+\.\s*/, "")
-                            .trim();
-                          return (
-                            <div key={idx}>
-                              {idx + 1}. {cleanPoint}
-                            </div>
-                          );
-                        })}
-                    </span>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {" "}
+              <div>
+                {visibleItems?.map((filter) => (
+                  <div
+                    key={filter.id}
+                    className="card bg-base-100 shadow-md h-full"
+                  >
+                    <div className="card-body">
+                      <h2 className="card-title text-[25px] ">
+                        {filter?.topic}
+                      </h2>
+                      <span className="text-[18px] text-gray-700 font-poppins font-medium  mb-1 ">
+                        {filter.modinfo
+                          .split("\n")
+                          .filter(Boolean)
+                          .map((point, idx) => {
+                            const cleanPoint = point
+                              .replace(/^\d+\.\s*/, "")
+                              .trim();
+                            return (
+                              <div key={idx}>
+                                {idx + 1}. {cleanPoint}
+                              </div>
+                            );
+                          })}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div></>
-          }
-
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

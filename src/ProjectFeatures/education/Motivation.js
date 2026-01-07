@@ -108,7 +108,7 @@ export default function Motivation({ age, filteredData, lang }) {
                           className="object-cover w-full h-full"
                         />
                       </div> */}
-                      <div className="lg:w-1/2 relative">
+                      <div className="lg:w-1/2 relative flex items-center">
                         <div className="p-8">
                           <img
                             src={module.mimage}
