@@ -5,6 +5,7 @@ export default function Assessment({ filteredData, age, lang }) {
 
   const visibleItems = items.filter((item) => {
     const cat = String(item.category || "").toLowerCase();
+    if (cat === "both") return true;
     return age >= 18 ? cat === "adult" : cat === "child";
   });
 

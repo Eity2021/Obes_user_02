@@ -3,8 +3,13 @@ import { Calendar, Target, History } from "lucide-react";
 export default function LifeModification({ age, filteredData, lang }) {
   const items = Array.isArray(filteredData) ? filteredData : [];
 
+  // const visibleItems = items.filter((item) => {
+  //   const cat = String(item.category || "").toLowerCase();
+  //   return age >= 18 ? cat === "adult" : cat === "child";
+  // });
   const visibleItems = items.filter((item) => {
     const cat = String(item.category || "").toLowerCase();
+    if (cat === "both") return true;
     return age >= 18 ? cat === "adult" : cat === "child";
   });
 
