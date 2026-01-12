@@ -87,8 +87,8 @@ export default function LifeModification({ age, filteredData, lang }) {
                       <Target className="w-6 h-6 text-primary" />
 
                       {lang === "bn"
-                        ? `${module?.topic_bangla} মডিউল`
-                        : `${module?.topic} Focus Module`}
+                        ? `${module?.topic_bangla} `
+                        : `${module?.topic} `}
                     </h2>
                   </div>
 

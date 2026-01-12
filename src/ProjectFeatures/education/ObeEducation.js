@@ -85,7 +85,7 @@ function ObeEducation({ filteredData, age, lang }) {
                     <h2 className="text-2xl font-bold text-gray-700 flex items-center gap-2">
                       <Target className="w-6 h-6 text-primary" />
                       {lang === "bn" ? module.topic_bangla : module.topic}{" "}
-                      {lang === "bn" ? "মডিউল" : "Focus Module"}
+                      {/* {lang === "bn" ? "মডিউল" : "Focus Module"} */}
                     </h2>
                   </div>
 

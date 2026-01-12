@@ -93,9 +93,7 @@ export default function Motivation({ age, filteredData, lang }) {
                     <h2 className="text-2xl font-bold text-gray-700 flex items-center gap-2">
                       <Target className="w-6 h-6 text-primary" />
 
-                      {lang === "bn"
-                        ? module.topic_bangla + " মডিউল"
-                        : module.topic + " Focus Module"}
+                      {lang === "bn" ? module.topic_bangla : module.topic}
                     </h2>
                   </div>
 
